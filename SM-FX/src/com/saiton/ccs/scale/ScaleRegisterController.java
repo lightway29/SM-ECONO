@@ -34,27 +34,37 @@ public class ScaleRegisterController implements Initializable, Validatable,
     @FXML
     private Button btnClose;
 
+    @FXML
     private TableColumn<Scale, String> tcScaleId;
 
+    @FXML
     private TableColumn<Scale, String> tcBoardRate;
 
+    @FXML
     private TableColumn<Scale, String> tcScaleName;
 
+    @FXML
     private TableColumn<Scale, String> tcComPort;
 
     @FXML
     private Label lblItemId;
 
+    @FXML
     private Button btnSave;
 
+    @FXML
     private Button btnDelete;
 
+    @FXML
     private TextField txtScaleId;
 
+    @FXML
     private TextField txtNComPort;
 
+    @FXML
     private TextField txtBoardRate;
 
+    @FXML
     private TextField txtScaleName;
     
 //    @FXML
@@ -72,50 +82,6 @@ public class ScaleRegisterController implements Initializable, Validatable,
     Scale scaleItem = new Scale();
     private MessageBox mb;
     boolean isTableContentSaved = false;
-    @FXML
-    private TextField txtItemCode;
-    @FXML
-    private Button btnRefreshItemCode;
-    @FXML
-    private Button btnSearchItemCode;
-    @FXML
-    private TableColumn<?, ?> tcInventoryDate;
-    @FXML
-    private TableColumn<?, ?> tcItemCode;
-    @FXML
-    private TableColumn<?, ?> tcItemDate;
-    @FXML
-    private TableColumn<?, ?> tcDescription;
-    @FXML
-    private TableColumn<?, ?> tcReleased;
-    @FXML
-    private TableColumn<?, ?> tcReturned;
-    @FXML
-    private Button btnRePrint;
-    @FXML
-    private Button btnLog;
-    @FXML
-    private TextField txtDescription;
-    @FXML
-    private TextField txtItemName;
-    @FXML
-    private TextField txtGSM;
-    @FXML
-    private TextField txtLogDate;
-    @FXML
-    private TextField txtIssuedWeight;
-    @FXML
-    private TextField txtSize;
-    @FXML
-    private TextField txtReelFb;
-    @FXML
-    private TextField txtReelNo;
-    @FXML
-    private TextField txtReturnedWeight;
-    @FXML
-    private Button btnRefreshReturnedWeight;
-    @FXML
-    private TextField txtReelLiner;
 
     //<editor-fold defaultstate="collapsed" desc="Key Events">
     void txtSizeOnKeyReleased(ActionEvent event) {
@@ -145,10 +111,12 @@ public class ScaleRegisterController implements Initializable, Validatable,
 
     }
 
+    @FXML
     void btnDeleteOnAction(ActionEvent event) {
 
     }
 
+    @FXML
     void btnSaveOnAction(ActionEvent event) {
         
         //saveTableContent();
@@ -641,64 +609,17 @@ public class ScaleRegisterController implements Initializable, Validatable,
     }
 
     @FXML
-    private void txtItemCodeOnKeyReleased(KeyEvent event) {
+    private void txtWeightScaleIdOnKeyReleased(KeyEvent event) {
     }
 
     @FXML
-    private void btnRefreshItemCodeOnAction(ActionEvent event) {
+    private void txtNoOnKeyReleased(KeyEvent event) {
     }
 
     @FXML
-    private void btnSearchItemCodeOnAction(ActionEvent event) {
+    private void txtBoardRateKeyReleased(KeyEvent event) {
     }
 
-    @FXML
-    private void btnRePrintOnAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void btnLogOnAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void txtDescriptionOnKeyReleased(KeyEvent event) {
-    }
-
-    @FXML
-    private void txtItemNameOnKeyReleased(KeyEvent event) {
-    }
-
-    @FXML
-    private void txtGSMOnKeyReleased(KeyEvent event) {
-    }
-
-    @FXML
-    private void txtLogDateOnKeyReleased(KeyEvent event) {
-    }
-
-    @FXML
-    private void txtIssuedWeightOnKeyReleased(KeyEvent event) {
-    }
-
-    @FXML
-    private void txtReelFbOnKeyReleased(KeyEvent event) {
-    }
-
-    @FXML
-    private void txtReelNoOnKeyReleased(KeyEvent event) {
-    }
-
-    @FXML
-    private void txtReturnedWeightOnReleased(KeyEvent event) {
-    }
-
-    @FXML
-    private void btnRefreshReturnedWeightOnAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void txtReelLinerDateOnKeyReleased(KeyEvent event) {
-    }
 
     public class Scale {
 

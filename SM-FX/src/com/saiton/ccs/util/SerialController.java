@@ -99,7 +99,7 @@ public class SerialController implements SerialPortEventListener {
 
                 String inputLine = null;
 
-                byte[] readBuffer = new byte[100];
+                byte[] readBuffer = new byte[40];
                 StringBuilder sb = new StringBuilder();
                 try {
                     while (input.available() > 0) {
@@ -111,19 +111,23 @@ public class SerialController implements SerialPortEventListener {
                     
                     System.out.print("CurrentReading Value = "+ScaleController.currentReading);
                     System.out.print("Original Value = "
-                            + new String(readBuffer));
-                    ScaleController.currentReading = new String(readBuffer);
+                            + new String(readBuffer,"ASCII"));
+                    ScaleController.currentReading = new String(readBuffer, "ASCII");
+                    //close();
+                    
 
                 } catch (IOException e) {
+                    close();
                     e.printStackTrace();
                 }
-
+                //readBuffer = null;
                 
-                System.out.println("Reading from serial monitor"
+                System.out.println("Reading from serial monitor - "
                         + ScaleController.currentReading);
                 close();
 
             } catch (Exception e) {
+                close();
 //                System.out.println("Input Issue detected.");
 //                e.printStackTrace();
             }

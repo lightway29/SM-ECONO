@@ -26,6 +26,7 @@ import com.saiton.ccs.validations.MessageBoxTitle;
 import com.saiton.ccs.validations.Validatable;
 import java.io.File;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -34,6 +35,8 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -72,7 +75,7 @@ import org.controlsfx.control.PopOver;
 import org.controlsfx.dialog.Dialog;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
-
+import arduino.*;
 public class ScaleController implements Initializable, Validatable,
         StagePassable {
 
@@ -145,8 +148,7 @@ public class ScaleController implements Initializable, Validatable,
 
     @FXML
     private ComboBox<String> cmbLabel;
-//</editor-fold>
-
+    
     private Stage stage;
     @FXML
     private TextField txtCustomer;
@@ -176,9 +178,10 @@ public class ScaleController implements Initializable, Validatable,
     private TextField txtFilm;
     @FXML
     private CheckBox chbPreviewReport;
-
+    
     public static String currentReading = " ";
     public static String reading = " ";
+    
 
     public static int count = 0;
     ScaleDAO scaleDAO = new ScaleDAO();
@@ -220,7 +223,7 @@ public class ScaleController implements Initializable, Validatable,
     String scaleName = "";
     String scaleId = "";
     SerialController main = null;
-
+//</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Key Events">
     @FXML
     private void txtWeightScaleIdOnKeyReleased(KeyEvent event) {
@@ -242,6 +245,7 @@ public class ScaleController implements Initializable, Validatable,
 //        main = new SerialController();
         scaleCofigLoader(cmbScale.getValue());
         txtGrossWeight.setText(getScaleReading());
+        //currentReading = null;
         calculate();
 
     }
@@ -427,7 +431,7 @@ public class ScaleController implements Initializable, Validatable,
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Click Events">
-//</editor-fold>
+//</editor-fold>    
     //<editor-fold defaultstate="collapsed" desc="Methods">
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -466,52 +470,80 @@ public class ScaleController implements Initializable, Validatable,
 
     private String getScaleReading() {
 
-//        SerialController main = new SerialController();
-        main = new SerialController();
-        main.initialize(comPort, baurdRate);
-        Thread t = new Thread() {
-            public void run() {
-                //the following line will keep this app alive for 1000    seconds,
-                //waiting for events to occur and responding to them    (printing incoming messages to console).
-                try {
-                    Thread.sleep(1000000);
-
-                } catch (InterruptedException ie) {
-                }
-            }
-        };
-        t.start();
-
-        String s = currentReading;
-        System.out.println("currentReading :" + currentReading);
+/*       SerialController main = new SerialController();
+//        main = new SerialController();
+//        main.initialize(comPort, baurdRate);
+//        Thread t = new Thread() {
+//            public void run() {
+//                //the following line will keep this app alive for 1000    seconds,
+//                //waiting for events to occur and responding to them    (printing incoming messages to console).
+//                try {
+//                    Thread.sleep(100);
+////                    Thread.sleep(1000000);
+//
+//                } catch (InterruptedException ie) {
+//                }
+//            }
+//        };
+//        t.start();
+        
+        */
+        
+        
         try {
+            
+            Arduino arduino = new Arduino(comPort,baurdRate);
+         System.out.println("Connection Status - "+ arduino.openConnection());
+       
+//        String s = ScaleController.currentReading;
+//        System.out.println("---CurrentReading :-" + ScaleController.currentReading);
+         
+             String s = arduino.serialRead(1);
+            
+             System.out.println("---CurrentReading :-" + s);
+        
+              
+         arduino.closeConnection();
 
-            s = s.substring(s.indexOf("=") + 1);
-            s = s.substring(0, s.indexOf("="));
-
+//            s = s.substring(s.indexOf("=") + 1);
+//            s = s.substring(0, s.indexOf("="));
+//
             System.out.println("Sample Substring :" + s);
+//            reading = s;
+            
+             
+             s = s.substring(s.indexOf("+")+1, s.indexOf("kg"));
+             System.out.println("--- Frist Split :  " + s);
+//           
+//            s = s.split("+",1)[0];
+//
+//            System.out.println("Sample Substring :" + s);
             reading = s;
 
         } catch (Exception e) {
-            // e.printStackTrace();
+//            System.err.println("-----------------Splting Error-----------");
+//             e.printStackTrace();
         }
 
         try {
             //Reverse
-            String input = s;
-            byte[] strAsByteArray = input.getBytes();
-            byte[] result = new byte[strAsByteArray.length];
+//            String input = s;
+//            byte[] strAsByteArray = input.getBytes();
+//            byte[] result = new byte[strAsByteArray.length];
+//
+//            for (int i = 0; i < strAsByteArray.length; i++) {
+//                result[i] = strAsByteArray[strAsByteArray.length - i - 1];
+//            }
+//
+//            String finalValue = new String(result);
+            //System.out.println("Reverse Print : " + finalValue);
+            //reading = finalValue;
+            
+            
+            
+            //double valueInDecimal = Double.parseDouble(finalValue);
 
-            for (int i = 0; i < strAsByteArray.length; i++) {
-                result[i] = strAsByteArray[strAsByteArray.length - i - 1];
-            }
-
-            String finalValue = new String(result);
-            System.out.println("Reverse Print : " + finalValue);
-            reading = finalValue;
-            double valueInDecimal = Double.parseDouble(finalValue);
-
-            reading = valueInDecimal + "";
+            //reading = valueInDecimal + "";
         } catch (Exception e) {
             // e.printStackTrace();
         }
@@ -1219,6 +1251,7 @@ public class ScaleController implements Initializable, Validatable,
     }
 
 //</editor-fold>
+    
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Class">
     public class Item {

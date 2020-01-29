@@ -3,15 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Git/SM-ECONO/SM-FX/src/com/saiton/ccs/util/SerialController.java</file>
-            <file>file:/D:/Git/SM-ECONO/SM-FX/nbproject/build-impl.xml</file>
-            <file>file:/D:/Git/SM-ECONO/SM-FX/src/com/saiton/ccs/msgbox/JavaFxMessageBox.java</file>
-            <file>file:/D:/Git/SM-ECONO/SM-FX/src/com/saiton/ccs/util/XMLFileReader.java</file>
-            <file>file:/D:/Git/SM-ECONO/SM-FX/src/com/saiton/ccs/ui/fxhome/FxHome.java</file>
-            <file>file:/D:/Git/SM-ECONO/SM-FX/nbproject/jfx-impl.xml</file>
-            <file>file:/D:/Git/SM-ECONO/SM-FX/Logs/logger.log.1</file>
-            <file>file:/D:/Git/SM-ECONO/SM-FX/nbproject/project.properties</file>
-            <file>file:/D:/Git/SM-ECONO/SM-FX/src/com/saiton/ccs/res/JMetroLightTheme.css</file>
+            <file>file:/Users/lightway/Documents/Soft/Current%20Projects/TingBuilder/Weigh%20Lanka/Barcode%20Inventory/Development/Other/Update%20Project/SM-ECONO/SM-FX/src/com/saiton/ccs/ui/fxhome/FxHome.java</file>
+            <file>file:/Users/lightway/Documents/Soft/Current%20Projects/TingBuilder/Weigh%20Lanka/Barcode%20Inventory/Development/Other/Update%20Project/SM-ECONO/SM-FX/src/com/saiton/ccs/base/CCSHome.java</file>
+            <file>file:/Users/lightway/Documents/Soft/Current%20Projects/TingBuilder/Weigh%20Lanka/Barcode%20Inventory/Development/Other/Update%20Project/SM-ECONO/SM-FX/src/com/saiton/ccs/ui/UiMode.java</file>
+            <file>file:/Users/lightway/Documents/Soft/Current%20Projects/TingBuilder/Weigh%20Lanka/Barcode%20Inventory/Development/Other/Update%20Project/SM-ECONO/SM-FX/src/com/saiton/ccs/util/SerialController.java</file>
+            <file>file:/Users/lightway/Documents/Soft/Current%20Projects/TingBuilder/Weigh%20Lanka/Barcode%20Inventory/Development/Other/Update%20Project/SM-ECONO/SM-FX/src/com/saiton/ccs/scale/ScaleRegisterController.java</file>
+            <file>file:/Users/lightway/Documents/Soft/Current%20Projects/TingBuilder/Weigh%20Lanka/Barcode%20Inventory/Development/Other/Update%20Project/SM-ECONO/SM-FX/src/com/saiton/ccs/scale/ScaleController.java</file>
         </group>
     </open-files>
 </project-private>

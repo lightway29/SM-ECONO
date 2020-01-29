@@ -45,8 +45,6 @@ import javafx.stage.Stage;
 public class ReelRequisitionController implements Initializable, Validatable,
         StagePassable {
 
-    
-    
     //<editor-fold defaultstate="collapsed" desc="Initcomponent">
     @FXML
     private Button btnRefreshItemCode;
@@ -122,40 +120,38 @@ public class ReelRequisitionController implements Initializable, Validatable,
     @FXML
     private TextField txtReelLiner;
 
-//</editor-fold>
-    
     private Stage stage;
-    
+
+//</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Action Events">
-   
-
-//</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Click Events">
-//</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Methods">
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
+    @FXML
+    private void btnRefreshItemCodeOnAction(ActionEvent event) {
     }
 
-   @Override
-    public void setStage(Stage stage, Object[] obj) {
+    @FXML
+    private void btnSearchItemCodeOnAction(ActionEvent event) {
+    }
 
-        this.stage = stage;
+    @FXML
+    private void btnRePrintOnAction(ActionEvent event) {
+    }
 
+    @FXML
+    private void btnLogOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnCloseOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnRefreshReturnedWeightOnAction(ActionEvent event) {
     }
 
 //</editor-fold>
-
-  
-
+    //<editor-fold defaultstate="collapsed" desc="Key Events">
     @FXML
     private void txtItemCodeOnKeyReleased(KeyEvent event) {
-    }
-
-    @FXML
-    private void tblRequestNoteListOnMouseClicked(MouseEvent event) {
     }
 
     @FXML
@@ -197,29 +193,25 @@ public class ReelRequisitionController implements Initializable, Validatable,
     @FXML
     private void txtReelLinerDateOnKeyReleased(KeyEvent event) {
     }
+//</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Click Events">
 
     @FXML
-    private void btnRefreshItemCodeOnAction(ActionEvent event) {
+    private void tblRequestNoteListOnMouseClicked(MouseEvent event) {
     }
 
-    @FXML
-    private void btnSearchItemCodeOnAction(ActionEvent event) {
+//</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Methods">
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
     }
 
-    @FXML
-    private void btnRePrintOnAction(ActionEvent event) {
-    }
+    @Override
+    public void setStage(Stage stage, Object[] obj) {
 
-    @FXML
-    private void btnLogOnAction(ActionEvent event) {
-    }
+        this.stage = stage;
 
-    @FXML
-    private void btnCloseOnAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void btnRefreshReturnedWeightOnAction(ActionEvent event) {
     }
 
     @Override
@@ -237,4 +229,5 @@ public class ReelRequisitionController implements Initializable, Validatable,
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+//</editor-fold>
 }
