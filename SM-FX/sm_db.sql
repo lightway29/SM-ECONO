@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `sm_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `sm_db`;
 -- MySQL dump 10.13  Distrib 8.0.19, for macos10.15 (x86_64)
 --
 -- Host: localhost    Database: sm_db
@@ -218,7 +220,7 @@ DROP TABLE IF EXISTS `reel`;
 CREATE TABLE `reel` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `reel_code` varchar(45) NOT NULL,
-  `serial number` varchar(45) NOT NULL,
+  `serial_number` varchar(45) NOT NULL,
   `item_name` varchar(45) NOT NULL,
   `item_des` varchar(45) DEFAULT NULL,
   `gsm` double DEFAULT NULL,
@@ -233,9 +235,10 @@ CREATE TABLE `reel` (
   `flag` int(11) DEFAULT NULL,
   `reel_fb` varchar(45) DEFAULT NULL,
   `label_print_count` varchar(45) NOT NULL DEFAULT '0',
+  `reel_liner` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`reel_code`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -244,6 +247,7 @@ CREATE TABLE `reel` (
 
 LOCK TABLES `reel` WRITE;
 /*!40000 ALTER TABLE `reel` DISABLE KEYS */;
+INSERT INTO `reel` VALUES (1,'REL0001','SE20380293842098','Paper Roll','Thickness target paper',900,250,500,22344,1000,'2020-02-01 11:24:38',1,5,900,1,'B','0','K');
 /*!40000 ALTER TABLE `reel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -256,14 +260,15 @@ DROP TABLE IF EXISTS `reel_log`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reel_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `real_code` varchar(45) NOT NULL,
+  `reel_code` varchar(45) NOT NULL,
   `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `weight` double NOT NULL,
+  `flag` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `reel_log_fk1_idx` (`real_code`),
-  CONSTRAINT `reel_log_fk1` FOREIGN KEY (`real_code`) REFERENCES `reel` (`reel_code`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `reel_log_fk1_idx` (`reel_code`),
+  CONSTRAINT `reel_log_fk1` FOREIGN KEY (`reel_code`) REFERENCES `reel` (`reel_code`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -272,6 +277,7 @@ CREATE TABLE `reel_log` (
 
 LOCK TABLES `reel_log` WRITE;
 /*!40000 ALTER TABLE `reel_log` DISABLE KEYS */;
+INSERT INTO `reel_log` VALUES (1,'REL0001','2020-02-02 03:15:25',200,0);
 /*!40000 ALTER TABLE `reel_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -427,7 +433,7 @@ CREATE TABLE `scale_register` (
   `board_rate` int(11) DEFAULT NULL,
   PRIMARY KEY (`scale_id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -436,6 +442,7 @@ CREATE TABLE `scale_register` (
 
 LOCK TABLES `scale_register` WRITE;
 /*!40000 ALTER TABLE `scale_register` DISABLE KEYS */;
+INSERT INTO `scale_register` VALUES (3,'SCA0001','New Scale','/dev/cu.usbserial-1410',9600);
 /*!40000 ALTER TABLE `scale_register` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -730,4 +737,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-01-26 19:10:04
+-- Dump completed on 2020-02-02 10:22:45

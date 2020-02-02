@@ -28,7 +28,7 @@
                                  <font>
                                     <Font size="22.0" />
                                  </font></Label>
-                    <TextField fx:id="txtItemCode" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtItemCodeOnKeyReleased" prefWidth="185.0" promptText="Item Code">
+                    <TextField fx:id="txtItemCode" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtItemCodeOnKeyReleased" prefWidth="185.0" promptText="Item Code">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
@@ -61,12 +61,9 @@
                 <AnchorPane prefHeight="102.0" prefWidth="1100.0" GridPane.columnSpan="9" GridPane.rowIndex="4" />
               <TableView id="tbl" fx:id="tblItemList" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#tblRequestNoteListOnMouseClicked" prefHeight="213.0" prefWidth="1068.0" GridPane.rowIndex="7">
                 <columns>
-                  <TableColumn fx:id="tcInventoryDate" maxWidth="5000.0" minWidth="100.0" prefWidth="200.0" text="Inventory Date" />
-                              <TableColumn fx:id="tcItemCode" maxWidth="5000.0" minWidth="10.0" prefWidth="150.0" text="Item Code" />
-                              <TableColumn fx:id="tcItemDate" maxWidth="5000.0" minWidth="10.0" prefWidth="200.0" text="Item Name" />
-                              <TableColumn fx:id="tcDescription" maxWidth="5000.0" minWidth="10.0" prefWidth="270.0" text="Description" />
-                              <TableColumn fx:id="tcReleased" maxWidth="5000.0" minWidth="10.0" prefWidth="125.0" text="Released" />
-                              <TableColumn fx:id="tcReturned" maxWidth="5000.0" minWidth="10.0" prefWidth="125.0" text="Returned" />
+                  <TableColumn fx:id="tcTimeStamp" maxWidth="5000.0" minWidth="100.0" prefWidth="346.0" text="Log Date" />
+                              <TableColumn fx:id="tcFlag" maxWidth="5000.0" minWidth="10.0" prefWidth="388.0" text="Flag" />
+                              <TableColumn fx:id="tcWeight" maxWidth="5000.0" minWidth="0.0" prefWidth="331.0" text="Weight" />
                 </columns>
                            <GridPane.margin>
                               <Insets bottom="50.0" left="10.0" />
@@ -140,7 +137,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtDescription" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtDescriptionOnKeyReleased" prefWidth="450.0" promptText="Description">
+                              <TextField fx:id="txtDescription" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtDescriptionOnKeyReleased" prefWidth="450.0" promptText="Description">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -157,7 +154,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtItemName" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtItemNameOnKeyReleased" prefWidth="295.0" promptText="Item Name">
+                              <TextField fx:id="txtItemName" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtItemNameOnKeyReleased" prefWidth="295.0" promptText="Item Name">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -177,7 +174,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtGSM" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtGSMOnKeyReleased" prefWidth="150.0" promptText="GSM">
+                              <TextField fx:id="txtGSM" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtGSMOnKeyReleased" prefWidth="150.0" promptText="GSM">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -194,7 +191,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtLogDate" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtLogDateOnKeyReleased" prefWidth="150.0" promptText="Log Date">
+                              <TextField fx:id="txtLogDate" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtLogDateOnKeyReleased" prefWidth="150.0" promptText="Log Date">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -214,7 +211,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtIssuedWeight" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtIssuedWeightOnKeyReleased" prefWidth="295.0" promptText="Issued Weight">
+                              <TextField fx:id="txtIssuedWeight" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtIssuedWeightOnKeyReleased" prefWidth="295.0" promptText="Issued Weight">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -234,7 +231,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtSize" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtSizeOnKeyReleased" prefWidth="150.0" promptText="Size">
+                              <TextField fx:id="txtSize" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtSizeOnKeyReleased" prefWidth="150.0" promptText="Size">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -251,7 +248,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtReelFb" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtReelFbOnKeyReleased" prefWidth="150.0" promptText="Reel F/B">
+                              <TextField fx:id="txtReelFb" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtReelFbOnKeyReleased" prefWidth="150.0" promptText="Reel F/B">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -265,7 +262,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtReelNo" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtReelNoOnKeyReleased" prefWidth="150.0" promptText="Reel No">
+                              <TextField fx:id="txtReelNo" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtReelNoOnKeyReleased" prefWidth="150.0" promptText="Reel No">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -282,7 +279,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtReturnedWeight" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtReturnedWeightOnReleased" prefWidth="240.0" promptText="Returned Weight">
+                              <TextField fx:id="txtReturnedWeight" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtReturnedWeightOnReleased" prefWidth="240.0" promptText="Returned Weight">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -308,7 +305,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtReelLiner" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtReelLinerDateOnKeyReleased" prefWidth="150.0" promptText="Reel Liner">
+                              <TextField fx:id="txtReelLiner" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtReelLinerDateOnKeyReleased" prefWidth="150.0" promptText="Reel Liner">
                                  <font>
                                     <Font size="22.0" />
                                  </font>

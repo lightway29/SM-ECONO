@@ -194,7 +194,7 @@ public class ScaleController implements Initializable, Validatable,
             observableArrayList();
     private PopOver customerIdPop;
 
-    //Customer Popup
+    //Size Popup
     private TableView sizeIdTable = new TableView();
     private SizePopup sizeIdPopup = new SizePopup();
     private ObservableList<SizePopup> sizeData = FXCollections.
