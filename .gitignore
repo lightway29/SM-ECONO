@@ -24,8 +24,7 @@ build/
 /dist/
 /nbproject/
 /ccs.properties
-nbproject/project.properties
-nbproject/project.properties
+#nbproject/project.properties
 nbproject/private/private.xml
 nbproject/private/private.properties
 Logs/logger.log
