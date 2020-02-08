@@ -171,7 +171,20 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
     @FXML
     private void btnLogOnAction(ActionEvent event) {
-        
+        System.out.println("Issued");
+        if (isReelLoaded == true) {
+            
+            if (reelDAO.getDbFlag(txtItemCode.getText())=="1") {
+                System.out.println("Issued");
+            }else if (reelDAO.getDbFlag(txtItemCode.getText())=="0") {
+                System.out.println("Returned");
+                if (txtReturnedWeight.getText().isEmpty()) {
+                    System.out.println("Returned weight is empty");
+                }
+                
+                
+            }
+        }
         
         
     }
@@ -288,6 +301,7 @@ public class ReelRequisitionController implements Initializable, Validatable,
 //                        customerCode = p.getColCustomerCode();
                         //btnDelete.setVisible(true);
                         loadReelInfo();
+                        isReelLoaded = true;
 
                     }
 
@@ -344,6 +358,7 @@ public class ReelRequisitionController implements Initializable, Validatable,
         txtLogDate.clear();
         txtItemCode.clear();
         tableReelLogData.clear();
+        isReelLoaded = false;
 
     }
 

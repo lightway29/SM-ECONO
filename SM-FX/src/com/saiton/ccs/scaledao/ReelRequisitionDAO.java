@@ -327,7 +327,7 @@ public class ReelRequisitionDAO {
         return mainList;
     }
     
-    public String getFlag(String reelCode) {
+    public String getDbFlag(String reelCode) {
         String encodedReelCode = ESAPI.encoder().encodeForSQL(ORACLE_CODEC,
                 reelCode);
         
