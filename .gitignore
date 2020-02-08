@@ -11,7 +11,7 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
+
 *.war
 *.nar
 *.ear
@@ -56,3 +56,7 @@ SM-FX/dist/SM-FX.html
 SM-FX/build/built-jar.properties
 
 SM-FX/nbproject/private/private.xml
+
+SM-FX/nbproject/project.properties
+
+/SM-FX/lib/

@@ -18,19 +18,23 @@ import javafx.stage.Stage;
 import com.saiton.ccs.msgbox.MessageBox;
 import com.saiton.ccs.msgbox.SimpleMessageBoxFactory;
 import com.saiton.ccs.popup.ReelPopup;
+import com.saiton.ccs.printerservice.ReportPath;
 import com.saiton.ccs.scaledao.ReelRequisitionDAO;
 import com.saiton.ccs.scaledao.ScaleDAO;
 import com.saiton.ccs.scaledao.ScaleRegisterationDAO;
+import com.saiton.ccs.uihandle.ReportGenerator;
 import com.saiton.ccs.uihandle.StagePassable;
 import com.saiton.ccs.uihandle.UiMode;
 import com.saiton.ccs.validations.ErrorMessages;
 import com.saiton.ccs.validations.MessageBoxTitle;
 import com.saiton.ccs.validations.Validatable;
+import java.io.File;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -167,6 +171,40 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
     @FXML
     private void btnRePrintOnAction(ActionEvent event) {
+        
+        
+        boolean isDataInserted = true;
+
+
+        //<editor-fold defaultstate="collapsed" desc="Current Print Code">
+        if (isDataInserted) {
+
+            HashMap param = new HashMap();
+            param.put("weight_scale_id", txtItemCode.getText());
+
+
+                File fileOne
+                        = new File(
+                                ReportPath.PATH_BARCODE_REPORT.
+                                toString());
+                String img = fileOne.getAbsolutePath();
+                ReportGenerator r = new ReportGenerator(img, param);
+
+                    r.setVisible(true);
+
+
+            mb.ShowMessage(stage, ErrorMessages.SuccesfullyCreated,
+                    MessageBoxTitle.INFORMATION.toString(),
+                    MessageBox.MessageIcon.MSG_ICON_SUCCESS,
+                    MessageBox.MessageType.MSG_OK);
+
+           
+
+            //clearInput();
+        }
+
+//</editor-fold>
+        
     }
 
     @FXML
