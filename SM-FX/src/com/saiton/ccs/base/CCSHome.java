@@ -167,6 +167,13 @@ public class CCSHome extends Application implements HomeCallback {
                 e -> FxmlUiLauncher.launchOnNewStage(
                         "/com/saiton/ccs/scale/ReelRequisition.fxml",
                         "Reel Requisition"));
+        
+        home.createTileButton("Work \nIn-progress",
+                TileColors.TILE_COLOR_SPRINGGREEN,
+                "/com/saiton/ccs/res/img-user.png", FxHome.HOME_PAGE,
+                e -> FxmlUiLauncher.launchOnNewStage(
+                        "/com/saiton/ccs/scale/SearchWeightScaleBulkPrint.fxml",
+                        "Work In-progress"));
 
       
          
