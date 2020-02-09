@@ -9,7 +9,8 @@
 	r.lot_no,
 	r.remaining_qty,
 	r.gsm,
-	r.item_category
+	r.item_category,
+	r.current_weight
 
 FROM reel r]]>
 	</queryString>
@@ -25,70 +26,92 @@ FROM reel r]]>
 	<field name="item_category" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="current_weight" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
 		<band height="103">
 			<textField>
-				<reportElement x="32" y="41" width="108" height="20" uuid="5a652a60-391d-46a0-a83f-a632cb5858f4"/>
+				<reportElement x="44" y="65" width="94" height="13" uuid="5a652a60-391d-46a0-a83f-a632cb5858f4"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{lot_no}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="41" width="32" height="20" uuid="69260693-6e91-4ae6-817c-bc8bed95c4c5"/>
+				<reportElement x="12" y="65" width="32" height="13" uuid="69260693-6e91-4ae6-817c-bc8bed95c4c5"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="10" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Code -]]></text>
+				<text><![CDATA[Lot No ]]></text>
 			</staticText>
 			<textField pattern="yyyy-mm-dd">
-				<reportElement x="140" y="41" width="117" height="20" uuid="7df9a3b3-b595-40d9-bcb3-191d98649f29"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<reportElement x="190" y="88" width="77" height="13" uuid="7df9a3b3-b595-40d9-bcb3-191d98649f29"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="61" width="69" height="20" uuid="5b7e1909-bfcc-4cfa-af03-b6a7f4b84e9a"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="12" y="77" width="32" height="13" uuid="5b7e1909-bfcc-4cfa-af03-b6a7f4b84e9a"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="10" isBold="false"/>
 				</textElement>
-				<text><![CDATA[QTY]]></text>
+				<text><![CDATA[QTY ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="69" y="61" width="71" height="20" uuid="44d8e5f5-4683-4f3e-b07f-6b712dbaeccd"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="12" y="90" width="32" height="13" uuid="44d8e5f5-4683-4f3e-b07f-6b712dbaeccd"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[GSM]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="140" y="61" width="116" height="20" uuid="eabace90-63d5-4209-ba89-caa80124c379"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="138" y="65" width="52" height="13" uuid="eabace90-63d5-4209-ba89-caa80124c379"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="10" isBold="false"/>
 				</textElement>
-				<text><![CDATA[PAPER TYPE]]></text>
+				<text><![CDATA[Paper Type]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="81" width="69" height="20" uuid="6ac0a210-8cc2-4395-a50d-e57fd4f7e5b9"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement x="44" y="77" width="82" height="13" uuid="6ac0a210-8cc2-4395-a50d-e57fd4f7e5b9"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{remaining_qty}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="69" y="81" width="71" height="20" uuid="c9cc4e62-8e58-4da5-8833-5d2a4893287a"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement x="44" y="90" width="82" height="13" uuid="c9cc4e62-8e58-4da5-8833-5d2a4893287a"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{gsm}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="140" y="81" width="116" height="20" uuid="01d7e3e1-6ea7-4a19-ac7d-d3e1a09b336f"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement x="190" y="65" width="77" height="13" uuid="01d7e3e1-6ea7-4a19-ac7d-d3e1a09b336f"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{item_category}]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement x="47" y="0" width="169" height="38" uuid="fca9d9e5-2f1c-48c6-9971-4b2a6d186d10"/>
+				<reportElement x="47" y="0" width="182" height="65" uuid="fca9d9e5-2f1c-48c6-9971-4b2a6d186d10"/>
 				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom" intercharGapWidth="1.2">
 					<jr:codeExpression><![CDATA[$F{lot_no}]]></jr:codeExpression>
 				</jr:Code39>
 			</componentElement>
+			<staticText>
+				<reportElement x="138" y="77" width="52" height="13" uuid="afc56d76-2d62-4a93-9246-028e587bf164"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Weight]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="88" width="52" height="13" uuid="c6878018-f2bf-4ce5-8292-cd8edcc9c162"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Log Date]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="190" y="77" width="77" height="13" uuid="3d7fbdcd-5a97-4c5f-986b-b17a88cc7799"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{current_weight}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>
