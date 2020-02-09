@@ -48,6 +48,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -241,6 +242,16 @@ public class ReelRequisitionController implements Initializable, Validatable,
     //<editor-fold defaultstate="collapsed" desc="Key Events">
     @FXML
     private void txtItemCodeOnKeyReleased(KeyEvent event) {
+        
+        if (event.getCode().equals(KeyCode.ENTER)) {
+            if (!txtItemCode.getText().isEmpty()) {
+                loadReelInfo();
+                txtItemCode.selectAll();
+                reelPop.hide();
+            }
+            
+        }
+        
         if (txtItemCode.getText().length() >= 3) {
 
             reelTableDataLoader(txtItemCode.getText());
@@ -314,7 +325,8 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
         tblItemList.setItems(tableReelLogData);
 
-        txtItemCode.setText(reelDAO.generateID());
+        //txtItemCode.setText(reelDAO.generateID());
+        txtItemCode.requestFocus();
         mb = SimpleMessageBoxFactory.createMessageBox();
 
     }
@@ -395,8 +407,11 @@ public class ReelRequisitionController implements Initializable, Validatable,
         txtReelNo.clear();
         txtLogDate.clear();
         txtItemCode.clear();
-        tableReelLogData.clear();
+        //tableReelLogData.clear();
         isReelLoaded = false;
+        txtItemCode.requestFocus();
+        //reelData.clear();
+        
 
     }
 
@@ -405,7 +420,7 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
     }
 
-    private void reelTableDataLoader(String keyword) {
+    private boolean  reelTableDataLoader(String keyword) {
 
         reelData.clear();
         ArrayList<ArrayList<String>> itemInfo
@@ -438,12 +453,19 @@ public class ReelRequisitionController implements Initializable, Validatable,
             }
 
         }
+        return true;
 
     }
 
-    private void loadReelInfo() {
+    private boolean loadReelInfo() {
+        
+        boolean isDataAvailable = false;
+        
+        try {
+            
+       
 
-        reelData.clear();
+        //reelData.clear();
         ArrayList<String> dataList = null;
         dataList = reelDAO.
                 loadingReelInfo(txtItemCode.getText());
@@ -466,6 +488,8 @@ public class ReelRequisitionController implements Initializable, Validatable,
         txtReelNo.setText(dataList.get(7));
 
         txtLogDate.setText(dateFormat.format(date));
+        
+        isDataAvailable = true;
 
         if (dataList != null && list != null) {
 
@@ -491,8 +515,16 @@ public class ReelRequisitionController implements Initializable, Validatable,
                     MessageBoxTitle.ERROR.toString(),
                     MessageBox.MessageIcon.MSG_ICON_FAIL,
                     MessageBox.MessageType.MSG_OK);
+            clearInput();
 
         }
+        
+         } catch (Exception e) {
+             clearInput();
+             return false;
+        }
+        
+        return isDataAvailable;
     }
     
     String getFlag(int flagValue){
