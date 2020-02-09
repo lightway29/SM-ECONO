@@ -25,6 +25,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -55,8 +56,6 @@ public class SearchWeightScaleBulkPrintController implements Initializable, Vali
     @FXML
     private TableColumn<?, ?> tcWeightScaleID;
 
-    @FXML
-    private ComboBox<?> cmbScale;
 
     @FXML
     private TableColumn<?, ?> tcGrossWeight;
@@ -114,6 +113,16 @@ public class SearchWeightScaleBulkPrintController implements Initializable, Vali
 //</editor-fold>
     
     private Stage stage;
+    @FXML
+    private TextField txtFromItemCode;
+    @FXML
+    private Button btnRefreshItemCode;
+    @FXML
+    private TextField txtToItemCode;
+    @FXML
+    private CheckBox chbPendingPrints;
+    @FXML
+    private Button btnPrint;
     
     //<editor-fold defaultstate="collapsed" desc="Key Events">
 //</editor-fold>
@@ -512,6 +521,22 @@ public class SearchWeightScaleBulkPrintController implements Initializable, Vali
 //                new CustomTableViewValidationImpl(tblItemList,
 //                        !fav.validTableView(tblItemList),
 //                        ErrorMessages.EmptyListView));
+    }
+
+    @FXML
+    private void txtToItemCodeOnKeyReleased(KeyEvent event) {
+    }
+
+    @FXML
+    private void btnRefreshItemCodeOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void chbPendingPrintsOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnPrintOnAction(ActionEvent event) {
     }
 
 
