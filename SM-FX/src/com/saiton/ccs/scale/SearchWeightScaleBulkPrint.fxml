@@ -149,7 +149,7 @@
                               <Insets left="30.0" />
                            </GridPane.margin>
                         </HBox>
-                        <HBox id="HBox" alignment="CENTER_LEFT" layoutX="40.0" layoutY="124.0" spacing="5.0" GridPane.columnIndex="4" GridPane.columnSpan="6" GridPane.rowIndex="2">
+                        <HBox id="HBox" alignment="CENTER_LEFT" layoutX="40.0" layoutY="124.0" spacing="5.0" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="2">
                            <children>
                               <Label prefWidth="200.0" text="Pending Prints">
                                  <font>
@@ -189,6 +189,22 @@
                            <padding>
                               <Insets left="30.0" />
                            </padding>
+                        </HBox>
+                        <HBox id="HBox" alignment="CENTER_LEFT" layoutX="570.0" layoutY="114.0" spacing="5.0" GridPane.columnIndex="7" GridPane.columnSpan="3" GridPane.rowIndex="2">
+                           <children>
+                              <Label prefWidth="200.0" text="Work In Progress">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                              <CheckBox fx:id="chbWorkInProgress" alignment="CENTER" mnemonicParsing="false" onAction="#chbWorkInProgressOnAction" selected="true" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets bottom="10.0" />
+                           </opaqueInsets>
                         </HBox>
               </children>
               <columnConstraints>
