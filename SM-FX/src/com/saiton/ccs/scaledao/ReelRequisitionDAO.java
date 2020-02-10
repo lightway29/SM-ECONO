@@ -448,8 +448,9 @@ public class ReelRequisitionDAO {
                             switch (columnIndex) {
                                 case 0:
                                     
-                                    ps.setString(1, formatter.formatCellValue(
-                                            nextCell));
+//                                    ps.setString(1, formatter.formatCellValue(
+//                                            nextCell));
+                                    ps.setString(1, generateID());
 //                                   
                                     break;
                                 case 1:

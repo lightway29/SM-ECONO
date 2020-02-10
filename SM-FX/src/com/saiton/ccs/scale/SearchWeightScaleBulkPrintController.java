@@ -54,7 +54,8 @@ import org.controlsfx.control.PopOver;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
 
-public class SearchWeightScaleBulkPrintController implements Initializable, Validatable,
+public class SearchWeightScaleBulkPrintController implements Initializable,
+        Validatable,
         StagePassable {
 
     //<editor-fold defaultstate="collapsed" desc="Initcomponent">
@@ -66,7 +67,6 @@ public class SearchWeightScaleBulkPrintController implements Initializable, Vali
 
     @FXML
     private TableColumn<?, ?> tcWeightScaleID;
-
 
     @FXML
     private TableColumn<?, ?> tcGrossWeight;
@@ -122,7 +122,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable, Vali
     @FXML
     private TableColumn<?, ?> tcSize;
 //</editor-fold>
-    
+
     private Stage stage;
     @FXML
     private TextField txtFromItemCode;
@@ -136,36 +136,65 @@ public class SearchWeightScaleBulkPrintController implements Initializable, Vali
     private Button btnPrint;
     @FXML
     private CheckBox chbWorkInProgress;
-    
+
     ReelRequisitionDAO reelDAO = new ReelRequisitionDAO();
-    
+
     private MessageBox mb;
-    
+    @FXML
+    private Button btnUploadReelData;
+
     //<editor-fold defaultstate="collapsed" desc="Key Events">
+    
+    @FXML
+    private void txtToItemCodeOnKeyReleased(KeyEvent event) {
+    }
+    
+    
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Action Events">
+    
+    @FXML
+    private void btnRefreshItemCodeOnAction(ActionEvent event) {
+    }
 
     @FXML
-    void btnCloseOnAction(ActionEvent event) {
+    private void chbPendingPrintsOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnPrintOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void chbWorkInProgressOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnUploadReelDataOnAction(ActionEvent event) {
+
         FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(stage);
-        
+
         boolean isSaved = reelDAO.saveDataToDB(selectedFile.getAbsolutePath());
-        
+
         if (isSaved) {
-             mb.ShowMessage(stage, ErrorMessages.SuccesfullyCreated,
+            mb.ShowMessage(stage, ErrorMessages.SuccesfullyCreated,
                     MessageBoxTitle.INFORMATION.toString(),
                     MessageBox.MessageIcon.MSG_ICON_SUCCESS,
                     MessageBox.MessageType.MSG_OK);
-        }else{
-                        mb.ShowMessage(stage, ErrorMessages.InvalidText,
-                        MessageBoxTitle.ERROR.toString(),
-                        MessageBox.MessageIcon.MSG_ICON_FAIL,
-                        MessageBox.MessageType.MSG_OK);
+        } else {
+            mb.ShowMessage(stage, ErrorMessages.InvalidText,
+                    MessageBoxTitle.ERROR.toString(),
+                    MessageBox.MessageIcon.MSG_ICON_FAIL,
+                    MessageBox.MessageType.MSG_OK);
         }
 
-       
-        
+    }
+
+    @FXML
+    void btnCloseOnAction(ActionEvent event) {
+        stage.close();
+
     }
 
     @FXML
@@ -177,7 +206,6 @@ public class SearchWeightScaleBulkPrintController implements Initializable, Vali
     void dtpToDateOnAction(ActionEvent event) {
 
     }
-
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Click Events">
@@ -384,7 +412,6 @@ public class SearchWeightScaleBulkPrintController implements Initializable, Vali
             case DELETE:
                 disableUi(false);
 
-
                 deactivateCombo();
 
                 break;
@@ -558,27 +585,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable, Vali
 //                        ErrorMessages.EmptyListView));
     }
 
-    @FXML
-    private void txtToItemCodeOnKeyReleased(KeyEvent event) {
-    }
-
-    @FXML
-    private void btnRefreshItemCodeOnAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void chbPendingPrintsOnAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void btnPrintOnAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void chbWorkInProgressOnAction(ActionEvent event) {
-    }
-
-
+    
 
     public class Item {
 
