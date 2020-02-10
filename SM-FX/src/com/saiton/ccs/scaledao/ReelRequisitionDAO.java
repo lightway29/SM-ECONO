@@ -20,6 +20,7 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -382,7 +383,7 @@ public class ReelRequisitionDAO {
     }
 
     public boolean saveDataToDB(String filePath) {
-        
+
         int batchSize = 20;
 
         try {
@@ -401,54 +402,87 @@ public class ReelRequisitionDAO {
                     int count = 0;
                     rowIterator.next(); // skip the header row
 
-                    PreparedStatement ps = star.con.prepareStatement(
-                            "INSERT INTO external_grn(`external_grn_id`, "
-                            + "`purchase_order_id`, `date`, `description`, "
-                            + "`user_id`) VALUES(?,?,?,?,?)");
+//                    PreparedStatement ps = star.con.prepareStatement(
+//                            "INSERT INTO `reel` ("
+//                            + " `reel_code`, "
+//                            + "`item_no`, "
+//                            + "`item_category`, "
+//                            + "`lot_no`, "
+//                            + "`serial_number`, "
+//                            + "`item_name`, "
+//                            + "`item_des`,"
+//                            + " `location`, "
+//                            + "`gsm`, "
+//                            + "`reel_width`, "
+//                            + "`reel_diameter`, "
+//                            + "`reel_number`, "
+//                            + "`initial_weight`, "
+//                            + "`qty`, "
+//                            + "`remaining_qty`, "
+//                            + "`size`, "
+//                            + "`current_weight`"
+//                            + ", `flag`, "
+//                            + "`reel_fb`)  VALUES(?,?,?,?,?,?,?,?,?,?,?,"
+//                            + "?,?,?,?,?,?,?,?)");
+
                     
-                    
+                       PreparedStatement ps = star.con.prepareStatement(
+                            "INSERT INTO `reel` ("
+                            + " `reel_code`, "
+                            + "`item_no`, "
+                            + "`item_category`, "
+                            + "`lot_no`, "
+                            + "`serial_number`, "
+                            + "`item_name`"
+                            + ")  VALUES(?,?,?,?,?,?)");
                     while (rowIterator.hasNext()) {
-                Row nextRow = rowIterator.next();
-                Iterator<Cell> cellIterator = nextRow.cellIterator();
- 
-                while (cellIterator.hasNext()) {
-                    Cell nextCell = cellIterator.next();
- 
-                    int columnIndex = nextCell.getColumnIndex();
- 
-                    switch (columnIndex) {
-                    case 0:
-                        String name = nextCell.getStringCellValue();
-                        ps.setString(1, name);
-                        break;
-                    case 1:
-                       
-                        ps.setString(2, "");
-                    case 2:
-                        
-                        ps.setString(3, "");
+                        Row nextRow = rowIterator.next();
+                        DataFormatter formatter = new DataFormatter();
+                        Iterator<Cell> cellIterator = nextRow.cellIterator();
+
+                        while (cellIterator.hasNext()) {
+                            Cell nextCell = cellIterator.next();
+                            //Cell cell = sheet.getRow(i).getCell(0);
+                            String j_username = formatter.formatCellValue(nextCell);
+                            int columnIndex = nextCell.getColumnIndex();
+
+                            switch (columnIndex) {
+                                case 0:
+                                    //String name = nextCell.getStringCellValue();
+                                    ps.setString(1, formatter.formatCellValue(nextCell));
+                                    break;
+                                case 1:
+                                    ps.setString(2,formatter.formatCellValue(nextCell) );
+                                case 2:
+                                    ps.setString(3, formatter.formatCellValue(nextCell));
+                                case 3:
+                                    ps.setString(4, formatter.formatCellValue(nextCell));
+                                case 4:
+                                    ps.setString(5, formatter.formatCellValue(nextCell));
+                                case 5:
+                                    ps.setString(6, formatter.formatCellValue(nextCell));
+                                case 6:
+                                    ps.setString(7, formatter.formatCellValue(nextCell));
+                            }
+
+                        }
+
+                        ps.addBatch();
+
+                        if (count % batchSize == 0) {
+                            ps.executeBatch();
+                        }
+
                     }
- 
-                }
-                 
-                ps.addBatch();
-                 
-                if (count % batchSize == 0) {
+
+                    // execute the remaining queries
                     ps.executeBatch();
-                }              
- 
-            }
- 
-             
-            // execute the remaining queries
-            ps.executeBatch();
 
 //                    ps.setString(1, encodedGrnId);
 //                    ps.setString(2, encodedPurchaseOrderId);
 //                    ps.setString(3, encodedGrnDate);
 //                    ps.setString(4, encodedDescription);
 //                    ps.setString(5, encodedUserId);
-
                     int val = ps.executeUpdate();
                     if (val == 1) {
                         return true;
@@ -466,7 +500,8 @@ public class ReelRequisitionDAO {
                     return false;
 
                 } catch (Exception e) {
-                    log.error("Exception tag --> " + "Error");
+                    log.error("Exception tag --> " + "Error ");
+                    e.printStackTrace();
                     return false;
                 }
             }
