@@ -52,8 +52,18 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.controlsfx.control.PopOver;
+
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.*;
+
+import java.io.*;
+import java.sql.*;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ReelRequisitionController implements Initializable, Validatable,
         StagePassable {
@@ -143,12 +153,10 @@ public class ReelRequisitionController implements Initializable, Validatable,
     Date date = new Date();
 
     ReelLog reelLog = new ReelLog();
-    
-    
+
     String one = "Issued";
     String zero = "Returned";
     boolean isReelLoaded = false;
-    
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Action Events">
@@ -172,65 +180,59 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
     @FXML
     private void btnRePrintOnAction(ActionEvent event) {
-        
-        
-        boolean isDataInserted = true;
 
+        boolean isDataInserted = true;
 
         //<editor-fold defaultstate="collapsed" desc="Current Print Code">
         if (isDataInserted) {
 
             HashMap param = new HashMap();
-            param.put("weight_scale_id", txtItemCode.getText());
+            param.put("to_reel_code", txtItemCode.getText());
+            param.put("from_reel_code", txtItemCode.getText());
 
+            File fileOne
+                    = new File(
+                            ReportPath.PATH_BARCODE_REPORT.
+                            toString());
+            String img = fileOne.getAbsolutePath();
+            ReportGenerator r = new ReportGenerator(img, param);
 
-                File fileOne
-                        = new File(
-                                ReportPath.PATH_BARCODE_REPORT.
-                                toString());
-                String img = fileOne.getAbsolutePath();
-                ReportGenerator r = new ReportGenerator(img, param);
+            r.setVisible(true);
 
-                    r.setVisible(true);
-
-
-            mb.ShowMessage(stage, ErrorMessages.SuccesfullyCreated,
-                    MessageBoxTitle.INFORMATION.toString(),
-                    MessageBox.MessageIcon.MSG_ICON_SUCCESS,
-                    MessageBox.MessageType.MSG_OK);
-
-           
-
+//            mb.ShowMessage(stage, ErrorMessages.SuccesfullyCreated,
+//                    MessageBoxTitle.INFORMATION.toString(),
+//                    MessageBox.MessageIcon.MSG_ICON_SUCCESS,
+//                    MessageBox.MessageType.MSG_OK);
             //clearInput();
         }
 
 //</editor-fold>
-        
     }
 
     @FXML
     private void btnLogOnAction(ActionEvent event) {
         System.out.println("Issued");
         if (isReelLoaded == true) {
-            
-            if (reelDAO.getDbFlag(txtItemCode.getText())=="1") {
+
+            if (reelDAO.getDbFlag(txtItemCode.getText()) == "1") {
                 System.out.println("Issued");
-            }else if (reelDAO.getDbFlag(txtItemCode.getText())=="0") {
+            } else if (reelDAO.getDbFlag(txtItemCode.getText()) == "0") {
                 System.out.println("Returned");
                 if (txtReturnedWeight.getText().isEmpty()) {
                     System.out.println("Returned weight is empty");
                 }
-                
-                
+
             }
         }
-        
-        
+
     }
 
     @FXML
     private void btnCloseOnAction(ActionEvent event) {
-        stage.close();
+         stage.close();
+
+        
+
     }
 
     @FXML
@@ -242,16 +244,16 @@ public class ReelRequisitionController implements Initializable, Validatable,
     //<editor-fold defaultstate="collapsed" desc="Key Events">
     @FXML
     private void txtItemCodeOnKeyReleased(KeyEvent event) {
-        
+
         if (event.getCode().equals(KeyCode.ENTER)) {
             if (!txtItemCode.getText().isEmpty()) {
                 loadReelInfo();
                 txtItemCode.selectAll();
                 reelPop.hide();
             }
-            
+
         }
-        
+
         if (txtItemCode.getText().length() >= 3) {
 
             reelTableDataLoader(txtItemCode.getText());
@@ -315,9 +317,10 @@ public class ReelRequisitionController implements Initializable, Validatable,
     //<editor-fold defaultstate="collapsed" desc="Methods">
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
-                tcTimeStamp.setCellValueFactory(new PropertyValueFactory<ReelLog, String>(
-                "colTimeStamp"));
+
+        tcTimeStamp.setCellValueFactory(
+                new PropertyValueFactory<ReelLog, String>(
+                        "colTimeStamp"));
         tcFlag.setCellValueFactory(new PropertyValueFactory<ReelLog, String>(
                 "colFlag"));
         tcWeight.setCellValueFactory(new PropertyValueFactory<ReelLog, String>(
@@ -411,7 +414,6 @@ public class ReelRequisitionController implements Initializable, Validatable,
         isReelLoaded = false;
         txtItemCode.requestFocus();
         //reelData.clear();
-        
 
     }
 
@@ -420,7 +422,7 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
     }
 
-    private boolean  reelTableDataLoader(String keyword) {
+    private boolean reelTableDataLoader(String keyword) {
 
         reelData.clear();
         ArrayList<ArrayList<String>> itemInfo
@@ -458,87 +460,84 @@ public class ReelRequisitionController implements Initializable, Validatable,
     }
 
     private boolean loadReelInfo() {
-        
+
         boolean isDataAvailable = false;
-        
+
         try {
-            
-       
 
-        //reelData.clear();
-        ArrayList<String> dataList = null;
-        dataList = reelDAO.
-                loadingReelInfo(txtItemCode.getText());
+            //reelData.clear();
+            ArrayList<String> dataList = null;
+            dataList = reelDAO.
+                    loadingReelInfo(txtItemCode.getText());
 
-        ArrayList<ArrayList<String>> reelLogInfo
-                = new ArrayList<ArrayList<String>>();
+            ArrayList<ArrayList<String>> reelLogInfo
+                    = new ArrayList<ArrayList<String>>();
 
-        ArrayList<ArrayList<String>> list = reelDAO.
-                reelLogDetails(txtItemCode.getText());
+            ArrayList<ArrayList<String>> list = reelDAO.
+                    reelLogDetails(txtItemCode.getText());
 
-        txtItemName.setText(dataList.get(0));
-        txtIssuedWeight.setText(dataList.get(1));
-        txtDescription.setText(dataList.get(2));
+            txtItemName.setText(dataList.get(0));
+            txtIssuedWeight.setText(dataList.get(1));
+            txtDescription.setText(dataList.get(2));
 
-        txtReelLiner.setText(dataList.get(3));
-        txtGSM.setText(dataList.get(4));
+            txtReelLiner.setText(dataList.get(3));
+            txtGSM.setText(dataList.get(4));
 
-        txtSize.setText(dataList.get(5));
-        txtReelFb.setText(dataList.get(6));
-        txtReelNo.setText(dataList.get(7));
+            txtSize.setText(dataList.get(5));
+            txtReelFb.setText(dataList.get(6));
+            txtReelNo.setText(dataList.get(7));
 
-        txtLogDate.setText(dateFormat.format(date));
-        
-        isDataAvailable = true;
+            txtLogDate.setText(dateFormat.format(date));
 
-        if (dataList != null && list != null) {
+            isDataAvailable = true;
 
-            for (int i = 0; i < list.size(); i++) {
+            if (dataList != null && list != null) {
 
-                reelLogInfo.add(list.get(i));
-            }
+                for (int i = 0; i < list.size(); i++) {
 
-            if (reelLogInfo != null && reelLogInfo.size() > 0) {
-                for (int i = 0; i < reelLogInfo.size(); i++) {
-
-                    reelLog = new ReelLog();
-
-                    reelLog.colTimeStamp.setValue(reelLogInfo.get(i).get(0));
-                    reelLog.colFlag.setValue(getFlag(Integer.parseInt(reelLogInfo.get(i).get(1))));
-                    reelLog.colWeight.setValue(reelLogInfo.get(i).get(2));
-
-                    tableReelLogData.add(reelLog);
+                    reelLogInfo.add(list.get(i));
                 }
-            }
-        } else {
-            mb.ShowMessage(stage, ErrorMessages.InvalidEvent,
-                    MessageBoxTitle.ERROR.toString(),
-                    MessageBox.MessageIcon.MSG_ICON_FAIL,
-                    MessageBox.MessageType.MSG_OK);
-            clearInput();
 
+                if (reelLogInfo != null && reelLogInfo.size() > 0) {
+                    for (int i = 0; i < reelLogInfo.size(); i++) {
+
+                        reelLog = new ReelLog();
+
+                        reelLog.colTimeStamp.setValue(reelLogInfo.get(i).get(0));
+                        reelLog.colFlag.setValue(getFlag(Integer.parseInt(
+                                reelLogInfo.get(i).get(1))));
+                        reelLog.colWeight.setValue(reelLogInfo.get(i).get(2));
+
+                        tableReelLogData.add(reelLog);
+                    }
+                }
+            } else {
+                mb.ShowMessage(stage, ErrorMessages.InvalidEvent,
+                        MessageBoxTitle.ERROR.toString(),
+                        MessageBox.MessageIcon.MSG_ICON_FAIL,
+                        MessageBox.MessageType.MSG_OK);
+                clearInput();
+
+            }
+
+        } catch (Exception e) {
+            clearInput();
+            return false;
         }
-        
-         } catch (Exception e) {
-             clearInput();
-             return false;
-        }
-        
+
         return isDataAvailable;
     }
-    
-    String getFlag(int flagValue){
-        
+
+    String getFlag(int flagValue) {
+
         if (flagValue == 1) {
             return one;
-        }else if (flagValue == 0) {
+        } else if (flagValue == 0) {
             return zero;
         }
-        
-        
-        
+
         return null;
-}
+    }
 
 //</editor-fold>
     public class ReelLog {

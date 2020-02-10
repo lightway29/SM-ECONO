@@ -7,6 +7,7 @@ import com.saiton.ccs.msgbox.SimpleMessageBoxFactory;
 import com.saiton.ccs.popup.ItemInfoPopup;
 import com.saiton.ccs.popup.ServiceInfoPopup;
 import com.saiton.ccs.salesdao.ServiceDAO;
+import com.saiton.ccs.scaledao.ReelRequisitionDAO;
 import com.saiton.ccs.uihandle.StagePassable;
 import com.saiton.ccs.uihandle.UiMode;
 import com.saiton.ccs.validations.CustomTableViewValidationImpl;
@@ -15,9 +16,15 @@ import com.saiton.ccs.validations.CustomTextFieldValidationImpl;
 import com.saiton.ccs.validations.ErrorMessages;
 import com.saiton.ccs.validations.FormatAndValidate;
 import com.saiton.ccs.validations.Validatable;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,7 +45,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.controlsfx.control.PopOver;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
@@ -126,13 +136,21 @@ public class SearchWeightScaleBulkPrintController implements Initializable, Vali
     @FXML
     private CheckBox chbWorkInProgress;
     
+    ReelRequisitionDAO reelDAO = new ReelRequisitionDAO();
+    
     //<editor-fold defaultstate="collapsed" desc="Key Events">
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Action Events">
 
     @FXML
     void btnCloseOnAction(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        
+        reelDAO.saveDataToDB(selectedFile.getAbsolutePath());
 
+       
+        
     }
 
     @FXML

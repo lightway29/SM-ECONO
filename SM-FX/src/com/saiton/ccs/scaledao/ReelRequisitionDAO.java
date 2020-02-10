@@ -6,13 +6,24 @@
 package com.saiton.ccs.scaledao;
 
 import com.saiton.ccs.database.Starter;
+import com.saiton.ccs.scale.ReelRequisitionController;
 import static com.saiton.ccs.scaledao.ScaleDAO.star;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.owasp.esapi.ESAPI;
 import org.owasp.esapi.codecs.Codec;
 import org.owasp.esapi.codecs.OracleCodec;
@@ -326,11 +337,11 @@ public class ReelRequisitionDAO {
         }
         return mainList;
     }
-    
+
     public String getDbFlag(String reelCode) {
         String encodedReelCode = ESAPI.encoder().encodeForSQL(ORACLE_CODEC,
                 reelCode);
-        
+
         String flag = null;
 
         if (star.con == null) {
@@ -347,9 +358,9 @@ public class ReelRequisitionDAO {
                 ResultSet r = pstmt.executeQuery();
 
                 while (r.next()) {
-                                        
+
                     flag = r.getString("flag");
-                    
+
                 }
 
             } catch (NullPointerException | SQLException e) {
@@ -369,4 +380,108 @@ public class ReelRequisitionDAO {
         }
         return flag;
     }
+
+    public boolean saveDataToDB(String filePath) {
+        
+        int batchSize = 20;
+
+        try {
+            FileInputStream inputStream = new FileInputStream(filePath);
+
+            Workbook workbook = new XSSFWorkbook(inputStream);
+
+            Sheet firstSheet = workbook.getSheetAt(0);
+            Iterator<Row> rowIterator = firstSheet.iterator();
+
+            if (star.con == null) {
+                log.error("Databse connection failiure.");
+                return false;
+            } else {
+                try {
+                    int count = 0;
+                    rowIterator.next(); // skip the header row
+
+                    PreparedStatement ps = star.con.prepareStatement(
+                            "INSERT INTO external_grn(`external_grn_id`, "
+                            + "`purchase_order_id`, `date`, `description`, "
+                            + "`user_id`) VALUES(?,?,?,?,?)");
+                    
+                    
+                    while (rowIterator.hasNext()) {
+                Row nextRow = rowIterator.next();
+                Iterator<Cell> cellIterator = nextRow.cellIterator();
+ 
+                while (cellIterator.hasNext()) {
+                    Cell nextCell = cellIterator.next();
+ 
+                    int columnIndex = nextCell.getColumnIndex();
+ 
+                    switch (columnIndex) {
+                    case 0:
+                        String name = nextCell.getStringCellValue();
+                        ps.setString(1, name);
+                        break;
+                    case 1:
+                       
+                        ps.setString(2, "");
+                    case 2:
+                        
+                        ps.setString(3, "");
+                    }
+ 
+                }
+                 
+                ps.addBatch();
+                 
+                if (count % batchSize == 0) {
+                    ps.executeBatch();
+                }              
+ 
+            }
+ 
+             
+            // execute the remaining queries
+            ps.executeBatch();
+
+//                    ps.setString(1, encodedGrnId);
+//                    ps.setString(2, encodedPurchaseOrderId);
+//                    ps.setString(3, encodedGrnDate);
+//                    ps.setString(4, encodedDescription);
+//                    ps.setString(5, encodedUserId);
+
+                    int val = ps.executeUpdate();
+                    if (val == 1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+
+                } catch (SQLException e) {
+
+                    if (e instanceof SQLException) {
+                        log.error("Exception tag --> "
+                                + "Invalid sql statement "
+                                + e.getMessage());
+                    }
+                    return false;
+
+                } catch (Exception e) {
+                    log.error("Exception tag --> " + "Error");
+                    return false;
+                }
+            }
+
+        } catch (FileNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ReelRequisitionController.class.
+                    getName()).
+                    log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(ReelRequisitionController.class.
+                    getName()).
+                    log(Level.SEVERE, null, ex);
+        }
+        return false;
+
+    }
+
 }
