@@ -123,6 +123,8 @@ public class SearchWeightScaleBulkPrintController implements Initializable, Vali
     private CheckBox chbPendingPrints;
     @FXML
     private Button btnPrint;
+    @FXML
+    private CheckBox chbWorkInProgress;
     
     //<editor-fold defaultstate="collapsed" desc="Key Events">
 //</editor-fold>
@@ -537,6 +539,10 @@ public class SearchWeightScaleBulkPrintController implements Initializable, Vali
 
     @FXML
     private void btnPrintOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void chbWorkInProgressOnAction(ActionEvent event) {
     }
 
 
