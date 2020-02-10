@@ -15,6 +15,7 @@ import com.saiton.ccs.validations.CustomTextAreaValidationImpl;
 import com.saiton.ccs.validations.CustomTextFieldValidationImpl;
 import com.saiton.ccs.validations.ErrorMessages;
 import com.saiton.ccs.validations.FormatAndValidate;
+import com.saiton.ccs.validations.MessageBoxTitle;
 import com.saiton.ccs.validations.Validatable;
 import java.io.File;
 import java.io.FileInputStream;
@@ -138,6 +139,8 @@ public class SearchWeightScaleBulkPrintController implements Initializable, Vali
     
     ReelRequisitionDAO reelDAO = new ReelRequisitionDAO();
     
+    private MessageBox mb;
+    
     //<editor-fold defaultstate="collapsed" desc="Key Events">
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Action Events">
@@ -147,7 +150,19 @@ public class SearchWeightScaleBulkPrintController implements Initializable, Vali
         FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(stage);
         
-        reelDAO.saveDataToDB(selectedFile.getAbsolutePath());
+        boolean isSaved = reelDAO.saveDataToDB(selectedFile.getAbsolutePath());
+        
+        if (isSaved) {
+             mb.ShowMessage(stage, ErrorMessages.SuccesfullyCreated,
+                    MessageBoxTitle.INFORMATION.toString(),
+                    MessageBox.MessageIcon.MSG_ICON_SUCCESS,
+                    MessageBox.MessageType.MSG_OK);
+        }else{
+                        mb.ShowMessage(stage, ErrorMessages.InvalidText,
+                        MessageBoxTitle.ERROR.toString(),
+                        MessageBox.MessageIcon.MSG_ICON_FAIL,
+                        MessageBox.MessageType.MSG_OK);
+        }
 
        
         
@@ -185,7 +200,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable, Vali
 //
 //        tblItemList.setItems(TableItemData);
 //
-//        mb = SimpleMessageBoxFactory.createMessageBox();
+        mb = SimpleMessageBoxFactory.createMessageBox();
 //        txtServiceId.setText(serviceDAO.generateID());
 //        btnDelete.setVisible(false);
 

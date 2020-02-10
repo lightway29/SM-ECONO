@@ -424,9 +424,7 @@ public class ReelRequisitionDAO {
 //                            + ", `flag`, "
 //                            + "`reel_fb`)  VALUES(?,?,?,?,?,?,?,?,?,?,?,"
 //                            + "?,?,?,?,?,?,?,?)");
-
-                    
-                       PreparedStatement ps = star.con.prepareStatement(
+                    PreparedStatement ps = star.con.prepareStatement(
                             "INSERT INTO `reel` ("
                             + " `reel_code`, "
                             + "`item_no`, "
@@ -443,26 +441,38 @@ public class ReelRequisitionDAO {
                         while (cellIterator.hasNext()) {
                             Cell nextCell = cellIterator.next();
                             //Cell cell = sheet.getRow(i).getCell(0);
-                            String j_username = formatter.formatCellValue(nextCell);
+                            String j_username = formatter.formatCellValue(
+                                    nextCell);
                             int columnIndex = nextCell.getColumnIndex();
 
                             switch (columnIndex) {
                                 case 0:
-                                    //String name = nextCell.getStringCellValue();
-                                    ps.setString(1, formatter.formatCellValue(nextCell));
+                                    
+                                    ps.setString(1, formatter.formatCellValue(
+                                            nextCell));
+//                                   
                                     break;
                                 case 1:
-                                    ps.setString(2,formatter.formatCellValue(nextCell) );
+                                    ps.setString(2, formatter.formatCellValue(
+                                            nextCell));
+
                                 case 2:
-                                    ps.setString(3, formatter.formatCellValue(nextCell));
+                                    ps.setString(3, formatter.formatCellValue(
+                                            nextCell));
+
                                 case 3:
-                                    ps.setString(4, formatter.formatCellValue(nextCell));
+                                    ps.setString(4, formatter.formatCellValue(
+                                            nextCell));
+
                                 case 4:
-                                    ps.setString(5, formatter.formatCellValue(nextCell));
+                                    ps.setString(5, formatter.formatCellValue(
+                                            nextCell));
+
                                 case 5:
-                                    ps.setString(6, formatter.formatCellValue(nextCell));
-                                case 6:
-                                    ps.setString(7, formatter.formatCellValue(nextCell));
+                                    ps.setString(6, formatter.formatCellValue(
+                                            nextCell));
+
+
                             }
 
                         }
@@ -470,25 +480,29 @@ public class ReelRequisitionDAO {
                         ps.addBatch();
 
                         if (count % batchSize == 0) {
-                            ps.executeBatch();
+                            int[] val = ps.executeBatch();
+                            for (int w : val) {
+                                if (w == 1) {
+//                        return true;
+                                    System.out.println("Entry state " + w);
+                                } else {
+                                    return false;
+                                }
+                            }
                         }
 
                     }
 
                     // execute the remaining queries
-                    ps.executeBatch();
-
-//                    ps.setString(1, encodedGrnId);
-//                    ps.setString(2, encodedPurchaseOrderId);
-//                    ps.setString(3, encodedGrnDate);
-//                    ps.setString(4, encodedDescription);
-//                    ps.setString(5, encodedUserId);
-                    int val = ps.executeUpdate();
-                    if (val == 1) {
-                        return true;
-                    } else {
-                        return false;
+                    int[] val = ps.executeBatch();
+                    for (int w : val) {
+                        if (w == 1) {
+                            System.out.println("Entry state " + w);
+                        } else {
+                            return false;
+                        }
                     }
+                    return true;
 
                 } catch (SQLException e) {
 

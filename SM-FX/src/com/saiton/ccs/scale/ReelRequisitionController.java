@@ -199,10 +199,10 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
             r.setVisible(true);
 
-//            mb.ShowMessage(stage, ErrorMessages.SuccesfullyCreated,
-//                    MessageBoxTitle.INFORMATION.toString(),
-//                    MessageBox.MessageIcon.MSG_ICON_SUCCESS,
-//                    MessageBox.MessageType.MSG_OK);
+            mb.ShowMessage(stage, ErrorMessages.SuccesfullyCreated,
+                    MessageBoxTitle.INFORMATION.toString(),
+                    MessageBox.MessageIcon.MSG_ICON_SUCCESS,
+                    MessageBox.MessageType.MSG_OK);
             //clearInput();
         }
 
