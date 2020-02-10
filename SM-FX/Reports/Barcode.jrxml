@@ -3,7 +3,8 @@
 	<property name="ireport.zoom" value="3.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="weight_scale_id" class="java.lang.String"/>
+	<parameter name="to_reel_code" class="java.lang.String"/>
+	<parameter name="from_reel_code" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
 	r.reel_code,
@@ -13,7 +14,8 @@
 	r.item_category,
 	r.current_weight
 
-FROM reel r]]>
+FROM reel r
+where reel_code between $P{from_reel_code} and $P{to_reel_code}]]>
 	</queryString>
 	<field name="reel_code" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -111,7 +113,7 @@ FROM reel r]]>
 				</textElement>
 				<text><![CDATA[Log Date]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="false">
 				<reportElement x="190" y="77" width="77" height="13" uuid="3d7fbdcd-5a97-4c5f-986b-b17a88cc7799"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{current_weight}]]></textFieldExpression>
