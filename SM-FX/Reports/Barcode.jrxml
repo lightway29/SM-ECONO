@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Barcode" pageWidth="295" pageHeight="380" columnWidth="257" leftMargin="19" rightMargin="19" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="dcf61689-6c90-468a-b636-0647e262c817">
-	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.zoom" value="3.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="weight_scale_id" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
+	r.reel_code,
 	r.lot_no,
 	r.remaining_qty,
 	r.gsm,
@@ -14,6 +15,9 @@
 
 FROM reel r]]>
 	</queryString>
+	<field name="reel_code" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="lot_no" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -88,9 +92,9 @@ FROM reel r]]>
 				<textFieldExpression><![CDATA[$F{item_category}]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement x="47" y="0" width="182" height="65" uuid="fca9d9e5-2f1c-48c6-9971-4b2a6d186d10"/>
-				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom" intercharGapWidth="1.2">
-					<jr:codeExpression><![CDATA[$F{lot_no}]]></jr:codeExpression>
+				<reportElement x="68" y="0" width="182" height="65" uuid="fca9d9e5-2f1c-48c6-9971-4b2a6d186d10"/>
+				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom" intercharGapWidth="1.5">
+					<jr:codeExpression><![CDATA[$F{reel_code}]]></jr:codeExpression>
 				</jr:Code39>
 			</componentElement>
 			<staticText>
