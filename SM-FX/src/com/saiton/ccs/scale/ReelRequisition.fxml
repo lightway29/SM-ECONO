@@ -11,7 +11,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.saiton.ccs.scale.ReelRequisitionController">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.saiton.ccs.scale.ReelRequisitionController">
   <children>
     <StackPane prefHeight="400.0" prefWidth="732.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
@@ -19,7 +19,7 @@
           <children>
             <GridPane prefHeight="500.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
-                <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="1">
+                <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="2">
                   <children>
                     <Label fx:id="lblItemId" prefWidth="170.0" text="Item Code">
                                  <HBox.margin>
@@ -28,7 +28,7 @@
                                  <font>
                                     <Font size="22.0" />
                                  </font></Label>
-                    <TextField fx:id="txtItemCode" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtItemCodeOnKeyReleased" prefWidth="185.0" promptText="Item Code">
+                    <TextField fx:id="txtItemCode" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtItemCodeOnKeyReleased" prefWidth="335.0" promptText="Item Code">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
@@ -58,8 +58,8 @@
                               <Insets left="20.0" />
                            </GridPane.margin>
                 </HBox>
-                <AnchorPane prefHeight="102.0" prefWidth="1100.0" GridPane.columnSpan="9" GridPane.rowIndex="4" />
-              <TableView id="tbl" fx:id="tblItemList" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#tblRequestNoteListOnMouseClicked" prefHeight="213.0" prefWidth="1068.0" GridPane.rowIndex="7">
+                <AnchorPane prefHeight="102.0" prefWidth="1100.0" GridPane.columnSpan="9" GridPane.rowIndex="5" />
+              <TableView id="tbl" fx:id="tblItemList" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#tblRequestNoteListOnMouseClicked" prefHeight="213.0" prefWidth="1068.0" GridPane.rowIndex="9">
                 <columns>
                   <TableColumn fx:id="tcTimeStamp" maxWidth="5000.0" minWidth="100.0" prefWidth="346.0" text="Log Date" />
                               <TableColumn fx:id="tcFlag" maxWidth="5000.0" minWidth="10.0" prefWidth="388.0" text="Flag" />
@@ -69,9 +69,9 @@
                               <Insets bottom="50.0" left="10.0" />
                            </GridPane.margin>
               </TableView>
-                        <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="170.0" GridPane.columnSpan="2" GridPane.rowIndex="9" GridPane.rowSpan="2">
+                        <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="170.0" GridPane.columnSpan="3" GridPane.rowIndex="11" GridPane.rowSpan="2">
                            <children>
-                              <Button fx:id="btnRePrint" mnemonicParsing="false" onAction="#btnRePrintOnAction" prefHeight="50.0" prefWidth="200.0" text="Re-Print Label">
+                              <Button fx:id="btnRePrint" mnemonicParsing="false" onAction="#btnRePrintOnAction" prefHeight="50.0" prefWidth="200.0" text="Re-Print">
                                  <graphic>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -82,6 +82,21 @@
                                  <font>
                                     <Font size="22.0" />
                                  </font>
+                              </Button>
+                              <Button fx:id="btnAgingreport" mnemonicParsing="false" onAction="#btnAgingreportOnAction" prefHeight="50.0" prefWidth="200.0" text="Aging Report">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../res/img-print.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <HBox.margin>
+                                    <Insets left="30.0" />
+                                 </HBox.margin>
                               </Button>
                            </children>
                            <opaqueInsets>
@@ -94,7 +109,7 @@
                               <Insets left="10.0" />
                            </padding>
                         </HBox>
-                <HBox id="HBox" alignment="CENTER_RIGHT" spacing="5.0" GridPane.columnIndex="5" GridPane.columnSpan="4" GridPane.rowIndex="9" GridPane.rowSpan="2">
+                <HBox id="HBox" alignment="CENTER_RIGHT" spacing="5.0" GridPane.columnIndex="5" GridPane.columnSpan="4" GridPane.rowIndex="11" GridPane.rowSpan="2">
                   <children>
                     <Button fx:id="btnLog" mnemonicParsing="false" onAction="#btnLogOnAction" prefHeight="50.0" prefWidth="150.0" text="Log">
                       <graphic>
@@ -124,7 +139,7 @@
                 </HBox>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="9">
                            <children>
-                              <Label alignment="CENTER" layoutX="14.0" layoutY="0.0" prefHeight="24.0" prefWidth="1061.0" styleClass="header-label" text="Reel Requisition">
+                              <Label alignment="CENTER" layoutX="14.0" layoutY="0.0" prefHeight="31.0" prefWidth="1325.0" styleClass="header-label" text="Reel Requisition">
                                  <font>
                                     <Font name="System Bold" size="32.0" />
                                  </font></Label>
@@ -137,7 +152,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtDescription" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtDescriptionOnKeyReleased" prefWidth="450.0" promptText="Description">
+                              <TextField fx:id="txtDescription" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtDescriptionOnKeyReleased" prefWidth="540.0" promptText="Description">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -147,14 +162,14 @@
                               <Insets />
                            </GridPane.margin>
                         </HBox>
-                        <HBox id="HBox" alignment="CENTER_LEFT" layoutX="40.0" layoutY="284.0" spacing="5.0" GridPane.columnSpan="4" GridPane.rowIndex="2">
+                        <HBox id="HBox" alignment="CENTER_LEFT" layoutX="40.0" layoutY="284.0" spacing="5.0" GridPane.columnSpan="4" GridPane.rowIndex="3">
                            <children>
                               <Label prefWidth="170.0" text="Item Name">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtItemName" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtItemNameOnKeyReleased" prefWidth="295.0" promptText="Item Name">
+                              <TextField fx:id="txtItemName" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtItemNameOnKeyReleased" prefWidth="445.0" promptText="Item Name">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -174,7 +189,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtGSM" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtGSMOnKeyReleased" prefWidth="150.0" promptText="GSM">
+                              <TextField fx:id="txtGSM" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtGSMOnKeyReleased" prefWidth="200.0" promptText="GSM">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -191,7 +206,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtLogDate" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtLogDateOnKeyReleased" prefWidth="150.0" promptText="Log Date">
+                              <TextField fx:id="txtLogDate" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtLogDateOnKeyReleased" prefWidth="200.0" promptText="Log Date">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -204,16 +219,16 @@
                               <Insets />
                            </GridPane.margin>
                         </HBox>
-                        <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="471.0" spacing="5.0" GridPane.columnSpan="4" GridPane.rowIndex="3">
+                        <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="471.0" spacing="5.0" GridPane.columnSpan="4" GridPane.rowIndex="5" GridPane.rowSpan="2">
                            <children>
                               <Label prefWidth="170.0" text="Issued Weight">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtIssuedWeight" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtIssuedWeightOnKeyReleased" prefWidth="295.0" promptText="Issued Weight">
+                              <TextField fx:id="txtIssuedWeight" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtIssuedWeightOnKeyReleased" prefHeight="100.0" prefWidth="450.0" promptText="Issued Weight" style="-fx-background-color: ff0000;">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font name="System Bold" size="46.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets right="10.0" />
@@ -231,7 +246,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtSize" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtSizeOnKeyReleased" prefWidth="150.0" promptText="Size">
+                              <TextField fx:id="txtSize" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtSizeOnKeyReleased" prefWidth="200.0" promptText="Size">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -248,7 +263,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtReelFb" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtReelFbOnKeyReleased" prefWidth="150.0" promptText="Reel F/B">
+                              <TextField fx:id="txtReelFb" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtReelFbOnKeyReleased" prefWidth="200.0" promptText="Reel F/B">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -262,7 +277,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtReelNo" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtReelNoOnKeyReleased" prefWidth="150.0" promptText="Reel No">
+                              <TextField fx:id="txtReelNo" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtReelNoOnKeyReleased" prefWidth="200.0" promptText="Reel No">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -272,16 +287,16 @@
                               <Insets left="20.0" />
                            </GridPane.margin>
                         </HBox>
-                        <HBox id="HBox" alignment="CENTER_LEFT" layoutX="510.0" layoutY="46.0" spacing="5.0" GridPane.columnSpan="4" GridPane.rowIndex="4">
+                        <HBox id="HBox" alignment="CENTER_LEFT" layoutX="510.0" layoutY="46.0" spacing="5.0" GridPane.columnIndex="4" GridPane.columnSpan="4" GridPane.rowIndex="5" GridPane.rowSpan="2">
                            <children>
                               <Label prefWidth="200.0" text="Returned Weight">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtReturnedWeight" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtReturnedWeightOnReleased" prefWidth="240.0" promptText="Returned Weight">
+                              <TextField fx:id="txtReturnedWeight" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtReturnedWeightOnReleased" prefWidth="410.0" promptText="Returned Weight" style="-fx-background-color: #70b306;">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font name="System Bold" size="46.0" />
                                  </font>
                               </TextField>
                               <Button fx:id="btnRefreshReturnedWeight" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#btnRefreshReturnedWeightOnAction" prefHeight="50.0" prefWidth="50.0">
@@ -295,7 +310,7 @@
                               </Button>
                            </children>
                            <GridPane.margin>
-                              <Insets left="20.0" right="10.0" />
+                              <Insets />
                            </GridPane.margin>
                         </HBox>
                         <HBox id="HBox" alignment="CENTER_LEFT" layoutX="510.0" layoutY="106.0" prefHeight="60.0" prefWidth="471.0" spacing="5.0" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="2">
@@ -305,7 +320,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtReelLiner" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtReelLinerDateOnKeyReleased" prefWidth="150.0" promptText="Reel Liner">
+                              <TextField fx:id="txtReelLiner" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtReelLinerDateOnKeyReleased" prefWidth="200.0" promptText="Reel Liner">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -318,17 +333,55 @@
                               <Insets left="20.0" />
                            </GridPane.margin>
                         </HBox>
+                        <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" GridPane.columnSpan="4" GridPane.rowIndex="1">
+                           <children>
+                              <Label prefWidth="170.0" text="Mode">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <RadioButton fx:id="rdbBrowse" mnemonicParsing="false" onAction="#rdbBrowseOnAction" text="Browse">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="50.0" />
+                                 </HBox.margin>
+                              </RadioButton>
+                              <RadioButton fx:id="rdbLog" mnemonicParsing="false" onAction="#rdbLogOnAction" text="Log">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </RadioButton>
+                           </children>
+                           <GridPane.margin>
+                              <Insets left="20.0" />
+                           </GridPane.margin>
+                        </HBox>
+                        <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" GridPane.columnSpan="4" GridPane.rowIndex="4">
+                           <children>
+                              <Label fx:id="cmbScale" prefWidth="170.0" text="Scale">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="cmbScale" prefHeight="50.0" prefWidth="445.0" promptText="Scale" />
+                           </children>
+                           <GridPane.margin>
+                              <Insets left="20.0" />
+                           </GridPane.margin>
+                        </HBox>
               </children>
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="10.0" minWidth="10.0" prefWidth="10.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="10.0" minWidth="200.0" prefWidth="10.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.0" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.0" minWidth="150.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.0" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="10.0" prefWidth="50.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.0" minWidth="200.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="30.0" prefWidth="50.0" />
                         <ColumnConstraints />
                         <ColumnConstraints />
                         <ColumnConstraints />
@@ -337,11 +390,13 @@
                         <ColumnConstraints />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="-Infinity" prefHeight="36.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
