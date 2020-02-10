@@ -226,9 +226,9 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtIssuedWeight" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtIssuedWeightOnKeyReleased" prefHeight="100.0" prefWidth="450.0" promptText="Issued Weight" style="-fx-background-color: ff0000;">
+                              <TextField fx:id="txtIssuedWeight" alignment="CENTER_RIGHT" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtIssuedWeightOnKeyReleased" prefHeight="100.0" prefWidth="450.0" promptText="Issued Weight" style="-fx-background-color: ff0000;">
                                  <font>
-                                    <Font name="System Bold" size="46.0" />
+                                    <Font name="System Bold" size="48.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets right="10.0" />
@@ -294,9 +294,9 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtReturnedWeight" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtReturnedWeightOnReleased" prefWidth="410.0" promptText="Returned Weight" style="-fx-background-color: #70b306;">
+                              <TextField fx:id="txtReturnedWeight" alignment="CENTER_RIGHT" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtReturnedWeightOnReleased" prefWidth="410.0" promptText="Returned Weight" style="-fx-background-color: #70b306;">
                                  <font>
-                                    <Font name="System Bold" size="46.0" />
+                                    <Font name="System Bold" size="48.0" />
                                  </font>
                               </TextField>
                               <Button fx:id="btnRefreshReturnedWeight" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#btnRefreshReturnedWeightOnAction" prefHeight="50.0" prefWidth="50.0">
