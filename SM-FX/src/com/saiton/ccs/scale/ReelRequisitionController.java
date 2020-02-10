@@ -64,6 +64,7 @@ import java.sql.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.RadioButton;
 
 public class ReelRequisitionController implements Initializable, Validatable,
         StagePassable {
@@ -157,6 +158,13 @@ public class ReelRequisitionController implements Initializable, Validatable,
     String one = "Issued";
     String zero = "Returned";
     boolean isReelLoaded = false;
+    @FXML
+    private Button btnAgingreport;
+    @FXML
+    private RadioButton rdbBrowse;
+    @FXML
+    private RadioButton rdbLog;
+
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Action Events">
@@ -537,6 +545,18 @@ public class ReelRequisitionController implements Initializable, Validatable,
         }
 
         return null;
+    }
+
+    @FXML
+    private void btnAgingreportOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void rdbBrowseOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void rdbLogOnAction(ActionEvent event) {
     }
 
 //</editor-fold>

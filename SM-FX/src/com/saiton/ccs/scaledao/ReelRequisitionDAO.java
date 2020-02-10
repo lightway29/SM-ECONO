@@ -484,8 +484,6 @@ public class ReelRequisitionDAO {
                             int[] val = ps.executeBatch();
                             for (int w : val) {
                                 if (w == 1) {
-//                        return true;
-                                    System.out.println("Entry state " + w);
                                 } else {
                                     return false;
                                 }
