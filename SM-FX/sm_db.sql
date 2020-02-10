@@ -269,13 +269,15 @@ CREATE TABLE `reel_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `reel_code` varchar(45) NOT NULL,
   `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `weight` double NOT NULL,
+  `issue_weight` double NOT NULL,
   `flag` int(11) NOT NULL,
+  `return_weight` double DEFAULT NULL,
+  `return_time_stamp` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `reel_log_fk1_idx` (`reel_code`),
   CONSTRAINT `reel_log_fk1` FOREIGN KEY (`reel_code`) REFERENCES `reel` (`reel_code`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -284,7 +286,7 @@ CREATE TABLE `reel_log` (
 
 LOCK TABLES `reel_log` WRITE;
 /*!40000 ALTER TABLE `reel_log` DISABLE KEYS */;
-INSERT INTO `reel_log` VALUES (1,'REL0001','2020-02-02 03:15:25',200,0),(2,'REL0001','2020-02-02 04:15:26',180,0),(3,'REL0002','2020-02-02 04:15:26',300,0);
+INSERT INTO `reel_log` VALUES (1,'REL0001','2020-02-10 17:43:04',200,0,180,'2020-02-12 17:35:21'),(2,'REL0001','2020-02-10 17:55:49',180,0,140,'2020-02-12 17:35:21'),(3,'REL0002','2020-02-10 17:43:04',300,0,200,'2020-02-13 17:35:21'),(4,'REL0001','2020-02-14 17:35:21',140,1,NULL,NULL);
 /*!40000 ALTER TABLE `reel_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -744,4 +746,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-02-10 21:48:17
+-- Dump completed on 2020-02-10 23:44:21
