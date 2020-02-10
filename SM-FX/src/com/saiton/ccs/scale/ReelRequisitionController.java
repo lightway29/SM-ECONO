@@ -1,5 +1,6 @@
 package com.saiton.ccs.scale;
 
+import arduino.Arduino;
 import com.saiton.ccs.uihandle.StagePassable;
 import com.saiton.ccs.validations.Validatable;
 import java.net.URL;
@@ -165,6 +166,13 @@ public class ReelRequisitionController implements Initializable, Validatable,
     @FXML
     private RadioButton rdbLog;
 
+    ScaleDAO scaleDAO = new ScaleDAO();
+    int baurdRate = 0;
+    String comPort = "";
+    String scaleName = "";
+    String scaleId = "";
+    
+    public static String reading = " ";
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Action Events">
@@ -237,14 +245,15 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
     @FXML
     private void btnCloseOnAction(ActionEvent event) {
-         stage.close();
-
-        
+        stage.close();
 
     }
 
     @FXML
     private void btnRefreshReturnedWeightOnAction(ActionEvent event) {
+
+       // scaleCofigLoader(cmbScale.getValue());
+        txtReturnedWeight.setText(getScaleReading());
 
     }
 
@@ -545,6 +554,63 @@ public class ReelRequisitionController implements Initializable, Validatable,
         }
 
         return null;
+    }
+
+    private void scaleCofigLoader(String scaleName) {
+
+        ArrayList<String> dataList = null;
+
+        dataList = scaleDAO.loadingScaleConfigs(scaleName);
+
+        if (dataList != null) {
+
+            scaleId = dataList.get(0);
+            scaleName = dataList.get(1);
+            comPort = dataList.get(2);
+            baurdRate = Integer.parseInt(dataList.get(3));
+            System.out.println("Data Read : scaleId - " + scaleId
+                    + " scaleName - " + scaleName
+                    + " comPort - " + comPort
+                    + " baurdRate - " + baurdRate);
+
+        }
+
+    }
+
+    private String getScaleReading() {
+
+
+        try {
+
+            Arduino arduino = new Arduino(comPort, baurdRate);
+            System.out.
+                    println("Connection Status - " + arduino.openConnection());
+
+
+            String s = arduino.serialRead(1);
+
+            System.out.println("---CurrentReading :-" + s);
+
+            arduino.closeConnection();
+
+
+            System.out.println("Sample Substring :" + s);
+
+
+            s = s.substring(s.indexOf("+") + 1, s.indexOf("kg"));
+            System.out.println("--- Frist Split :  " + s);
+
+            reading = s;
+
+        } catch (Exception e) {
+//            System.err.println("-----------------Splting Error-----------");
+//             e.printStackTrace();
+        }
+
+       
+
+        return reading;
+
     }
 
     @FXML
