@@ -62,6 +62,7 @@ import org.apache.poi.xssf.usermodel.*;
 
 import java.io.*;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -272,12 +273,24 @@ public class ReelRequisitionController implements Initializable, Validatable,
         if (isReelLoaded == true) {
 
             if (reelDAO.getDbFlag(txtItemCode.getText()) == "1") {
-                System.out.println("Issued");
-            } else if (reelDAO.getDbFlag(txtItemCode.getText()) == "0") {
-                System.out.println("Returned");
                 if (txtReturnedWeight.getText().isEmpty()) {
-                    System.out.println("Returned weight is empty");
+                    System.out.println("State is issued.Cannot log without returned weight");
                 }
+                
+                
+                
+                
+                
+            } else if (reelDAO.getDbFlag(txtItemCode.getText()) == "0") {
+                System.out.println("State is Returned. Only to issue");
+                
+                
+              boolean isDateSaved =  reelDAO.insertIssueLog(
+                      txtItemCode.getText(), 
+                      LocalDate.now().toString(),
+                      scaleName);
+                
+                
 
             }
         }

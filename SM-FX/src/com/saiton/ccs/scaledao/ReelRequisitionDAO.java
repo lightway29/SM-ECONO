@@ -536,5 +536,63 @@ public class ReelRequisitionDAO {
         return false;
 
     }
+    
+    public Boolean insertIssueLog(
+            String reelCode,
+            String issue_timestamp,
+            String issue_weight
+) {
+        String encodedReelCode = ESAPI.encoder().encodeForSQL(ORACLE_CODEC,
+                reelCode);
+        String encodedIssueTimestamp = ESAPI.encoder().
+                encodeForSQL(ORACLE_CODEC, issue_timestamp);
+        String encodedIssueWeight = ESAPI.encoder().
+                encodeForSQL(ORACLE_CODEC, issue_weight);
+
+
+        if (star.con == null) {
+            log.error("Databse connection failiure.");
+            return false;
+        } else {
+            try {
+
+                PreparedStatement ps = star.con.prepareStatement(
+                        "INSERT INTO `reel_log` ("
+                                + "`reel_code`,"
+                                + " `time_stamp`,"
+                                + " `issue_weight`"
+                                + " ) "
+                        + "VALUES(?,?,?,?)");
+                
+                 
+
+
+                ps.setString(1, encodedReelCode);
+                ps.setString(2, encodedIssueTimestamp);
+                ps.setString(3, encodedIssueWeight);
+
+
+                int val = ps.executeUpdate();
+
+                if (val == 1) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            } catch (SQLException e) {
+
+                if (e instanceof SQLException) {
+                    log.error("Exception tag --> " + "Invalid sql statement "
+                            + e.getMessage());
+                }
+                return false;
+
+            } catch (Exception e) {
+                log.error("Exception tag --> " + "Error");
+                return false;
+            }
+        }
+    }
 
 }
