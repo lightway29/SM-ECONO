@@ -298,14 +298,14 @@ public class ReelRequisitionDAO {
                     ArrayList<String> list = new ArrayList<String>();
 
                     timeStamp = r.getString("time_stamp");
-                    flag = r.getString("flag");
+                    
                     issueWeight = r.getString("issue_weight");
                     returnTimeStamp = r.getString("return_time_stamp");
                     returnWeight = r.getString("return_weight");
                     
 
                     list.add(timeStamp);
-                    list.add(flag);
+                    
                     list.add(issueWeight);
                     list.add(returnTimeStamp);
                     list.add(returnWeight);

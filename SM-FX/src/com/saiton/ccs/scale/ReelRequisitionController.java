@@ -132,13 +132,6 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
     private Stage stage;
 
-    @FXML
-    private TableColumn<ReelLog, String> tcTimeStamp;
-    @FXML
-    private TableColumn<ReelLog, String> tcFlag;
-    @FXML
-    private TableColumn<ReelLog, String> tcWeight;
-
     private ObservableList tableReelLogData = FXCollections.
             observableArrayList();
 
@@ -152,6 +145,8 @@ public class ReelRequisitionController implements Initializable, Validatable,
     private PopOver reelPop;
 
     private MessageBox mb;
+
+    String currentWeight = null;
 
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     Date date = new Date();
@@ -178,12 +173,23 @@ public class ReelRequisitionController implements Initializable, Validatable,
     @FXML
     private ComboBox<String> cmbScale;
 
+    @FXML
+    private TableColumn<ReelLog, String> tcTimeStamp;
+
+    @FXML
+    private TableColumn<ReelLog, String> tcWeight;
+
+    @FXML
+    private TableColumn<ReelLog, String> tcReturnTimeStamp;
+    @FXML
+    private TableColumn<ReelLog, String> tcReturnWeight;
+
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Action Events">
     @FXML
     private void btnAgingreportOnAction(ActionEvent event) {
-        if (rdbBrowse.isSelected()&& !txtItemCode.getText().isEmpty()) {
-             HashMap param = new HashMap();
+        if (rdbBrowse.isSelected() && !txtItemCode.getText().isEmpty()) {
+            HashMap param = new HashMap();
             param.put("reel_code", txtItemCode.getText());
             //param.put("from_reel_code", txtItemCode.getText());
 
@@ -196,14 +202,13 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
             r.setVisible(true);
 
-       
         }
     }
 
     @FXML
     private void rdbBrowseOnAction(ActionEvent event) {
         rdbLog.setSelected(false);
-        
+
         modeSelection();
 
     }
@@ -274,23 +279,21 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
             if (reelDAO.getDbFlag(txtItemCode.getText()) == "1") {
                 if (txtReturnedWeight.getText().isEmpty()) {
-                    System.out.println("State is issued.Cannot log without returned weight");
+                    System.out.println(
+                            "State is issued.Cannot log without returned weight");
                 }
-                
-                
-                
-                
-                
+
             } else if (reelDAO.getDbFlag(txtItemCode.getText()) == "0") {
                 System.out.println("State is Returned. Only to issue");
-                
-                
-              boolean isDateSaved =  reelDAO.insertIssueLog(
-                      txtItemCode.getText(), 
-                      LocalDate.now().toString(),
-                      scaleName);
-                
-                
+
+                boolean isDateSaved = reelDAO.insertIssueLog(
+                        txtItemCode.getText(),
+                        LocalDate.now().toString(),
+                        txtIssuedWeight.getText());
+
+                if (isDateSaved) {
+
+                }
 
             }
         }
@@ -392,10 +395,16 @@ public class ReelRequisitionController implements Initializable, Validatable,
         tcTimeStamp.setCellValueFactory(
                 new PropertyValueFactory<ReelLog, String>(
                         "colTimeStamp"));
-        tcFlag.setCellValueFactory(new PropertyValueFactory<ReelLog, String>(
-                "colFlag"));
+
         tcWeight.setCellValueFactory(new PropertyValueFactory<ReelLog, String>(
                 "colWeight"));
+        
+               tcReturnTimeStamp.setCellValueFactory(
+                new PropertyValueFactory<ReelLog, String>(
+                        "coltcReturnTimeStamp"));
+
+        tcReturnWeight.setCellValueFactory(new PropertyValueFactory<ReelLog, String>(
+                "coltcReturnWeight"));
 
         tblItemList.setItems(tableReelLogData);
 
@@ -579,9 +588,10 @@ public class ReelRequisitionController implements Initializable, Validatable,
                         reelLog = new ReelLog();
 
                         reelLog.colTimeStamp.setValue(reelLogInfo.get(i).get(0));
-                        reelLog.colFlag.setValue(getFlag(Integer.parseInt(
-                                reelLogInfo.get(i).get(1))));
-                        reelLog.colWeight.setValue(reelLogInfo.get(i).get(2));
+
+                        reelLog.colWeight.setValue(reelLogInfo.get(i).get(1));
+                        reelLog.coltcReturnTimeStamp.setValue(reelLogInfo.get(i).get(2));
+                        reelLog.coltcReturnWeight.setValue(reelLogInfo.get(i).get(2));
 
                         tableReelLogData.add(reelLog);
                     }
@@ -702,23 +712,36 @@ public class ReelRequisitionController implements Initializable, Validatable,
 //</editor-fold>
     public class ReelLog {
 
+//  tcReturnTimeStamp;
+//tcReturnWeight;
         public SimpleStringProperty colTimeStamp = new SimpleStringProperty(
                 "tcTimeStamp");
-        public SimpleStringProperty colFlag = new SimpleStringProperty(
-                "tcFlag");
+
         public SimpleStringProperty colWeight = new SimpleStringProperty(
                 "tcWeight");
+
+        public SimpleStringProperty coltcReturnTimeStamp
+                = new SimpleStringProperty(
+                        "tcReturnTimeStamp");
+
+        public SimpleStringProperty coltcReturnWeight
+                = new SimpleStringProperty(
+                        "tcReturnWeight");
 
         public String getColTimeStamp() {
             return colTimeStamp.get();
         }
 
-        public String getColFlag() {
-            return colFlag.get();
-        }
-
         public String getColWeight() {
             return colWeight.get();
+        }
+
+        public String getColtcReturnTimeStamp() {
+            return coltcReturnTimeStamp.get();
+        }
+
+        public String getColtcReturnWeight() {
+            return coltcReturnWeight.get();
         }
 
     }
