@@ -537,6 +537,49 @@ public class ReelRequisitionDAO {
 
     }
     
+     public boolean updateFlag(
+            String reelCode,
+            int status
+    ) {
+
+        String encodedIssueNoteId = ESAPI.encoder().encodeForSQL(ORACLE_CODEC,
+                reelCode);
+
+        if (star.con == null) {
+            log.error("Databse connection failiure.");
+            return false;
+        } else {
+            try {
+                String query = "UPDATE reel set "
+                        + "flag=?"
+                        + " WHERE reel_code =?  ";
+                PreparedStatement ps = star.con.prepareStatement(query);
+
+                ps.setInt(1, status);
+                ps.setString(2, reelCode);
+
+                int val = ps.executeUpdate();
+                if (val == 1) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            } catch (NullPointerException | SQLException e) {
+                if (e instanceof NullPointerException) {
+                    log.error("Exception tag --> " + "Empty entry passed");
+                } else if (e instanceof SQLException) {
+                    log.error("Exception tag --> " + "Invalid sql statement "
+                            + e.getMessage());
+                }
+                return false;
+            } catch (Exception e) {
+                log.error("Exception tag --> " + "Error");
+                return false;
+            }
+        }
+    }
+    
     public Boolean insertIssueLog(
             String reelCode,
             String issue_timestamp,

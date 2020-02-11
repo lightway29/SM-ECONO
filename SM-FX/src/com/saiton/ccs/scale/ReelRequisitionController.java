@@ -275,12 +275,16 @@ public class ReelRequisitionController implements Initializable, Validatable,
     @FXML
     private void btnLogOnAction(ActionEvent event) {
         System.out.println("Issued");
-        if (isReelLoaded == true) {
+//        if (isReelLoaded == true) {
 
             if (reelDAO.getDbFlag(txtItemCode.getText()) == "1") {
                 if (txtReturnedWeight.getText().isEmpty()) {
                     System.out.println(
                             "State is issued.Cannot log without returned weight");
+                    
+                    
+                    
+                    
                 }
 
             } else if (reelDAO.getDbFlag(txtItemCode.getText()) == "0") {
@@ -290,13 +294,22 @@ public class ReelRequisitionController implements Initializable, Validatable,
                         txtItemCode.getText(),
                         LocalDate.now().toString(),
                         txtIssuedWeight.getText());
-
-                if (isDateSaved) {
-
+                
+                boolean isDataUpdated = reelDAO.updateFlag(txtItemCode.getText(), 1);
+                System.out.println("Save - "+isDateSaved);
+                System.out.println("Updated - "+isDataUpdated);
+                
+                if (isDateSaved && isDataUpdated) {
+                        System.out.println("Data Inserted.");
+                        tableReelLogData.clear();
+                        loadReelInfo();
+                        
                 }
+                
+                
 
             }
-        }
+//        }
 
     }
 
@@ -591,7 +604,7 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
                         reelLog.colWeight.setValue(reelLogInfo.get(i).get(1));
                         reelLog.coltcReturnTimeStamp.setValue(reelLogInfo.get(i).get(2));
-                        reelLog.coltcReturnWeight.setValue(reelLogInfo.get(i).get(2));
+                        reelLog.coltcReturnWeight.setValue(reelLogInfo.get(i).get(3));
 
                         tableReelLogData.add(reelLog);
                     }
