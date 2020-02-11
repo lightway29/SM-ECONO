@@ -360,12 +360,12 @@
                         </HBox>
                         <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" GridPane.columnSpan="4" GridPane.rowIndex="4">
                            <children>
-                              <Label fx:id="cmbScale" prefWidth="170.0" text="Scale">
+                              <Label prefWidth="170.0" text="Scale">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="cmbScale" prefHeight="50.0" prefWidth="445.0" promptText="Scale" />
+                              <ComboBox fx:id="cmbScale" onAction="#cmbScaleOnAction" prefHeight="50.0" prefWidth="445.0" promptText="Scale" />
                            </children>
                            <GridPane.margin>
                               <Insets left="20.0" />

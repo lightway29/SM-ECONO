@@ -89,7 +89,9 @@ public enum ReportPath {
     PATH_FUNCTION_REGISTRATION_REPORT(".//Reports//FunctionReceipt.jasper"),
     PATH_WEIGHT_ONE_REPORT(".//Reports//WeightScale1.jasper"),
     PATH_BARCODE_REPORT(".//Reports//Barcode.jasper"),
+    PATH_AGING_REPORT(".//Reports//AgingReport.jasper"),
     PATH_WEIGHT_TWO_REPORT(".//Reports//WeightScale2.jasper");
+    
 
     private final String val;
 

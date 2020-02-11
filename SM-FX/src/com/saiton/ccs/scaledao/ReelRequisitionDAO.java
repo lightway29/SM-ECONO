@@ -267,10 +267,10 @@ public class ReelRequisitionDAO {
                 reelCode);
 
         String timeStamp = null;
-        String weight = null;
+        String issueWeight = null;
         String flag = null;
-        String description = null;
-        String pax = null;
+        String returnWeight = null;
+        String returnTimeStamp = null;
 
         ArrayList<ArrayList<String>> mainList
                 = new ArrayList<ArrayList<String>>();
@@ -299,11 +299,16 @@ public class ReelRequisitionDAO {
 
                     timeStamp = r.getString("time_stamp");
                     flag = r.getString("flag");
-                    weight = r.getString("weight");
+                    issueWeight = r.getString("issue_weight");
+                    returnTimeStamp = r.getString("return_time_stamp");
+                    returnWeight = r.getString("return_weight");
+                    
 
                     list.add(timeStamp);
                     list.add(flag);
-                    list.add(weight);
+                    list.add(issueWeight);
+                    list.add(returnTimeStamp);
+                    list.add(returnWeight);
 
                     mainList.add(list);
 

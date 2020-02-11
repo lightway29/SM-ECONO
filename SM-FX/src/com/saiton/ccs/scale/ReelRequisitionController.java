@@ -65,6 +65,7 @@ import java.sql.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 
 public class ReelRequisitionController implements Initializable, Validatable,
@@ -171,11 +172,51 @@ public class ReelRequisitionController implements Initializable, Validatable,
     String comPort = "";
     String scaleName = "";
     String scaleId = "";
-    
+
     public static String reading = " ";
+    @FXML
+    private ComboBox<String> cmbScale;
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Action Events">
+    @FXML
+    private void btnAgingreportOnAction(ActionEvent event) {
+        if (rdbBrowse.isSelected()&& !txtItemCode.getText().isEmpty()) {
+             HashMap param = new HashMap();
+            param.put("reel_code", txtItemCode.getText());
+            //param.put("from_reel_code", txtItemCode.getText());
+
+            File fileOne
+                    = new File(
+                            ReportPath.PATH_AGING_REPORT.
+                            toString());
+            String img = fileOne.getAbsolutePath();
+            ReportGenerator r = new ReportGenerator(img, param);
+
+            r.setVisible(true);
+
+       
+        }
+    }
+
+    @FXML
+    private void rdbBrowseOnAction(ActionEvent event) {
+        rdbLog.setSelected(false);
+        
+        modeSelection();
+
+    }
+
+    @FXML
+    private void rdbLogOnAction(ActionEvent event) {
+        rdbBrowse.setSelected(false);
+        modeSelection();
+    }
+
+    @FXML
+    private void cmbScaleOnAction(ActionEvent event) {
+    }
+
     @FXML
     private void btnRefreshItemCodeOnAction(ActionEvent event) {
 
@@ -252,7 +293,7 @@ public class ReelRequisitionController implements Initializable, Validatable,
     @FXML
     private void btnRefreshReturnedWeightOnAction(ActionEvent event) {
 
-       // scaleCofigLoader(cmbScale.getValue());
+        scaleCofigLoader(cmbScale.getValue());
         txtReturnedWeight.setText(getScaleReading());
 
     }
@@ -348,6 +389,10 @@ public class ReelRequisitionController implements Initializable, Validatable,
         //txtItemCode.setText(reelDAO.generateID());
         txtItemCode.requestFocus();
         mb = SimpleMessageBoxFactory.createMessageBox();
+        rdbBrowse.setSelected(true);
+        rdbLog.setSelected(false);
+        modeSelection();
+        loadScaleNames();
 
     }
 
@@ -577,8 +622,25 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
     }
 
-    private String getScaleReading() {
+    private void loadScaleNames() {
 
+        cmbScale.getItems().clear();
+        ArrayList<String> list = null;
+        list = scaleDAO.loadScaleItem();
+        if (list != null) {
+            try {
+                ObservableList<String> List = FXCollections.observableArrayList(
+                        list);
+                cmbScale.setItems(List);
+                cmbScale.setValue(List.get(0));
+            } catch (Exception e) {
+
+            }
+
+        }
+    }
+
+    private String getScaleReading() {
 
         try {
 
@@ -586,16 +648,13 @@ public class ReelRequisitionController implements Initializable, Validatable,
             System.out.
                     println("Connection Status - " + arduino.openConnection());
 
-
             String s = arduino.serialRead(1);
 
             System.out.println("---CurrentReading :-" + s);
 
             arduino.closeConnection();
 
-
             System.out.println("Sample Substring :" + s);
-
 
             s = s.substring(s.indexOf("+") + 1, s.indexOf("kg"));
             System.out.println("--- Frist Split :  " + s);
@@ -607,22 +666,24 @@ public class ReelRequisitionController implements Initializable, Validatable,
 //             e.printStackTrace();
         }
 
-       
-
         return reading;
 
     }
 
-    @FXML
-    private void btnAgingreportOnAction(ActionEvent event) {
-    }
+    private void modeSelection() {
 
-    @FXML
-    private void rdbBrowseOnAction(ActionEvent event) {
-    }
+        if (rdbLog.isSelected() && !rdbBrowse.isSelected()) {
+            btnAgingreport.setVisible(false);
+            btnRePrint.setVisible(true);
+            btnRefreshReturnedWeight.setVisible(true);
+            btnLog.setVisible(true);
+        } else if (rdbBrowse.isSelected() && !rdbLog.isSelected()) {
+            btnAgingreport.setVisible(true);
+            btnRePrint.setVisible(true);
+            btnRefreshReturnedWeight.setVisible(false);
+            btnLog.setVisible(false);
+        }
 
-    @FXML
-    private void rdbLogOnAction(ActionEvent event) {
     }
 
 //</editor-fold>
