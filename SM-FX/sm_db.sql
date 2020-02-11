@@ -234,7 +234,7 @@ CREATE TABLE `reel` (
   `remaining_qty` int(11) DEFAULT NULL,
   `size` double DEFAULT NULL,
   `current_weight` double DEFAULT NULL,
-  `flag` int(11) DEFAULT NULL,
+  `flag` int(11) NOT NULL DEFAULT '0',
   `reel_fb` varchar(45) DEFAULT NULL,
   `label_print_count` varchar(45) NOT NULL DEFAULT '0',
   `reel_liner` varchar(45) DEFAULT NULL,
@@ -254,7 +254,7 @@ CREATE TABLE `reel` (
 
 LOCK TABLES `reel` WRITE;
 /*!40000 ALTER TABLE `reel` DISABLE KEYS */;
-INSERT INTO `reel` VALUES (1,'REL0001','250KL67.5','DUPLEX','17/070/OFF-85','SE20380293842098','Paper Roll','Thickness target paper','REELSTORE1',900,250,500,22344,1000,640,640,5,900,1,'B','0','K',NULL,NULL,NULL,NULL,'2020-02-02 09:18:07'),(2,'REL0002','250KL67.5','DUPLEX','17/070/OFF-85','SE20380293842098','Paper Roll','Thickness target paper','REELSTORE1',900,250,500,22344,1000,640,640,5,900,1,'B','0','K',NULL,NULL,NULL,NULL,'2020-02-02 09:18:07');
+INSERT INTO `reel` VALUES (1,'REL0001','250KL67.5','DUPLEX','17/070/OFF-85','SE20380293842098','Paper Roll','Thickness target paper','REELSTORE1',900,250,500,22344,1000,640,640,5,900,1,'B','0','K',NULL,NULL,NULL,NULL,'2020-02-10 20:06:11'),(2,'REL0002','250KL67.5','DUPLEX','17/070/OFF-85','SE20380293842098','Paper Roll','Thickness target paper','REELSTORE1',900,250,500,22344,1000,640,640,5,900,1,'B','0','K',NULL,NULL,NULL,NULL,'2020-02-02 09:18:07');
 /*!40000 ALTER TABLE `reel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -270,7 +270,7 @@ CREATE TABLE `reel_log` (
   `reel_code` varchar(45) NOT NULL,
   `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `issue_weight` double NOT NULL,
-  `flag` int(11) NOT NULL,
+  `flag` int(11) NOT NULL DEFAULT '0',
   `return_weight` double DEFAULT NULL,
   `return_time_stamp` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -415,7 +415,7 @@ CREATE TABLE `scale` (
   KEY `scale_fk2_idx` (`customer_code`),
   CONSTRAINT `scale_fk1` FOREIGN KEY (`scale_id`) REFERENCES `scale_register` (`scale_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `scale_fk2` FOREIGN KEY (`customer_code`) REFERENCES `customer` (`customer_code`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -746,4 +746,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-02-10 23:44:21
+-- Dump completed on 2020-02-11  7:19:39
