@@ -277,7 +277,10 @@ public class ReelRequisitionController implements Initializable, Validatable,
         System.out.println("Issued");
 //        if (isReelLoaded == true) {
 
-            if (reelDAO.getDbFlag(txtItemCode.getText()) == "1") {
+       
+                System.out.println("Flag - "+reelDAO.getDbFlag(txtItemCode.getText()));
+        
+            if (reelDAO.getDbFlag(txtItemCode.getText()).equals("1")) {
                 if (txtReturnedWeight.getText().isEmpty()) {
                     System.out.println(
                             "State is issued.Cannot log without returned weight");
@@ -287,7 +290,7 @@ public class ReelRequisitionController implements Initializable, Validatable,
                     
                 }
 
-            } else if (reelDAO.getDbFlag(txtItemCode.getText()) == "0") {
+            } else if (reelDAO.getDbFlag(txtItemCode.getText()).equals("0")) {
                 System.out.println("State is Returned. Only to issue");
 
                 boolean isDateSaved = reelDAO.insertIssueLog(
@@ -507,10 +510,10 @@ public class ReelRequisitionController implements Initializable, Validatable,
         txtReelNo.clear();
         txtLogDate.clear();
         txtItemCode.clear();
-        //tableReelLogData.clear();
+        tableReelLogData.clear();
         isReelLoaded = false;
         txtItemCode.requestFocus();
-        //reelData.clear();
+        reelData.clear();
 
     }
 
