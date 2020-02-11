@@ -69,7 +69,7 @@
                               <Insets right="35.0" />
                            </GridPane.margin>
                         </HBox>
-                        <TableView prefHeight="420.0" prefWidth="1079.0" GridPane.columnSpan="10" GridPane.rowIndex="3" GridPane.rowSpan="7">
+                        <TableView fx:id="tblWorkData" prefHeight="420.0" prefWidth="1079.0" GridPane.columnSpan="10" GridPane.rowIndex="3" GridPane.rowSpan="7">
                           <columns>
                             <TableColumn fx:id="tcWeightScaleID" prefWidth="75.0" text="Weight Scale ID" />
                             <TableColumn fx:id="tcScale" prefWidth="50.0" text="Scale" />

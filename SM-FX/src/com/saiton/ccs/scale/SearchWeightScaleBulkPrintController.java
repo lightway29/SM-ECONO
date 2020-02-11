@@ -6,8 +6,10 @@ import com.saiton.ccs.msgbox.MessageBox;
 import com.saiton.ccs.msgbox.SimpleMessageBoxFactory;
 import com.saiton.ccs.popup.ItemInfoPopup;
 import com.saiton.ccs.popup.ServiceInfoPopup;
+import com.saiton.ccs.printerservice.ReportPath;
 import com.saiton.ccs.salesdao.ServiceDAO;
 import com.saiton.ccs.scaledao.ReelRequisitionDAO;
+import com.saiton.ccs.uihandle.ReportGenerator;
 import com.saiton.ccs.uihandle.StagePassable;
 import com.saiton.ccs.uihandle.UiMode;
 import com.saiton.ccs.validations.CustomTableViewValidationImpl;
@@ -23,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,69 +63,75 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 
     //<editor-fold defaultstate="collapsed" desc="Initcomponent">
     @FXML
-    private TableColumn<?, ?> tcCoreWeight;
-
-    @FXML
     private Button btnClose;
 
     @FXML
-    private TableColumn<?, ?> tcWeightScaleID;
+    private TableColumn<Item, String> tcCoreWeight;
 
     @FXML
-    private TableColumn<?, ?> tcGrossWeight;
+    private TableColumn<Item, String> tcWeightScaleID;
 
     @FXML
-    private TableColumn<?, ?> tcBatchNo;
+    private TableColumn<Item, String> tcGrossWeight;
 
     @FXML
-    private TableColumn<?, ?> tcJobNo;
+    private TableColumn<Item, String> tcBatchNo;
 
     @FXML
-    private TableColumn<?, ?> tcNetWeight;
+    private TableColumn<Item, String> tcJobNo;
 
     @FXML
-    private DatePicker dtpFromDate;
+    private TableColumn<Item, String> tcNetWeight;
 
     @FXML
-    private TableColumn<?, ?> tcLenght;
+    private TableColumn<Item, String> tcLenght;
 
     @FXML
-    private TableColumn<?, ?> tcWidth;
+    private TableColumn<Item, String> tcWidth;
 
     @FXML
-    private TableColumn<?, ?> tcGauge;
+    private TableColumn<Item, String> tcGauge;
 
     @FXML
-    private TableColumn<?, ?> tcCustomer;
+    private TableColumn<Item, String> tcCustomer;
 
     @FXML
-    private TableColumn<?, ?> tcReelNo;
+    private TableColumn<Item, String> tcReelNo;
 
     @FXML
-    private TableColumn<?, ?> tcQty;
+    private TableColumn<Item, String> tcQty;
+
+    @FXML
+    private TableColumn<Item, String> tcMachine;
+
+    @FXML
+    private TableColumn<Item, String> tcDate;
+
+    @FXML
+    private TableColumn<Item, String> tcScale;
+
+    @FXML
+    private TableColumn<Item, String> tcEPFNo;
+
+    @FXML
+    private TableColumn<Item, String> tcDescription;
+
+    @FXML
+    private TableColumn<Item, String> tcSize;
+
+    @FXML
+    private TableView<Item> tblWorkData;
+
+    private ObservableList tableData = FXCollections.
+            observableArrayList();
 
     @FXML
     private DatePicker dtpToDate;
 
     @FXML
-    private TableColumn<?, ?> tcMachine;
+    private DatePicker dtpFromDate;
 
-    @FXML
-    private TableColumn<?, ?> tcDate;
-
-    @FXML
-    private TableColumn<?, ?> tcScale;
-
-    @FXML
-    private TableColumn<?, ?> tcEPFNo;
-
-    @FXML
-    private TableColumn<?, ?> tcDescription;
-
-    @FXML
-    private TableColumn<?, ?> tcSize;
 //</editor-fold>
-
     private Stage stage;
     @FXML
     private TextField txtFromItemCode;
@@ -144,15 +153,12 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     private Button btnUploadReelData;
 
     //<editor-fold defaultstate="collapsed" desc="Key Events">
-    
     @FXML
     private void txtToItemCodeOnKeyReleased(KeyEvent event) {
     }
-    
-    
+
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Action Events">
-    
     @FXML
     private void btnRefreshItemCodeOnAction(ActionEvent event) {
     }
@@ -163,6 +169,21 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 
     @FXML
     private void btnPrintOnAction(ActionEvent event) {
+        if (!txtFromItemCode.getText().isEmpty()) {
+            HashMap param = new HashMap();
+            param.put("from_reel_code", txtFromItemCode.getText());
+            param.put("to_reel_code", txtToItemCode.getText());
+
+            File fileOne
+                    = new File(
+                            ReportPath.PATH_BARCODE_REPORT.
+                            toString());
+            String img = fileOne.getAbsolutePath();
+            ReportGenerator r = new ReportGenerator(img, param);
+
+            r.setVisible(true);
+
+        }
     }
 
     @FXML
@@ -214,19 +235,81 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-//        tcServiceId.setCellValueFactory(new PropertyValueFactory<Item, String>(
-//                "colServiceId"));
-//        tcServiceName.setCellValueFactory(
-//                new PropertyValueFactory<Item, String>(
-//                        "colServiceName"));
-//        tcServicePrice.setCellValueFactory(
-//                new PropertyValueFactory<Item, String>(
-//                        "colServicePrice"));
-//        tcServiceDescription.setCellValueFactory(
-//                new PropertyValueFactory<Item, String>(
-//                        "colServiceDescription"));
-//
-//        tblItemList.setItems(TableItemData);
+        tcCoreWeight.setCellValueFactory(
+                new PropertyValueFactory<Item, String>(
+                        "coltcCoreWeight"));
+
+        tcWeightScaleID.setCellValueFactory(
+                new PropertyValueFactory<Item, String>(
+                        "coltcWeightScaleID"));
+
+        tcGrossWeight.setCellValueFactory(
+                new PropertyValueFactory<Item, String>(
+                        "coltcGrossWeight"));
+
+        tcBatchNo.setCellValueFactory(
+                new PropertyValueFactory<Item, String>(
+                        "coltcBatchNo"));
+
+        tcJobNo.setCellValueFactory(
+                new PropertyValueFactory<Item, String>(
+                        "coltcJobNo"));
+
+        tcNetWeight.setCellValueFactory(
+                new PropertyValueFactory<Item, String>(
+                        "coltcNetWeight"));
+
+        tcLenght.setCellValueFactory(
+                new PropertyValueFactory<Item, String>(
+                        "coltcLenght"));
+
+        tcWidth.setCellValueFactory(
+                new PropertyValueFactory<Item, String>(
+                        "coltcWidth"));
+
+        tcGauge.setCellValueFactory(
+                new PropertyValueFactory<Item, String>(
+                        "coltcGauge"));
+
+        tcCustomer.setCellValueFactory(
+                new PropertyValueFactory<Item, String>(
+                        "coltcCustomer"));
+
+        tcReelNo.setCellValueFactory(
+                new PropertyValueFactory<Item, String>(
+                        "coltcReelNo"));
+
+        tcQty.setCellValueFactory(
+                new PropertyValueFactory<Item, String>(
+                        "coltcQty"));
+
+        tcMachine.setCellValueFactory(
+                new PropertyValueFactory<Item, String>(
+                        "coltcMachine"));
+
+        tcDate.setCellValueFactory(
+                new PropertyValueFactory<Item, String>(
+                        "coltcDate"));
+
+        tcScale.setCellValueFactory(
+                new PropertyValueFactory<Item, String>(
+                        "coltcScale"));
+
+        tcEPFNo.setCellValueFactory(
+                new PropertyValueFactory<Item, String>(
+                        "coltcEPFNo"));
+
+        tcDescription.setCellValueFactory(
+                new PropertyValueFactory<Item, String>(
+                        "coltcDescription"));
+      
+
+        tcSize.setCellValueFactory(
+                new PropertyValueFactory<Item, String>(
+                        "coltcSize"));
+
+        tblWorkData.setItems(tableData);
+
 //
         mb = SimpleMessageBoxFactory.createMessageBox();
 //        txtServiceId.setText(serviceDAO.generateID());
@@ -584,8 +667,6 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 //                        !fav.validTableView(tblItemList),
 //                        ErrorMessages.EmptyListView));
     }
-
-    
 
     public class Item {
 
