@@ -45,12 +45,12 @@
                         </AnchorPane>
                         <HBox id="HBox" alignment="CENTER_LEFT" layoutX="570.0" layoutY="168.0" spacing="5.0" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="1">
                            <children>
-                              <Label prefWidth="150.0" text="From Date">
+                              <Label prefWidth="150.0" text="From Date" visible="false">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <DatePicker fx:id="dtpFromDate" onAction="#dtpFromDateOnAction" prefHeight="50.0" prefWidth="200.0" />
+                              <DatePicker fx:id="dtpFromDate" onAction="#dtpFromDateOnAction" prefHeight="50.0" prefWidth="200.0" visible="false" />
                            </children>
                            <GridPane.margin>
                               <Insets right="35.0" />
@@ -58,12 +58,12 @@
                         </HBox>
                         <HBox id="HBox" alignment="CENTER_LEFT" layoutX="570.0" layoutY="50.0" spacing="5.0" GridPane.columnIndex="7" GridPane.columnSpan="3" GridPane.rowIndex="1">
                            <children>
-                              <Label prefWidth="150.0" text="To Date">
+                              <Label prefWidth="150.0" text="To Date" visible="false">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <DatePicker fx:id="dtpToDate" onAction="#dtpToDateOnAction" prefHeight="50.0" prefWidth="200.0" />
+                              <DatePicker fx:id="dtpToDate" onAction="#dtpToDateOnAction" prefHeight="50.0" prefWidth="200.0" visible="false" />
                            </children>
                            <GridPane.margin>
                               <Insets right="35.0" />
@@ -159,7 +159,7 @@
                                     <Insets />
                                  </HBox.margin>
                               </Label>
-                              <CheckBox fx:id="chbPendingPrints" alignment="CENTER" mnemonicParsing="false" onAction="#chbPendingPrintsOnAction" selected="true" />
+                              <CheckBox fx:id="chbPendingPrints" alignment="CENTER" mnemonicParsing="false" onAction="#chbPendingPrintsOnAction" />
                            </children>
                            <opaqueInsets>
                               <Insets bottom="10.0" />
@@ -215,7 +215,7 @@
                                     <Insets />
                                  </HBox.margin>
                               </Label>
-                              <CheckBox fx:id="chbWorkInProgress" alignment="CENTER" mnemonicParsing="false" onAction="#chbWorkInProgressOnAction" selected="true" />
+                              <CheckBox fx:id="chbWorkInProgress" alignment="CENTER" mnemonicParsing="false" onAction="#chbWorkInProgressOnAction" />
                            </children>
                            <opaqueInsets>
                               <Insets bottom="10.0" />

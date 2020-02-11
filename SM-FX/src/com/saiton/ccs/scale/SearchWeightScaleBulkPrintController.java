@@ -152,9 +152,15 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     @FXML
     private Button btnUploadReelData;
 
+    Item item = new Item();
+
     //<editor-fold defaultstate="collapsed" desc="Key Events">
     @FXML
     private void txtToItemCodeOnKeyReleased(KeyEvent event) {
+          if (event.getCode().equals(KeyCode.ENTER)) {
+        loadReelInfo();
+                }
+        
     }
 
 //</editor-fold>
@@ -165,6 +171,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 
     @FXML
     private void chbPendingPrintsOnAction(ActionEvent event) {
+        chbWorkInProgress.setSelected(false);
     }
 
     @FXML
@@ -188,6 +195,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 
     @FXML
     private void chbWorkInProgressOnAction(ActionEvent event) {
+        chbPendingPrints.setSelected(false);
     }
 
     @FXML
@@ -302,7 +310,6 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
         tcDescription.setCellValueFactory(
                 new PropertyValueFactory<Item, String>(
                         "coltcDescription"));
-      
 
         tcSize.setCellValueFactory(
                 new PropertyValueFactory<Item, String>(
@@ -314,6 +321,13 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
         mb = SimpleMessageBoxFactory.createMessageBox();
 //        txtServiceId.setText(serviceDAO.generateID());
 //        btnDelete.setVisible(false);
+        
+        
+        chbWorkInProgress.setSelected(true);
+        
+        loadWorkInProgress();
+        
+        
 
     }
 
@@ -668,37 +682,285 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 //                        ErrorMessages.EmptyListView));
     }
 
+    private boolean loadReelInfo() {
+
+        boolean isDataAvailable = false;
+
+        try {
+
+            //reelData.clear();
+            ArrayList<ArrayList<String>> reelLogInfo
+                    = new ArrayList<ArrayList<String>>();
+
+            ArrayList<ArrayList<String>> list = reelDAO.
+                    reelLogDetailsBulk(txtFromItemCode.getText(), txtToItemCode.
+                            getText());
+
+            isDataAvailable = true;
+
+            if (list != null) {
+
+                for (int i = 0; i < list.size(); i++) {
+
+                    reelLogInfo.add(list.get(i));
+                }
+
+                if (reelLogInfo != null && reelLogInfo.size() > 0) {
+                    for (int i = 0; i < reelLogInfo.size(); i++) {
+
+                        item = new Item();
+
+                        item.coltcCoreWeight.setValue(reelLogInfo.get(i).get(0));
+                        item.coltcWeightScaleID.setValue(reelLogInfo.get(i).get(1));
+                        item.coltcGrossWeight.setValue(reelLogInfo.get(i).get(2));
+                        item.coltcBatchNo.setValue(reelLogInfo.get(i).get(3));
+                        item.coltcJobNo.setValue(reelLogInfo.get(i).get(4));
+                        item.coltcNetWeight.setValue(reelLogInfo.get(i).get(5));
+                        item.coltcLenght.setValue(reelLogInfo.get(i).get(6));
+                        item.coltcWidth.setValue(reelLogInfo.get(i).get(7));
+                        item.coltcGauge.setValue(reelLogInfo.get(i).get(8));
+                        item.coltcCustomer.setValue(reelLogInfo.get(i).get(9));
+                        item.coltcReelNo.setValue(reelLogInfo.get(i).get(10));
+                        item.coltcQty.setValue(reelLogInfo.get(i).get(11));
+                        item.coltcMachine.setValue(reelLogInfo.get(i).get(12));
+                        item.coltcDate.setValue(reelLogInfo.get(i).get(13));
+                        item.coltcScale.setValue(reelLogInfo.get(i).get(14));
+                        item.coltcEPFNo.setValue(reelLogInfo.get(i).get(15));
+                        item.coltcDescription.setValue(reelLogInfo.get(i).get(16));
+                        item.coltcSize.setValue(reelLogInfo.get(i).get(17));
+
+                        tableData.add(item);
+                    }
+                }
+            } else {
+                mb.ShowMessage(stage, ErrorMessages.InvalidEvent,
+                        MessageBoxTitle.ERROR.toString(),
+                        MessageBox.MessageIcon.MSG_ICON_FAIL,
+                        MessageBox.MessageType.MSG_OK);
+                clearInput();
+
+            }
+
+        } catch (Exception e) {
+            clearInput();
+            return false;
+        }
+
+        return isDataAvailable;
+    }
+    
+    private boolean loadWorkInProgress() {
+
+        boolean isDataAvailable = false;
+
+        try {
+
+            //reelData.clear();
+            ArrayList<ArrayList<String>> reelLogInfo
+                    = new ArrayList<ArrayList<String>>();
+
+            ArrayList<ArrayList<String>> list = reelDAO.
+                    reelLogDetailsBulkIssued();
+
+            isDataAvailable = true;
+
+            if (list != null) {
+
+                for (int i = 0; i < list.size(); i++) {
+
+                    reelLogInfo.add(list.get(i));
+                }
+
+                if (reelLogInfo != null && reelLogInfo.size() > 0) {
+                    for (int i = 0; i < reelLogInfo.size(); i++) {
+
+                        item = new Item();
+
+                        item.coltcCoreWeight.setValue(reelLogInfo.get(i).get(0));
+                        item.coltcWeightScaleID.setValue(reelLogInfo.get(i).get(1));
+                        item.coltcGrossWeight.setValue(reelLogInfo.get(i).get(2));
+                        item.coltcBatchNo.setValue(reelLogInfo.get(i).get(3));
+                        item.coltcJobNo.setValue(reelLogInfo.get(i).get(4));
+                        item.coltcNetWeight.setValue(reelLogInfo.get(i).get(5));
+                        item.coltcLenght.setValue(reelLogInfo.get(i).get(6));
+                        item.coltcWidth.setValue(reelLogInfo.get(i).get(7));
+                        item.coltcGauge.setValue(reelLogInfo.get(i).get(8));
+                        item.coltcCustomer.setValue(reelLogInfo.get(i).get(9));
+                        item.coltcReelNo.setValue(reelLogInfo.get(i).get(10));
+                        item.coltcQty.setValue(reelLogInfo.get(i).get(11));
+                        item.coltcMachine.setValue(reelLogInfo.get(i).get(12));
+                        item.coltcDate.setValue(reelLogInfo.get(i).get(13));
+                        item.coltcScale.setValue(reelLogInfo.get(i).get(14));
+                        item.coltcEPFNo.setValue(reelLogInfo.get(i).get(15));
+                        item.coltcDescription.setValue(reelLogInfo.get(i).get(16));
+                        item.coltcSize.setValue(reelLogInfo.get(i).get(17));
+
+                        tableData.add(item);
+                    }
+                }
+            } else {
+                mb.ShowMessage(stage, ErrorMessages.InvalidEvent,
+                        MessageBoxTitle.ERROR.toString(),
+                        MessageBox.MessageIcon.MSG_ICON_FAIL,
+                        MessageBox.MessageType.MSG_OK);
+                clearInput();
+
+            }
+
+        } catch (Exception e) {
+            clearInput();
+            return false;
+        }
+
+        return isDataAvailable;
+    }
+    
+    private void modeSelection() {
+        
+        if (chbPendingPrints.isSelected() && !chbWorkInProgress.isSelected()) {
+            
+            
+     
+        } else if (chbWorkInProgress.isSelected() && !chbPendingPrints.isSelected()) {
+       
+        }
+        
+    }
+
     public class Item {
+
+        public SimpleStringProperty coltcCoreWeight = new SimpleStringProperty(
+                "tcCoreWeight");
+
+        public String getColtcCoreWeight() {
+            return coltcCoreWeight.get();
+        }
+
+        public SimpleStringProperty coltcWeightScaleID
+                = new SimpleStringProperty(
+                        "tcWeightScaleID");
+
+        public String getColtcWeightScaleID() {
+            return coltcWeightScaleID.get();
+        }
+
+        public SimpleStringProperty coltcGrossWeight = new SimpleStringProperty(
+                "tcGrossWeight");
+
+        public String getColtcGrossWeight() {
+            return coltcGrossWeight.get();
+        }
+
+        public SimpleStringProperty coltcBatchNo = new SimpleStringProperty(
+                "tcBatchNo");
+
+        public String getColtcBatchNo() {
+            return coltcBatchNo.get();
+        }
+
+        public SimpleStringProperty coltcJobNo = new SimpleStringProperty(
+                "tcJobNo");
+
+        public String getColtcJobNo() {
+            return coltcJobNo.get();
+        }
+
+        public SimpleStringProperty coltcNetWeight = new SimpleStringProperty(
+                "tcNetWeight");
+
+        public String getColtcNetWeight() {
+            return coltcNetWeight.get();
+        }
+
+        public SimpleStringProperty coltcLenght = new SimpleStringProperty(
+                "tcLenght");
+
+        public String getColtcLenght() {
+            return coltcLenght.get();
+        }
+
+        public SimpleStringProperty coltcWidth = new SimpleStringProperty(
+                "tcWidth");
+
+        public String getColtcWidth() {
+            return coltcWidth.get();
+        }
+
+        public SimpleStringProperty coltcGauge = new SimpleStringProperty(
+                "tcGauge");
+
+        public String getColtcGauge() {
+            return coltcGauge.get();
+        }
+
+        public SimpleStringProperty coltcCustomer = new SimpleStringProperty(
+                "tcCustomer");
+
+        public String getColtcCustomer() {
+            return coltcCustomer.get();
+        }
+
+        public SimpleStringProperty coltcReelNo = new SimpleStringProperty(
+                "tcReelNo");
+
+        public String getColtcReelNo() {
+            return coltcReelNo.get();
+        }
+
+        public SimpleStringProperty coltcQty = new SimpleStringProperty(
+                "tcQty");
+
+        public String getColtcQty() {
+            return coltcQty.get();
+        }
+
+        public SimpleStringProperty coltcMachine = new SimpleStringProperty(
+                "tcMachine");
+
+        public String getColtcMachine() {
+            return coltcMachine.get();
+        }
+
+        public SimpleStringProperty coltcDate = new SimpleStringProperty(
+                "tcDate");
+
+        public String getColtcDate() {
+            return coltcDate.get();
+        }
+
+        public SimpleStringProperty coltcScale = new SimpleStringProperty(
+                "tcScale");
+
+        public String getColtcScale() {
+            return coltcScale.get();
+        }
+
+        public SimpleStringProperty coltcEPFNo = new SimpleStringProperty(
+                "tcEPFNo");
+
+        public String getColtcEPFNo() {
+            return coltcEPFNo.get();
+        }
+
+        public SimpleStringProperty coltcDescription = new SimpleStringProperty(
+                "tcDescription");
+
+        public String getColtcDescription() {
+            return coltcDescription.get();
+        }
+
+        public SimpleStringProperty coltcSize = new SimpleStringProperty(
+                "tcSize");
+
+        public String getColtcSize() {
+            return coltcSize.get();
+        }
 
         public SimpleStringProperty colServiceId = new SimpleStringProperty(
                 "tcServiceId");
-        public SimpleStringProperty colServiceName = new SimpleStringProperty(
-                "tcServiceName");
-        public SimpleStringProperty colServicePrice
-                = new SimpleStringProperty(
-                        "tcServicePrice");
-        public SimpleStringProperty colServiceDescription
-                = new SimpleStringProperty(
-                        "tcServiceDescription");
 
         public String getColServiceId() {
             return colServiceId.get();
-        }
-
-        public String getColServiceName() {
-            return colServiceName.get();
-        }
-
-        public String getColServicePrice() {
-            return colServicePrice.get();
-        }
-
-        public String getColServiceDescription() {
-            return colServiceDescription.get();
-        }
-
-        public void setColServiceName(String serviceName) {
-            colServiceName.setValue(serviceName);
         }
 
     }
