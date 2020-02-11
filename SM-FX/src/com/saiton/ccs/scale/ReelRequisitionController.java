@@ -75,66 +75,66 @@ public class ReelRequisitionController implements Initializable, Validatable,
     //<editor-fold defaultstate="collapsed" desc="Initcomponent">
     @FXML
     private Button btnRefreshItemCode;
-
+    
     @FXML
     private TextField txtItemCode;
-
+    
     @FXML
     private Button btnClose;
-
+    
     @FXML
     private TextField txtDescription;
-
+    
     @FXML
     private TextField txtReelNo;
-
+    
     @FXML
     private Button btnRefreshReturnedWeight;
-
+    
     @FXML
     private Button btnRePrint;
-
+    
     @FXML
     private TextField txtReelFb;
-
+    
     @FXML
     private TextField txtReturnedWeight;
-
+    
     @FXML
     private TableView<ReelLog> tblItemList;
-
+    
     @FXML
     private TextField txtLogDate;
-
+    
     @FXML
     private Label lblItemId;
-
+    
     @FXML
     private TextField txtGSM;
-
+    
     @FXML
     private TextField txtSize;
-
+    
     @FXML
     private TextField txtIssuedWeight;
-
+    
     @FXML
     private Button btnLog;
-
+    
     @FXML
     private TextField txtItemName;
-
+    
     @FXML
     private Button btnSearchItemCode;
-
+    
     @FXML
     private TextField txtReelLiner;
-
+    
     private Stage stage;
-
+    
     private ObservableList tableReelLogData = FXCollections.
             observableArrayList();
-
+    
     ReelRequisitionDAO reelDAO = new ReelRequisitionDAO();
 
     //Reel Popup
@@ -143,16 +143,16 @@ public class ReelRequisitionController implements Initializable, Validatable,
     private ObservableList<ReelPopup> reelData = FXCollections.
             observableArrayList();
     private PopOver reelPop;
-
+    
     private MessageBox mb;
-
+    
     String currentWeight = null;
-
+    
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     Date date = new Date();
-
+    
     ReelLog reelLog = new ReelLog();
-
+    
     String one = "Issued";
     String zero = "Returned";
     boolean isReelLoaded = false;
@@ -162,23 +162,23 @@ public class ReelRequisitionController implements Initializable, Validatable,
     private RadioButton rdbBrowse;
     @FXML
     private RadioButton rdbLog;
-
+    
     ScaleDAO scaleDAO = new ScaleDAO();
     int baurdRate = 0;
     String comPort = "";
     String scaleName = "";
     String scaleId = "";
-
+    
     public static String reading = " ";
     @FXML
     private ComboBox<String> cmbScale;
-
+    
     @FXML
     private TableColumn<ReelLog, String> tcTimeStamp;
-
+    
     @FXML
     private TableColumn<ReelLog, String> tcWeight;
-
+    
     @FXML
     private TableColumn<ReelLog, String> tcReturnTimeStamp;
     @FXML
@@ -199,40 +199,40 @@ public class ReelRequisitionController implements Initializable, Validatable,
                             toString());
             String img = fileOne.getAbsolutePath();
             ReportGenerator r = new ReportGenerator(img, param);
-
+            
             r.setVisible(true);
-
+            
         }
     }
-
+    
     @FXML
     private void rdbBrowseOnAction(ActionEvent event) {
         rdbLog.setSelected(false);
-
+        
         modeSelection();
-
+        
     }
-
+    
     @FXML
     private void rdbLogOnAction(ActionEvent event) {
         rdbBrowse.setSelected(false);
         modeSelection();
     }
-
+    
     @FXML
     private void cmbScaleOnAction(ActionEvent event) {
     }
-
+    
     @FXML
     private void btnRefreshItemCodeOnAction(ActionEvent event) {
-
+        
         clearInput();
-
+        
     }
-
+    
     @FXML
     private void btnSearchItemCodeOnAction(ActionEvent event) {
-
+        
         reelTableDataLoader(txtItemCode.getText());
         reelIdTable.setItems(reelData);
         if (!reelData.isEmpty()) {
@@ -240,28 +240,28 @@ public class ReelRequisitionController implements Initializable, Validatable,
         }
         //validatorInitialization();
     }
-
+    
     @FXML
     private void btnRePrintOnAction(ActionEvent event) {
-
+        
         boolean isDataInserted = true;
 
         //<editor-fold defaultstate="collapsed" desc="Current Print Code">
         if (isDataInserted) {
-
+            
             HashMap param = new HashMap();
             param.put("to_reel_code", txtItemCode.getText());
             param.put("from_reel_code", txtItemCode.getText());
-
+            
             File fileOne
                     = new File(
                             ReportPath.PATH_BARCODE_REPORT.
                             toString());
             String img = fileOne.getAbsolutePath();
             ReportGenerator r = new ReportGenerator(img, param);
-
+            
             r.setVisible(true);
-
+            
             mb.ShowMessage(stage, ErrorMessages.SuccesfullyCreated,
                     MessageBoxTitle.INFORMATION.toString(),
                     MessageBox.MessageIcon.MSG_ICON_SUCCESS,
@@ -271,81 +271,93 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
 //</editor-fold>
     }
-
+    
     @FXML
     private void btnLogOnAction(ActionEvent event) {
         System.out.println("Issued");
 //        if (isReelLoaded == true) {
-
-       
-                System.out.println("Flag - "+reelDAO.getDbFlag(txtItemCode.getText()));
+        txtReturnedWeight.setText("200.00");
         
-            if (reelDAO.getDbFlag(txtItemCode.getText()).equals("1")) {
-                if (txtReturnedWeight.getText().isEmpty()) {
-                    System.out.println(
-                            "State is issued.Cannot log without returned weight");
-                    
-                    
-                    
-                    
-                }
-
-            } else if (reelDAO.getDbFlag(txtItemCode.getText()).equals("0")) {
-                System.out.println("State is Returned. Only to issue");
-
-                boolean isDateSaved = reelDAO.insertIssueLog(
-                        txtItemCode.getText(),
+        System.out.println("Flag - " + reelDAO.getDbFlag(txtItemCode.getText()));
+        
+        if (reelDAO.getDbFlag(txtItemCode.getText()).equals("1")) {
+            if (txtReturnedWeight.getText().isEmpty()) {
+                System.out.println(
+                        "State is issued.Cannot log without returned weight");
+                
+            } else {
+                
+                boolean isUpdated = reelDAO.updateReturnLog(txtItemCode.
+                        getText(),
                         LocalDate.now().toString(),
-                        txtIssuedWeight.getText());
+                        txtReturnedWeight.getText());
                 
-                boolean isDataUpdated = reelDAO.updateFlag(txtItemCode.getText(), 1);
-                System.out.println("Save - "+isDateSaved);
-                System.out.println("Updated - "+isDataUpdated);
+                boolean isDataUpdated = reelDAO.updateFlagAndWeight(txtItemCode.getText(),
+                         0,txtReturnedWeight.getText());
                 
-                if (isDateSaved && isDataUpdated) {
-                        System.out.println("Data Inserted.");
-                        tableReelLogData.clear();
-                        loadReelInfo();
-                        
+              
+                    if (isUpdated && isDataUpdated) {
+                    System.out.println("Return weight logged.");
+                    tableReelLogData.clear();
+                loadReelInfo();
                 }
                 
-                
-
             }
+            
+        } else if (reelDAO.getDbFlag(txtItemCode.getText()).equals("0")) {
+            System.out.println("State is Returned. Only to issue");
+            
+            boolean isDateSaved = reelDAO.insertIssueLog(
+                    txtItemCode.getText(),
+                    LocalDate.now().toString(),
+                    txtIssuedWeight.getText());
+            
+            boolean isDataUpdated = reelDAO.updateFlag(txtItemCode.getText(), 1);
+            System.out.println("Save - " + isDateSaved);
+            System.out.println("Updated - " + isDataUpdated);
+            
+            if (isDateSaved && isDataUpdated) {
+                System.out.println("Data Inserted.");
+                tableReelLogData.clear();
+                loadReelInfo();
+                
+            }
+            
+        }
 //        }
 
     }
-
+    
     @FXML
     private void btnCloseOnAction(ActionEvent event) {
         stage.close();
-
+        
     }
-
+    
     @FXML
     private void btnRefreshReturnedWeightOnAction(ActionEvent event) {
-
+        
         scaleCofigLoader(cmbScale.getValue());
         txtReturnedWeight.setText(getScaleReading());
-
+        
     }
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Key Events">
     @FXML
     private void txtItemCodeOnKeyReleased(KeyEvent event) {
-
+        
         if (event.getCode().equals(KeyCode.ENTER)) {
             if (!txtItemCode.getText().isEmpty()) {
                 loadReelInfo();
                 txtItemCode.selectAll();
                 reelPop.hide();
             }
-
+            
         }
-
+        
         if (txtItemCode.getText().length() >= 3) {
-
+            
             reelTableDataLoader(txtItemCode.getText());
             reelIdTable.setItems(reelData);
             if (!reelData.isEmpty()) {
@@ -356,43 +368,43 @@ public class ReelRequisitionController implements Initializable, Validatable,
             //validatorInitialization();
         }
     }
-
+    
     @FXML
     private void txtDescriptionOnKeyReleased(KeyEvent event) {
     }
-
+    
     @FXML
     private void txtItemNameOnKeyReleased(KeyEvent event) {
     }
-
+    
     @FXML
     private void txtGSMOnKeyReleased(KeyEvent event) {
     }
-
+    
     @FXML
     private void txtLogDateOnKeyReleased(KeyEvent event) {
     }
-
+    
     @FXML
     private void txtIssuedWeightOnKeyReleased(KeyEvent event) {
     }
-
+    
     @FXML
     private void txtSizeOnKeyReleased(KeyEvent event) {
     }
-
+    
     @FXML
     private void txtReelFbOnKeyReleased(KeyEvent event) {
     }
-
+    
     @FXML
     private void txtReelNoOnKeyReleased(KeyEvent event) {
     }
-
+    
     @FXML
     private void txtReturnedWeightOnReleased(KeyEvent event) {
     }
-
+    
     @FXML
     private void txtReelLinerDateOnKeyReleased(KeyEvent event) {
     }
@@ -407,21 +419,22 @@ public class ReelRequisitionController implements Initializable, Validatable,
     //<editor-fold defaultstate="collapsed" desc="Methods">
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        
         tcTimeStamp.setCellValueFactory(
                 new PropertyValueFactory<ReelLog, String>(
                         "colTimeStamp"));
-
+        
         tcWeight.setCellValueFactory(new PropertyValueFactory<ReelLog, String>(
                 "colWeight"));
         
-               tcReturnTimeStamp.setCellValueFactory(
+        tcReturnTimeStamp.setCellValueFactory(
                 new PropertyValueFactory<ReelLog, String>(
                         "coltcReturnTimeStamp"));
-
-        tcReturnWeight.setCellValueFactory(new PropertyValueFactory<ReelLog, String>(
-                "coltcReturnWeight"));
-
+        
+        tcReturnWeight.setCellValueFactory(
+                new PropertyValueFactory<ReelLog, String>(
+                        "coltcReturnWeight"));
+        
         tblItemList.setItems(tableReelLogData);
 
         //txtItemCode.setText(reelDAO.generateID());
@@ -431,12 +444,12 @@ public class ReelRequisitionController implements Initializable, Validatable,
         rdbLog.setSelected(false);
         modeSelection();
         loadScaleNames();
-
+        
     }
-
+    
     @Override
     public void setStage(Stage stage, Object[] obj) {
-
+        
         this.stage = stage;
 
         //Reel popup------------------------  
@@ -448,56 +461,56 @@ public class ReelRequisitionController implements Initializable, Validatable,
                     p = (ReelPopup) reelIdTable.getSelectionModel().
                             getSelectedItem();
                     clearInput();
-
+                    
                     if (p.getColReelCode() != null) {
                         txtItemCode.setText(p.getColReelCode());
 //                        customerCode = p.getColCustomerCode();
                         //btnDelete.setVisible(true);
                         loadReelInfo();
                         isReelLoaded = true;
-
+                        
                     }
-
+                    
                 } catch (NullPointerException n) {
-
+                    
                 }
-
+                
                 reelPop.hide();
                 //validatorInitialization();
 
             }
-
+            
         });
-
+        
         reelIdTable.setOnMousePressed(e -> {
-
+            
             if (e.getButton() == MouseButton.SECONDARY) {
-
+                
                 reelPop.hide();
                 //validatorInitialization();
 
             }
-
+            
         });
-
+        
         reelPop = new PopOver(reelIdTable);
-
+        
         stage.setOnCloseRequest(e -> {
-
+            
             if (reelPop.isShowing()) {
                 e.consume();
                 reelPop.hide();
-
+                
             }
         });
-
+        
     }
-
+    
     @Override
     public boolean isValid() {
         return true;
     }
-
+    
     @Override
     public void clearInput() {
         txtItemName.clear();
@@ -514,32 +527,32 @@ public class ReelRequisitionController implements Initializable, Validatable,
         isReelLoaded = false;
         txtItemCode.requestFocus();
         reelData.clear();
-
+        
     }
-
+    
     @Override
     public void clearValidations() {
-
+        
     }
-
+    
     private boolean reelTableDataLoader(String keyword) {
-
+        
         reelData.clear();
         ArrayList<ArrayList<String>> itemInfo
                 = new ArrayList<ArrayList<String>>();
         ArrayList<ArrayList<String>> list = reelDAO.
                 searchReelDetailsDetails(keyword);
-
+        
         if (list != null) {
-
+            
             for (int i = 0; i < list.size(); i++) {
-
+                
                 itemInfo.add(list.get(i));
             }
-
+            
             if (itemInfo != null && itemInfo.size() > 0) {
                 for (int i = 0; i < itemInfo.size(); i++) {
-
+                    
                     reelpopup = new ReelPopup();
                     reelpopup.colReelCode.setValue(itemInfo.get(i).
                             get(0));
@@ -549,66 +562,68 @@ public class ReelRequisitionController implements Initializable, Validatable,
                             get(2));
                     reelpopup.colReelNumber.setValue(itemInfo.get(i).
                             get(3));
-
+                    
                     reelData.add(reelpopup);
                 }
             }
-
+            
         }
         return true;
-
+        
     }
-
+    
     private boolean loadReelInfo() {
-
+        
         boolean isDataAvailable = false;
-
+        
         try {
 
             //reelData.clear();
             ArrayList<String> dataList = null;
             dataList = reelDAO.
                     loadingReelInfo(txtItemCode.getText());
-
+            
             ArrayList<ArrayList<String>> reelLogInfo
                     = new ArrayList<ArrayList<String>>();
-
+            
             ArrayList<ArrayList<String>> list = reelDAO.
                     reelLogDetails(txtItemCode.getText());
-
+            
             txtItemName.setText(dataList.get(0));
             txtIssuedWeight.setText(dataList.get(1));
             txtDescription.setText(dataList.get(2));
-
+            
             txtReelLiner.setText(dataList.get(3));
             txtGSM.setText(dataList.get(4));
-
+            
             txtSize.setText(dataList.get(5));
             txtReelFb.setText(dataList.get(6));
             txtReelNo.setText(dataList.get(7));
-
+            
             txtLogDate.setText(dateFormat.format(date));
-
+            
             isDataAvailable = true;
-
+            
             if (dataList != null && list != null) {
-
+                
                 for (int i = 0; i < list.size(); i++) {
-
+                    
                     reelLogInfo.add(list.get(i));
                 }
-
+                
                 if (reelLogInfo != null && reelLogInfo.size() > 0) {
                     for (int i = 0; i < reelLogInfo.size(); i++) {
-
+                        
                         reelLog = new ReelLog();
-
+                        
                         reelLog.colTimeStamp.setValue(reelLogInfo.get(i).get(0));
-
+                        
                         reelLog.colWeight.setValue(reelLogInfo.get(i).get(1));
-                        reelLog.coltcReturnTimeStamp.setValue(reelLogInfo.get(i).get(2));
-                        reelLog.coltcReturnWeight.setValue(reelLogInfo.get(i).get(3));
-
+                        reelLog.coltcReturnTimeStamp.setValue(
+                                reelLogInfo.get(i).get(2));
+                        reelLog.coltcReturnWeight.setValue(reelLogInfo.get(i).
+                                get(3));
+                        
                         tableReelLogData.add(reelLog);
                     }
                 }
@@ -618,36 +633,36 @@ public class ReelRequisitionController implements Initializable, Validatable,
                         MessageBox.MessageIcon.MSG_ICON_FAIL,
                         MessageBox.MessageType.MSG_OK);
                 clearInput();
-
+                
             }
-
+            
         } catch (Exception e) {
             clearInput();
             return false;
         }
-
+        
         return isDataAvailable;
     }
-
+    
     String getFlag(int flagValue) {
-
+        
         if (flagValue == 1) {
             return one;
         } else if (flagValue == 0) {
             return zero;
         }
-
+        
         return null;
     }
-
+    
     private void scaleCofigLoader(String scaleName) {
-
+        
         ArrayList<String> dataList = null;
-
+        
         dataList = scaleDAO.loadingScaleConfigs(scaleName);
-
+        
         if (dataList != null) {
-
+            
             scaleId = dataList.get(0);
             scaleName = dataList.get(1);
             comPort = dataList.get(2);
@@ -656,13 +671,13 @@ public class ReelRequisitionController implements Initializable, Validatable,
                     + " scaleName - " + scaleName
                     + " comPort - " + comPort
                     + " baurdRate - " + baurdRate);
-
+            
         }
-
+        
     }
-
+    
     private void loadScaleNames() {
-
+        
         cmbScale.getItems().clear();
         ArrayList<String> list = null;
         list = scaleDAO.loadScaleItem();
@@ -673,44 +688,44 @@ public class ReelRequisitionController implements Initializable, Validatable,
                 cmbScale.setItems(List);
                 cmbScale.setValue(List.get(0));
             } catch (Exception e) {
-
+                
             }
-
+            
         }
     }
-
+    
     private String getScaleReading() {
-
+        
         try {
-
+            
             Arduino arduino = new Arduino(comPort, baurdRate);
             System.out.
                     println("Connection Status - " + arduino.openConnection());
-
+            
             String s = arduino.serialRead(1);
-
+            
             System.out.println("---CurrentReading :-" + s);
-
+            
             arduino.closeConnection();
-
+            
             System.out.println("Sample Substring :" + s);
-
+            
             s = s.substring(s.indexOf("+") + 1, s.indexOf("kg"));
             System.out.println("--- Frist Split :  " + s);
-
+            
             reading = s;
-
+            
         } catch (Exception e) {
 //            System.err.println("-----------------Splting Error-----------");
 //             e.printStackTrace();
         }
-
+        
         return reading;
-
+        
     }
-
+    
     private void modeSelection() {
-
+        
         if (rdbLog.isSelected() && !rdbBrowse.isSelected()) {
             btnAgingreport.setVisible(false);
             btnRePrint.setVisible(true);
@@ -722,7 +737,7 @@ public class ReelRequisitionController implements Initializable, Validatable,
             btnRefreshReturnedWeight.setVisible(false);
             btnLog.setVisible(false);
         }
-
+        
     }
 
 //</editor-fold>
@@ -732,33 +747,33 @@ public class ReelRequisitionController implements Initializable, Validatable,
 //tcReturnWeight;
         public SimpleStringProperty colTimeStamp = new SimpleStringProperty(
                 "tcTimeStamp");
-
+        
         public SimpleStringProperty colWeight = new SimpleStringProperty(
                 "tcWeight");
-
+        
         public SimpleStringProperty coltcReturnTimeStamp
                 = new SimpleStringProperty(
                         "tcReturnTimeStamp");
-
+        
         public SimpleStringProperty coltcReturnWeight
                 = new SimpleStringProperty(
                         "tcReturnWeight");
-
+        
         public String getColTimeStamp() {
             return colTimeStamp.get();
         }
-
+        
         public String getColWeight() {
             return colWeight.get();
         }
-
+        
         public String getColtcReturnTimeStamp() {
             return coltcReturnTimeStamp.get();
         }
-
+        
         public String getColtcReturnWeight() {
             return coltcReturnWeight.get();
         }
-
+        
     }
 }

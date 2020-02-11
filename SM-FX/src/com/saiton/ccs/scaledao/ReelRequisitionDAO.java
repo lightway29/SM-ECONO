@@ -638,62 +638,57 @@ public class ReelRequisitionDAO {
         }
     }
     
-     public Boolean insertReturnLog(
+  
+     
+     
+     public boolean updateReturnLog(
             String reelCode,
-            String issue_timestamp,
-            String issue_weight
-) {
+            String date,
+            String weight
+    ) {
+
         String encodedReelCode = ESAPI.encoder().encodeForSQL(ORACLE_CODEC,
                 reelCode);
-        String encodedIssueTimestamp = ESAPI.encoder().
-                encodeForSQL(ORACLE_CODEC, issue_timestamp);
-        String encodedIssueWeight = ESAPI.encoder().
-                encodeForSQL(ORACLE_CODEC, issue_weight);
-
         
-        int id;
+        int id = 0;
 
         if (star.con == null) {
             log.error("Databse connection failiure.");
             return false;
         } else {
+            
             try {
                 
-     
                 
-
-                PreparedStatement ps = star.con.prepareStatement(
-                        "INSERT INTO `reel_log` ("
-                                + "`reel_code`,"
-                                + " `time_stamp`,"
-                                + " `issue_weight`"
-                                + " ) "
-                        + "VALUES(?,?,?)");
+                id = getId(reelCode);
                 
-                 
+                String query = "UPDATE reel_log set "
+                        + "return_time_stamp=?,"
+                        + "return_weight=?"
+                        + " WHERE reel_code =? AND id = ? ";
+                
+                PreparedStatement ps = star.con.prepareStatement(query);
 
-
-                ps.setString(1, encodedReelCode);
-                ps.setString(2, encodedIssueTimestamp);
-                ps.setString(3, encodedIssueWeight);
-
+                ps.setString(1, date);
+                ps.setString(2,weight );
+                ps.setString(3, reelCode);
+                ps.setInt(4, id);
 
                 int val = ps.executeUpdate();
-
                 if (val == 1) {
                     return true;
                 } else {
                     return false;
                 }
 
-            } catch (SQLException e) {
-
-                if (e instanceof SQLException) {
+            } catch (NullPointerException | SQLException e) {
+                if (e instanceof NullPointerException) {
+                    log.error("Exception tag --> " + "Empty entry passed");
+                } else if (e instanceof SQLException) {
                     log.error("Exception tag --> " + "Invalid sql statement "
                             + e.getMessage());
                 }
                 return false;
-
             } catch (Exception e) {
                 log.error("Exception tag --> " + "Error");
                 return false;
@@ -705,7 +700,7 @@ public class ReelRequisitionDAO {
         String encodedReelCode = ESAPI.encoder().encodeForSQL(ORACLE_CODEC,
                 reelCode);
 
-        String flag = null;
+        int id = 0;
 
         if (star.con == null) {
             log.error("Database connection failiure.");
@@ -713,7 +708,7 @@ public class ReelRequisitionDAO {
         } else {
 
             try {
-                String query = "SELECT MAX(id) FROM reel_log where reel_code = 'REL0001'";
+                String query = "SELECT MAX(id) AS id FROM reel_log where reel_code = ?";
                 
                 
                 PreparedStatement pstmt = star.con.prepareStatement(query);
@@ -723,7 +718,7 @@ public class ReelRequisitionDAO {
 
                 while (r.next()) {
 
-                    flag = r.getString("flag");
+                    id = r.getInt("id");
 
                 }
 
@@ -736,13 +731,59 @@ public class ReelRequisitionDAO {
                             "Exception tag --> " + "Invalid sql statement " + e.
                             getMessage());
                 }
-                return null;
+                return 0;
             } catch (Exception e) {
                 log.error("Exception tag --> " + "Error");
-                return null;
+                return 0;
             }
         }
-        return flag;
+        return id;
+    }
+     
+      public boolean updateFlagAndWeight(
+            String reelCode,
+            int status,
+            String currentWeight
+    ) {
+
+        String encodedIssueNoteId = ESAPI.encoder().encodeForSQL(ORACLE_CODEC,
+                reelCode);
+
+        if (star.con == null) {
+            log.error("Databse connection failiure.");
+            return false;
+        } else {
+            try {
+                String query = "UPDATE reel set "
+                        + "flag=?,"
+                         + "current_weight=?"
+                        + " WHERE reel_code =?  ";
+                PreparedStatement ps = star.con.prepareStatement(query);
+
+                ps.setInt(1, status);
+                ps.setString(2, currentWeight);
+                ps.setString(3, reelCode);
+
+                int val = ps.executeUpdate();
+                if (val == 1) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            } catch (NullPointerException | SQLException e) {
+                if (e instanceof NullPointerException) {
+                    log.error("Exception tag --> " + "Empty entry passed");
+                } else if (e instanceof SQLException) {
+                    log.error("Exception tag --> " + "Invalid sql statement "
+                            + e.getMessage());
+                }
+                return false;
+            } catch (Exception e) {
+                log.error("Exception tag --> " + "Error");
+                return false;
+            }
+        }
     }
 
 }
