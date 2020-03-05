@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.19, for macos10.15 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.18, for Win64 (x86_64)
 --
--- Host: localhost    Database: sm_db
+-- Host: 127.0.0.1    Database: sm_db
 -- ------------------------------------------------------
--- Server version	5.6.21
+-- Server version	5.7.28-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -243,6 +243,8 @@ CREATE TABLE `reel` (
   `total_cost` double DEFAULT NULL,
   `posting_date` timestamp NULL DEFAULT NULL,
   `added_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `erp_doc` varchar(45) DEFAULT NULL,
+  `vendor` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`reel_code`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
@@ -254,7 +256,7 @@ CREATE TABLE `reel` (
 
 LOCK TABLES `reel` WRITE;
 /*!40000 ALTER TABLE `reel` DISABLE KEYS */;
-INSERT INTO `reel` VALUES (1,'REL0001','250KL67.5','DUPLEX','17/070/OFF-85','SE20380293842098','Paper Roll','Thickness target paper','REELSTORE1',900,250,500,22344,1000,640,640,5,900,1,'B','0','K',NULL,NULL,NULL,NULL,'2020-02-10 20:06:11'),(2,'REL0002','250KL67.5','DUPLEX','17/070/OFF-85','SE20380293842098','Paper Roll','Thickness target paper','REELSTORE1',900,250,500,22344,1000,640,640,5,900,1,'B','0','K',NULL,NULL,NULL,NULL,'2020-02-02 09:18:07');
+INSERT INTO `reel` VALUES (1,'REL0001','250KL67.5','DUPLEX','17/070/OFF-85','SE20380293842098','Paper Roll','Thickness target paper','REELSTORE1',900,250,500,22344,1000,640,640,5,900,1,'B','0','K',NULL,NULL,NULL,NULL,'2020-02-10 20:06:11',NULL,NULL),(2,'REL0002','250KL67.5','DUPLEX','17/070/OFF-85','SE20380293842098','Paper Roll','Thickness target paper','REELSTORE1',900,250,500,22344,1000,640,640,5,900,1,'B','0','K',NULL,NULL,NULL,NULL,'2020-02-02 09:18:07',NULL,NULL);
 /*!40000 ALTER TABLE `reel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -746,4 +748,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-02-11 10:46:21
+-- Dump completed on 2020-03-06  0:46:29
