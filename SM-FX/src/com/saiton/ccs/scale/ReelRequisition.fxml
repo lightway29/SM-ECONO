@@ -288,6 +288,18 @@
                               <Insets left="20.0" />
                            </GridPane.margin>
                         </HBox>
+                        <Button fx:id="btnZeroReturnedWeight" contentDisplay="RIGHT" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#btnZeroReturnedWeightOnAction" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="7" GridPane.rowIndex="5">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../res/img-remove.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <GridPane.margin>
+                              <Insets left="150.0" />
+                           </GridPane.margin>
+                        </Button>
                         <HBox id="HBox" alignment="CENTER_LEFT" layoutX="510.0" layoutY="46.0" spacing="5.0" GridPane.columnIndex="4" GridPane.columnSpan="4" GridPane.rowIndex="5" GridPane.rowSpan="2">
                            <children>
                               <Label prefWidth="200.0" text="Returned Weight">
@@ -300,7 +312,7 @@
                                     <Font name="System Bold" size="48.0" />
                                  </font>
                               </TextField>
-                              <Button fx:id="btnRefreshReturnedWeight" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#btnRefreshReturnedWeightOnAction" prefHeight="50.0" prefWidth="50.0">
+                              <Button fx:id="btnRefreshReturnedWeight" alignment="CENTER" contentDisplay="TOP" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#btnRefreshReturnedWeightOnAction" prefHeight="50.0" prefWidth="50.0">
                                  <graphic>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -308,6 +320,15 @@
                                        </image>
                                     </ImageView>
                                  </graphic>
+                                 <HBox.margin>
+                                    <Insets top="55.0" />
+                                 </HBox.margin>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
                               </Button>
                            </children>
                            <GridPane.margin>
