@@ -276,7 +276,7 @@ public class ReelRequisitionController implements Initializable, Validatable,
     private void btnLogOnAction(ActionEvent event) {
         System.out.println("Issued");
 //        if (isReelLoaded == true) {
-        txtReturnedWeight.setText("200.00");
+        //txtReturnedWeight.setText("200.00");
         
         System.out.println("Flag - " + reelDAO.getDbFlag(txtItemCode.getText()));
         

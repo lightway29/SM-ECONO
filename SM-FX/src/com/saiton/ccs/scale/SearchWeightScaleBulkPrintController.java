@@ -158,6 +158,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     @FXML
     private void txtToItemCodeOnKeyReleased(KeyEvent event) {
           if (event.getCode().equals(KeyCode.ENTER)) {
+              clearInput();
         loadReelInfo();
                 }
         
@@ -167,6 +168,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     //<editor-fold defaultstate="collapsed" desc="Action Events">
     @FXML
     private void btnRefreshItemCodeOnAction(ActionEvent event) {
+        clearInput();
     }
 
     @FXML
@@ -196,6 +198,10 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     @FXML
     private void chbWorkInProgressOnAction(ActionEvent event) {
         chbPendingPrints.setSelected(false);
+        if (chbWorkInProgress.isSelected()) {
+            clearInput();
+              loadWorkInProgress();
+        }
     }
 
     @FXML
@@ -340,6 +346,8 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 
     @Override
     public void clearInput() {
+        
+        tableData.clear();
 //            txtDescription.clear();
 //            txtPrice.clear();
 //            txtService.clear();
