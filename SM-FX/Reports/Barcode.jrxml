@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Barcode" pageWidth="295" pageHeight="150" columnWidth="257" leftMargin="19" rightMargin="19" topMargin="20" bottomMargin="20" uuid="dcf61689-6c90-468a-b636-0647e262c817">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Barcode" pageWidth="295" pageHeight="160" columnWidth="257" leftMargin="19" rightMargin="19" topMargin="20" bottomMargin="20" uuid="dcf61689-6c90-468a-b636-0647e262c817">
 	<property name="ireport.zoom" value="3.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -12,7 +12,9 @@
 	r.remaining_qty,
 	r.gsm,
 	r.item_category,
-	r.current_weight
+	r.current_weight,
+	r.item_no,
+	r.serial_number
 
 FROM reel r
 where reel_code between $P{from_reel_code} and $P{to_reel_code}]]>
@@ -35,88 +37,116 @@ where reel_code between $P{from_reel_code} and $P{to_reel_code}]]>
 	<field name="current_weight" class="java.lang.Double">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="item_no" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="serial_number" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="103">
+		<band height="120">
 			<textField>
-				<reportElement x="44" y="65" width="94" height="13" uuid="5a652a60-391d-46a0-a83f-a632cb5858f4"/>
+				<reportElement x="36" y="82" width="94" height="13" uuid="5a652a60-391d-46a0-a83f-a632cb5858f4"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{lot_no}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="12" y="65" width="32" height="13" uuid="69260693-6e91-4ae6-817c-bc8bed95c4c5"/>
+				<reportElement x="1" y="82" width="38" height="13" uuid="69260693-6e91-4ae6-817c-bc8bed95c4c5"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Lot No ]]></text>
 			</staticText>
 			<textField pattern="yyyy-mm-dd">
-				<reportElement x="190" y="88" width="77" height="13" uuid="7df9a3b3-b595-40d9-bcb3-191d98649f29"/>
+				<reportElement x="168" y="105" width="89" height="13" uuid="7df9a3b3-b595-40d9-bcb3-191d98649f29"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="12" y="77" width="32" height="13" uuid="5b7e1909-bfcc-4cfa-af03-b6a7f4b84e9a"/>
+				<reportElement x="1" y="94" width="38" height="13" uuid="5b7e1909-bfcc-4cfa-af03-b6a7f4b84e9a"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[QTY ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="90" width="32" height="13" uuid="44d8e5f5-4683-4f3e-b07f-6b712dbaeccd"/>
+				<reportElement x="1" y="107" width="38" height="13" uuid="44d8e5f5-4683-4f3e-b07f-6b712dbaeccd"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[GSM]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="138" y="65" width="52" height="13" uuid="eabace90-63d5-4209-ba89-caa80124c379"/>
+				<reportElement x="120" y="82" width="48" height="13" uuid="eabace90-63d5-4209-ba89-caa80124c379"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Paper Type]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="44" y="77" width="82" height="13" uuid="6ac0a210-8cc2-4395-a50d-e57fd4f7e5b9"/>
+				<reportElement x="36" y="94" width="82" height="13" uuid="6ac0a210-8cc2-4395-a50d-e57fd4f7e5b9"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{remaining_qty}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="44" y="90" width="82" height="13" uuid="c9cc4e62-8e58-4da5-8833-5d2a4893287a"/>
+				<reportElement x="36" y="107" width="82" height="13" uuid="c9cc4e62-8e58-4da5-8833-5d2a4893287a"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{gsm}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="190" y="65" width="77" height="13" uuid="01d7e3e1-6ea7-4a19-ac7d-d3e1a09b336f"/>
+				<reportElement x="168" y="82" width="89" height="13" uuid="01d7e3e1-6ea7-4a19-ac7d-d3e1a09b336f"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{item_category}]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement x="68" y="0" width="182" height="65" uuid="fca9d9e5-2f1c-48c6-9971-4b2a6d186d10"/>
+				<reportElement x="65" y="0" width="185" height="70" uuid="fca9d9e5-2f1c-48c6-9971-4b2a6d186d10"/>
 				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom" intercharGapWidth="1.5">
 					<jr:codeExpression><![CDATA[$F{reel_code}]]></jr:codeExpression>
 				</jr:Code39>
 			</componentElement>
 			<staticText>
-				<reportElement x="138" y="77" width="52" height="13" uuid="afc56d76-2d62-4a93-9246-028e587bf164"/>
+				<reportElement x="120" y="94" width="48" height="13" uuid="afc56d76-2d62-4a93-9246-028e587bf164"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Weight]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="138" y="88" width="52" height="13" uuid="c6878018-f2bf-4ce5-8292-cd8edcc9c162"/>
+				<reportElement x="120" y="105" width="48" height="13" uuid="c6878018-f2bf-4ce5-8292-cd8edcc9c162"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Log Date]]></text>
 			</staticText>
 			<textField isBlankWhenNull="false">
-				<reportElement x="190" y="77" width="77" height="13" uuid="3d7fbdcd-5a97-4c5f-986b-b17a88cc7799"/>
+				<reportElement x="168" y="94" width="89" height="13" uuid="3d7fbdcd-5a97-4c5f-986b-b17a88cc7799"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{current_weight}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="69" width="38" height="13" uuid="0a0e5077-3e8c-4cd0-8842-24e3d27037cc"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Item No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="69" width="48" height="13" uuid="97541528-bc13-4539-beb8-cf464d7c72cc"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Serial No]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="36" y="69" width="94" height="13" uuid="146d3242-b446-43b5-9246-dcceae5915a8"/>
+				<textFieldExpression><![CDATA[$F{item_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="168" y="69" width="102" height="13" uuid="5d06dd16-1572-4e2e-9370-cc9ddc76048b"/>
+				<textFieldExpression><![CDATA[$F{serial_number}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
