@@ -294,7 +294,7 @@
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../res/img-remove.png" />
+                                    <Image url="@../res/img-zero.png" />
                                  </image>
                               </ImageView>
                            </graphic>
