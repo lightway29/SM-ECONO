@@ -290,18 +290,6 @@
                               <Insets left="20.0" />
                            </GridPane.margin>
                         </HBox>
-                        <Button fx:id="btnZeroReturnedWeight" contentDisplay="RIGHT" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#btnZeroReturnedWeightOnAction" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="7" GridPane.rowIndex="5">
-                           <graphic>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../res/img-zero.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <GridPane.margin>
-                              <Insets left="150.0" />
-                           </GridPane.margin>
-                        </Button>
                         <HBox id="HBox" alignment="CENTER_LEFT" layoutX="510.0" layoutY="46.0" spacing="5.0" GridPane.columnIndex="4" GridPane.columnSpan="4" GridPane.rowIndex="5" GridPane.rowSpan="2">
                            <children>
                               <Label prefWidth="200.0" text="Returned Weight">
@@ -337,6 +325,18 @@
                               <Insets />
                            </GridPane.margin>
                         </HBox>
+                        <Button fx:id="btnZeroReturnedWeight" contentDisplay="RIGHT" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#btnZeroReturnedWeightOnAction" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="7" GridPane.rowIndex="5">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../res/img-zero.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <GridPane.margin>
+                              <Insets left="150.0" />
+                           </GridPane.margin>
+                        </Button>
                         <HBox id="HBox" alignment="CENTER_LEFT" layoutX="510.0" layoutY="106.0" prefHeight="60.0" prefWidth="471.0" spacing="5.0" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="2">
                            <children>
                               <Label prefWidth="115.0" text="Reel Liner">
