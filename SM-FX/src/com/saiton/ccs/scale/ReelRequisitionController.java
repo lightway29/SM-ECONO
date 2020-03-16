@@ -748,6 +748,7 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
     @FXML
     private void btnZeroReturnedWeightOnAction(ActionEvent event) {
+        txtReturnedWeight.setText("0");
     }
 
 //</editor-fold>

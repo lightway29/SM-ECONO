@@ -435,6 +435,27 @@ public class ReelRequisitionDAO {
                             + "`item_category`, "
                             + "`lot_no`, "
                             + "`serial_number`, "
+                            + "`item_name`, "
+                            + "`item_des`, "
+                            + "`location`, "
+                            + "`gsm`, "
+                            + "`reel_width`, "
+                            + "`reel_diameter`, "
+                            + "`reel_number`, "
+                            + "`initial_weight`, "
+                            + "`qty`, "
+                            + "`remaining_qty`, "
+                            + "`size`, "
+                            + "`current_weight`, "
+                            + "`flag`, "
+                            + "`reel_fb`, "
+                            + "`label_print_count`, "
+                            + "`reel_liner`, "
+                            + "`unit_cost`, "
+                            + "`st_value`, "
+                            + "`total_cost`, "
+                            + "`posting_date`, "
+                            + "`added_date`, "
                             + "`item_name`"
                             + ")  VALUES(?,?,?,?,?,?)");
                     while (rowIterator.hasNext()) {
@@ -828,8 +849,6 @@ public class ReelRequisitionDAO {
 
                     ArrayList<String> list = new ArrayList<String>();
 
-                    
-
                     reelCode = r.getString("reel_code");
                     itemNo = r.getString("item_no");
                     itemCategory = r.getString("item_category");
@@ -867,10 +886,6 @@ public class ReelRequisitionDAO {
                     list.add(size);
                     list.add(currentWeight);
                     list.add(reelFb);
-                    
-                    
-                    
-                    
 
                     mainList.add(list);
 
@@ -905,11 +920,8 @@ public class ReelRequisitionDAO {
         }
         return mainList;
     }
-    
-    
+
     public ArrayList<ArrayList<String>> reelLogDetailsBulkIssued() {
-
-
 
         String reelCode = null;
         String itemNo = null;
@@ -948,15 +960,12 @@ public class ReelRequisitionDAO {
 
                 PreparedStatement pstmt = star.con.prepareStatement(query);
                 pstmt.setString(1, "1");
-                
 
                 ResultSet r = pstmt.executeQuery();
 
                 while (r.next()) {
 
                     ArrayList<String> list = new ArrayList<String>();
-
-                    
 
                     reelCode = r.getString("reel_code");
                     itemNo = r.getString("item_no");
@@ -995,10 +1004,6 @@ public class ReelRequisitionDAO {
                     list.add(size);
                     list.add(currentWeight);
                     list.add(reelFb);
-                    
-                    
-                    
-                    
 
                     mainList.add(list);
 
@@ -1033,6 +1038,5 @@ public class ReelRequisitionDAO {
         }
         return mainList;
     }
-
 
 }
