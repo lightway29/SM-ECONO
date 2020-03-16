@@ -225,24 +225,24 @@ CREATE TABLE `reel` (
   `item_name` varchar(45) NOT NULL,
   `item_des` varchar(45) DEFAULT NULL,
   `location` varchar(45) DEFAULT NULL,
-  `gsm` double DEFAULT NULL,
-  `reel_width` double DEFAULT NULL,
-  `reel_diameter` double DEFAULT NULL,
-  `reel_number` double DEFAULT NULL,
-  `initial_weight` double DEFAULT NULL,
-  `qty` int(11) DEFAULT NULL,
-  `remaining_qty` int(11) DEFAULT NULL,
-  `size` double DEFAULT NULL,
-  `current_weight` double DEFAULT NULL,
+  `gsm` varchar(45) DEFAULT NULL,
+  `reel_width` varchar(45) DEFAULT NULL,
+  `reel_diameter` varchar(45) DEFAULT NULL,
+  `reel_number` varchar(45) DEFAULT NULL,
+  `initial_weight` varchar(45) DEFAULT NULL,
+  `qty` varchar(45) DEFAULT NULL,
+  `remaining_qty` varchar(45) DEFAULT NULL,
+  `size` varchar(45) DEFAULT NULL,
+  `current_weight` varchar(45) DEFAULT NULL,
   `flag` int(11) NOT NULL DEFAULT '0',
   `reel_fb` varchar(45) DEFAULT NULL,
   `label_print_count` varchar(45) NOT NULL DEFAULT '0',
   `reel_liner` varchar(45) DEFAULT NULL,
-  `unit_cost` double DEFAULT NULL,
-  `st_value` double DEFAULT NULL,
-  `total_cost` double DEFAULT NULL,
-  `posting_date` timestamp NULL DEFAULT NULL,
-  `added_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `unit_cost` varchar(45) DEFAULT NULL,
+  `st_value` varchar(45) DEFAULT NULL,
+  `total_cost` varchar(45) DEFAULT NULL,
+  `posting_date` varchar(45) DEFAULT NULL,
+  `added_date` varchar(45) DEFAULT NULL,
   `erp_doc` varchar(45) DEFAULT NULL,
   `vendor` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`reel_code`),
@@ -256,7 +256,7 @@ CREATE TABLE `reel` (
 
 LOCK TABLES `reel` WRITE;
 /*!40000 ALTER TABLE `reel` DISABLE KEYS */;
-INSERT INTO `reel` VALUES (1,'REL0001','250KL67.5','DUPLEX','17/070/OFF-85','SE20380293842098','Paper Roll','Thickness target paper','REELSTORE1',900,250,500,22344,1000,640,640,5,900,1,'B','0','K',NULL,NULL,NULL,NULL,'2020-02-10 20:06:11',NULL,NULL),(2,'REL0002','250KL67.5','DUPLEX','17/070/OFF-85','SE20380293842098','Paper Roll','Thickness target paper','REELSTORE1',900,250,500,22344,1000,640,640,5,900,1,'B','0','K',NULL,NULL,NULL,NULL,'2020-02-02 09:18:07',NULL,NULL);
+INSERT INTO `reel` VALUES (1,'REL0001','250KL67.5','DUPLEX','17/070/OFF-85','SE20380293842098','Paper Roll','Thickness target paper','REELSTORE1','900','250','500','22344','1000','640','640','5','900',1,'B','0','K',NULL,NULL,NULL,NULL,'2020-02-11 01:36:11',NULL,NULL),(2,'REL0002','250KL67.5','DUPLEX','17/070/OFF-85','SE20380293842098','Paper Roll','Thickness target paper','REELSTORE1','900','250','500','22344','1000','640','640','5','900',1,'B','0','K',NULL,NULL,NULL,NULL,'2020-02-02 14:48:07',NULL,NULL);
 /*!40000 ALTER TABLE `reel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -748,4 +748,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-06  0:46:29
+-- Dump completed on 2020-03-16 22:55:28
