@@ -271,6 +271,9 @@ public class ReelRequisitionDAO {
         String flag = null;
         String returnWeight = null;
         String returnTimeStamp = null;
+        
+//        String itemName = null;
+//        String itemCode = null;
 
         ArrayList<ArrayList<String>> mainList
                 = new ArrayList<ArrayList<String>>();
@@ -302,12 +305,16 @@ public class ReelRequisitionDAO {
                     issueWeight = r.getString("issue_weight");
                     returnTimeStamp = r.getString("return_time_stamp");
                     returnWeight = r.getString("return_weight");
+//                    itemName = r.getString("item_name");
+//                    itemCode = r.getString("reel_code");
 
                     list.add(timeStamp);
 
                     list.add(issueWeight);
                     list.add(returnTimeStamp);
                     list.add(returnWeight);
+//                    list.add(itemName);
+//                    list.add(itemCode);
 
                     mainList.add(list);
 
@@ -455,9 +462,9 @@ public class ReelRequisitionDAO {
                             + "`st_value`, "
                             + "`total_cost`, "
                             + "`posting_date`, "
-                            + "`added_date`, "
-                            + "`item_name`"
-                            + ")  VALUES(?,?,?,?,?,?)");
+                            + "`added_date` "
+                            
+                            + ")  VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
                     while (rowIterator.hasNext()) {
                         Row nextRow = rowIterator.next();
                         DataFormatter formatter = new DataFormatter();
@@ -496,6 +503,68 @@ public class ReelRequisitionDAO {
                                 case 5:
                                     ps.setString(6, formatter.formatCellValue(
                                             nextCell));
+                                case 6:
+                                    ps.setString(7, formatter.formatCellValue(
+                                            nextCell));
+                                case 7:
+                                    ps.setString(8, formatter.formatCellValue(
+                                            nextCell));
+                                case 8:
+                                    ps.setString(9, formatter.formatCellValue(
+                                            nextCell));
+                                case 9:
+                                    ps.setString(10, formatter.formatCellValue(
+                                            nextCell));
+                                case 10:
+                                    ps.setString(11, formatter.formatCellValue(
+                                            nextCell));
+                                case 11:
+                                    ps.setString(12, formatter.formatCellValue(
+                                            nextCell));
+                                case 12:
+                                    ps.setString(13, formatter.formatCellValue(
+                                            nextCell));
+                                case 13:
+                                    ps.setString(14, formatter.formatCellValue(
+                                            nextCell));
+                                case 14:
+                                    ps.setString(15, formatter.formatCellValue(
+                                            nextCell));
+                                case 15:
+                                    ps.setString(16, formatter.formatCellValue(
+                                            nextCell));
+                                case 16:
+                                    ps.setString(17, formatter.formatCellValue(
+                                            nextCell));
+                                case 17:
+                                    ps.setString(18, formatter.formatCellValue(
+                                            nextCell));
+                                case 18:
+                                    ps.setString(19, formatter.formatCellValue(
+                                            nextCell));
+                                case 19:
+                                    ps.setString(20, formatter.formatCellValue(
+                                            nextCell));
+                                case 20:
+                                    ps.setString(21, formatter.formatCellValue(
+                                            nextCell));
+                                case 21:
+                                    ps.setString(22, formatter.formatCellValue(
+                                            nextCell));
+                                case 22:
+                                    ps.setString(23, formatter.formatCellValue(
+                                            nextCell));
+                                case 23:
+                                    ps.setString(24, formatter.formatCellValue(
+                                            nextCell));
+                                case 24:
+                                    ps.setString(25, formatter.formatCellValue(
+                                            nextCell));
+                                case 25:
+                                    ps.setString(26, formatter.formatCellValue(
+                                            nextCell));
+                           
+                              
 
                             }
 

@@ -184,9 +184,9 @@ public class ReelRequisitionController implements Initializable, Validatable,
     @FXML
     private TableColumn<ReelLog, String> tcReturnWeight;
     @FXML
-    private TableColumn<?, ?> tcItemCode;
+    private TableColumn<ReelLog, String> tcItemCode;
     @FXML
-    private TableColumn<?, ?> tcItemName;
+    private TableColumn<ReelLog, String> tcItemName;
     @FXML
     private Button btnZeroReturnedWeight;
 
@@ -426,6 +426,14 @@ public class ReelRequisitionController implements Initializable, Validatable,
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
+        tcItemCode.setCellValueFactory(
+                new PropertyValueFactory<ReelLog, String>(
+                        "colItemCode"));
+        
+        tcItemName.setCellValueFactory(
+                new PropertyValueFactory<ReelLog, String>(
+                        "colItemName"));
+        
         tcTimeStamp.setCellValueFactory(
                 new PropertyValueFactory<ReelLog, String>(
                         "colTimeStamp"));
@@ -622,6 +630,7 @@ public class ReelRequisitionController implements Initializable, Validatable,
                         
                         reelLog = new ReelLog();
                         
+                    
                         reelLog.colTimeStamp.setValue(reelLogInfo.get(i).get(0));
                         
                         reelLog.colWeight.setValue(reelLogInfo.get(i).get(1));
@@ -629,6 +638,10 @@ public class ReelRequisitionController implements Initializable, Validatable,
                                 reelLogInfo.get(i).get(2));
                         reelLog.coltcReturnWeight.setValue(reelLogInfo.get(i).
                                 get(3));
+                        
+                        reelLog.colItemName.setValue(txtItemName.getText());
+                        reelLog.colItemCode.setValue(txtItemCode.getText());
+                        
                         
                         tableReelLogData.add(reelLog);
                     }
@@ -756,6 +769,11 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
 //  tcReturnTimeStamp;
 //tcReturnWeight;
+          public SimpleStringProperty colItemCode = new SimpleStringProperty(
+                "tcItemCode");
+          
+          public SimpleStringProperty colItemName = new SimpleStringProperty(
+                "tcItemName");
         public SimpleStringProperty colTimeStamp = new SimpleStringProperty(
                 "tcTimeStamp");
         
@@ -769,6 +787,14 @@ public class ReelRequisitionController implements Initializable, Validatable,
         public SimpleStringProperty coltcReturnWeight
                 = new SimpleStringProperty(
                         "tcReturnWeight");
+        
+        public String getColItemCode() {
+            return colItemCode.get();
+        }
+        
+        public String getColItemName() {
+            return colItemName.get();
+        }
         
         public String getColTimeStamp() {
             return colTimeStamp.get();
