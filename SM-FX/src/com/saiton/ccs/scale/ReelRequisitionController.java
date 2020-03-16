@@ -183,6 +183,12 @@ public class ReelRequisitionController implements Initializable, Validatable,
     private TableColumn<ReelLog, String> tcReturnTimeStamp;
     @FXML
     private TableColumn<ReelLog, String> tcReturnWeight;
+    @FXML
+    private TableColumn<?, ?> tcItemCode;
+    @FXML
+    private TableColumn<?, ?> tcItemName;
+    @FXML
+    private Button btnZeroReturnedWeight;
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Action Events">
@@ -738,6 +744,10 @@ public class ReelRequisitionController implements Initializable, Validatable,
             btnLog.setVisible(false);
         }
         
+    }
+
+    @FXML
+    private void btnZeroReturnedWeightOnAction(ActionEvent event) {
     }
 
 //</editor-fold>
