@@ -71,24 +71,24 @@
                         </HBox>
                         <TableView fx:id="tblWorkData" prefHeight="420.0" prefWidth="1079.0" GridPane.columnSpan="10" GridPane.rowIndex="3" GridPane.rowSpan="7">
                           <columns>
-                            <TableColumn fx:id="tcWeightScaleID" prefWidth="75.0" text="Weight Scale ID" />
-                            <TableColumn fx:id="tcScale" prefWidth="50.0" text="Scale" />
-                              <TableColumn fx:id="tcCustomer" prefWidth="75.0" text="Customer" />
-                              <TableColumn fx:id="tcBatchNo" prefWidth="50.0" text="Batch No" />
-                              <TableColumn fx:id="tcDescription" prefWidth="75.0" text="Description" />
-                              <TableColumn fx:id="tcMachine" prefWidth="75.0" text="Machine" />
-                              <TableColumn fx:id="tcJobNo" prefWidth="75.0" text="Job No" />
-                              <TableColumn fx:id="tcGauge" prefWidth="60.0" text="Gauge" />
-                              <TableColumn fx:id="tcReelNo" prefWidth="50.0" text="Reel No" />
-                              <TableColumn fx:id="tcQty" prefWidth="50.0" text="Qty" />
-                              <TableColumn fx:id="tcSize" prefWidth="50.0" text="Size" />
-                              <TableColumn fx:id="tcGrossWeight" prefWidth="75.0" text="Gross Weight" />
-                              <TableColumn fx:id="tcNetWeight" prefWidth="75.0" text="Net Weight" />
-                              <TableColumn fx:id="tcCoreWeight" prefWidth="75.0" text="Core Weight" />
-                              <TableColumn fx:id="tcLenght" prefWidth="50.0" text="Length" />
-                              <TableColumn fx:id="tcWidth" prefWidth="50.0" text="Width" />
-                              <TableColumn fx:id="tcEPFNo" prefWidth="75.0" text="EPF No" />
-                              <TableColumn fx:id="tcDate" prefWidth="50.0" text="Date" />
+                            <TableColumn fx:id="tcWeightScaleID" prefWidth="75.0" text="Reel Code" />
+                            <TableColumn fx:id="tcScale" prefWidth="50.0" text="Item No" />
+                              <TableColumn fx:id="tcCustomer" prefWidth="75.0" text="Item Category" />
+                              <TableColumn fx:id="tcBatchNo" prefWidth="50.0" text="Lot No" />
+                              <TableColumn fx:id="tcDescription" prefWidth="75.0" text="Serial No" />
+                              <TableColumn fx:id="tcMachine" prefWidth="75.0" text="Item Name" />
+                              <TableColumn fx:id="tcJobNo" prefWidth="75.0" text="Item Description" />
+                              <TableColumn fx:id="tcGauge" prefWidth="60.0" text="Location" />
+                              <TableColumn fx:id="tcReelNo" prefWidth="50.0" text="GSM" />
+                              <TableColumn fx:id="tcQty" prefWidth="50.0" text="Reel Width" />
+                              <TableColumn fx:id="tcSize" prefWidth="50.0" text="Reel Diameter" />
+                              <TableColumn fx:id="tcGrossWeight" prefWidth="75.0" text="Reel No" />
+                              <TableColumn fx:id="tcNetWeight" prefWidth="75.0" text="Initial Weight" />
+                              <TableColumn fx:id="tcCoreWeight" prefWidth="75.0" text="Qty" />
+                              <TableColumn fx:id="tcLenght" prefWidth="50.0" text="Remaining Qty" />
+                              <TableColumn fx:id="tcWidth" prefWidth="50.0" text="Size" />
+                              <TableColumn fx:id="tcEPFNo" prefWidth="75.0" text="Current Weight" />
+                              <TableColumn fx:id="tcDate" prefWidth="50.0" text="Reel FB" />
                           </columns>
                            <GridPane.margin>
                               <Insets left="30.0" right="35.0" />
