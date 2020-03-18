@@ -453,8 +453,7 @@ public class ReelRequisitionDAO {
                             + "`qty`, "
                             + "`remaining_qty`, "
                             + "`size`, "
-                            + "`current_weight`, "
-                            + "`flag`, "
+                            + "`current_weight`, "                            
                             + "`reel_fb`, "
                             + "`label_print_count`, "
                             + "`reel_liner`, "
@@ -462,107 +461,139 @@ public class ReelRequisitionDAO {
                             + "`st_value`, "
                             + "`total_cost`, "
                             + "`posting_date`, "
-                            + "`added_date` "
+                            + "`erp_doc`, "
+                            + "`vendor` "
                             
                             + ")  VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
                     while (rowIterator.hasNext()) {
+                        System.out.println("Next Row");
                         Row nextRow = rowIterator.next();
                         DataFormatter formatter = new DataFormatter();
                         Iterator<Cell> cellIterator = nextRow.cellIterator();
 
                         while (cellIterator.hasNext()) {
                             Cell nextCell = cellIterator.next();
-                            //Cell cell = sheet.getRow(i).getCell(0);
-                            String j_username = formatter.formatCellValue(
+//                             Cell nextCell = null ;
+                                                     
+                            String nextCellData = formatter.formatCellValue(
                                     nextCell);
                             int columnIndex = nextCell.getColumnIndex();
 
+                                System.out.println("Next Cell");
                             switch (columnIndex) {
                                 case 0:
-                                    //                                    ps.setString(1, formatter.formatCellValue(
-                                    //                                            nextCell));
+                            
                                     ps.setString(1, generateID());
-//                                   
+                                    
+                                    ps.setString(2, nextCellData);
+                                    System.out.println("Case 0 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+
+////                                   
                                     break;
                                 case 1:
-                                    ps.setString(2, formatter.formatCellValue(
-                                            nextCell));
-
+                                    ps.setString(3, nextCellData);
+//                                   String value = (formatter.formatCellValue(nextCell).isEmpty()) ?  null : formatter.formatCellValue(nextCell);
+//                                    System.out.println("Case 1");
+                                    System.out.println("Case 1 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
                                 case 2:
-                                    ps.setString(3, formatter.formatCellValue(
-                                            nextCell));
-
+                                    ps.setString(4, nextCellData);
+                                    System.out.println("Case 2 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
                                 case 3:
-                                    ps.setString(4, formatter.formatCellValue(
-                                            nextCell));
+                                    ps.setString(5, nextCellData);
+                                    System.out.println("Case 3 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
 
                                 case 4:
-                                    ps.setString(5, formatter.formatCellValue(
-                                            nextCell));
-
+                                    ps.setString(6,nextCellData);
+                                    System.out.println("Case 4 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
                                 case 5:
-                                    ps.setString(6, formatter.formatCellValue(
-                                            nextCell));
+                                    ps.setString(7, nextCellData);
+                                    System.out.println("Case 5 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
+                                    
                                 case 6:
-                                    ps.setString(7, formatter.formatCellValue(
-                                            nextCell));
+                                     ps.setString(8,nextCellData);
+                                    System.out.println("Case 6 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
                                 case 7:
-                                    ps.setString(8, formatter.formatCellValue(
-                                            nextCell));
+                                    ps.setString(9, nextCellData);
+                                    System.out.println("Case 7 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
                                 case 8:
-                                    ps.setString(9, formatter.formatCellValue(
-                                            nextCell));
+                                    ps.setString(10, nextCellData);
+                                    System.out.println("Case 8 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
                                 case 9:
-                                    ps.setString(10, formatter.formatCellValue(
-                                            nextCell));
+                                    ps.setString(11, nextCellData);
+                                    System.out.println("Case 9 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
                                 case 10:
-                                    ps.setString(11, formatter.formatCellValue(
-                                            nextCell));
+                                    ps.setString(12, nextCellData);
+                                    System.out.println("Case 10 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
                                 case 11:
-                                    ps.setString(12, formatter.formatCellValue(
-                                            nextCell));
+                                    ps.setString(13, nextCellData);
+                                    System.out.println("Case 11 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
                                 case 12:
-                                    ps.setString(13, formatter.formatCellValue(
-                                            nextCell));
+                                    ps.setString(14, nextCellData);
+                                    System.out.println("Case 12 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
                                 case 13:
-                                    ps.setString(14, formatter.formatCellValue(
-                                            nextCell));
+                                    ps.setString(15, nextCellData);
+                                    System.out.println("Case 13 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
                                 case 14:
-                                    ps.setString(15, formatter.formatCellValue(
-                                            nextCell));
+                                    ps.setString(16, nextCellData);
+                                    System.out.println("Case 14 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
                                 case 15:
-                                    ps.setString(16, formatter.formatCellValue(
-                                            nextCell));
+                                    ps.setString(17, nextCellData);
+                                    System.out.println("Case 15 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
                                 case 16:
-                                    ps.setString(17, formatter.formatCellValue(
-                                            nextCell));
+                                    ps.setString(18, nextCellData);
+                                    System.out.println("Case 16 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
                                 case 17:
-                                    ps.setString(18, formatter.formatCellValue(
-                                            nextCell));
+                                    ps.setString(19, nextCellData);
+                                    System.out.println("Case 17 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
                                 case 18:
-                                    ps.setString(19, formatter.formatCellValue(
-                                            nextCell));
+                                    ps.setString(20, nextCellData);
+                                    System.out.println("Case 18 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
                                 case 19:
-                                    ps.setString(20, formatter.formatCellValue(
-                                            nextCell));
+                                    ps.setString(21, nextCellData);
+                                    System.out.println("Case 19 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
                                 case 20:
-                                    ps.setString(21, formatter.formatCellValue(
-                                            nextCell));
+                                    ps.setString(22, nextCellData);
+                                    System.out.println("Case 20 total_cost - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
                                 case 21:
-                                    ps.setString(22, formatter.formatCellValue(
-                                            nextCell));
+                                    ps.setString(23, nextCellData);
+                                    System.out.println("Case 21 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
                                 case 22:
-                                    ps.setString(23, formatter.formatCellValue(
-                                            nextCell));
+                                    ps.setString(24, nextCellData);
+                                    System.out.println("Case 22 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     break;
                                 case 23:
-                                    ps.setString(24, formatter.formatCellValue(
-                                            nextCell));
-                                case 24:
-                                    ps.setString(25, formatter.formatCellValue(
-                                            nextCell));
-                                case 25:
-                                    ps.setString(26, formatter.formatCellValue(
-                                            nextCell));
+                                    ps.setString(25, nextCellData);
+                                    System.out.println("Case 23 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+//                                     break;
+//                                case 24:
+//                                    ps.setString(26, (formatter.formatCellValue(nextCell)));
+//                                    System.out.println("Case 24 txt - "+nextCellData+" - "+nextCellData.isEmpty());
+                                     //break;
+//                                    case 25:
+//                                    ps.setString(27, formatter.formatCellValue(
+//                                            nextCell));
+                            
                            
                               
 
