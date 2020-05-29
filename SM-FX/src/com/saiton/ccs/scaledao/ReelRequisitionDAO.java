@@ -991,7 +991,7 @@ public class ReelRequisitionDAO {
                 reelCodeFrom);
 
         String encodedreelCodeTo = ESAPI.encoder().encodeForSQL(ORACLE_CODEC,
-                reelCodeFrom);
+                reelCodeTo);
 
         String reelCode = null;
         String itemNo = null;
@@ -1029,8 +1029,8 @@ public class ReelRequisitionDAO {
                         + "WHERE (reel_code between ? and ?) "; //and (issue_note_date between ? and ?)
 
                 PreparedStatement pstmt = star.con.prepareStatement(query);
-                pstmt.setString(1, encodedreelCodeFrom);
-                pstmt.setString(2, encodedreelCodeTo);
+                pstmt.setString(1, encodedreelCodeFrom + "%");
+                pstmt.setString(2, encodedreelCodeTo + "%");
 
                 ResultSet r = pstmt.executeQuery();
 
@@ -1227,5 +1227,173 @@ public class ReelRequisitionDAO {
         }
         return mainList;
     }
+    
+    public ArrayList<ArrayList<String>> loadPendingPrints() {
+
+        String reelCode = null;
+        String itemNo = null;
+        String itemCategory = null;
+        String lotNo = null;
+        String serialNumber = null;
+        String itemName = null;
+        String itemDes = null;
+        String location = null;
+        String gsm = null;
+        String reelWidth = null;
+        String reelDiameter = null;
+        String reelNumber = null;
+        String initialWeight = null;
+        String qty = null;
+        String remainingQty = null;
+        String size = null;
+        String currentWeight = null;
+        String reelFb = null;
+
+        ArrayList<ArrayList<String>> mainList
+                = new ArrayList<ArrayList<String>>();
+
+        if (star.con == null) {
+
+            log.info(" Exception tag --> " + "Database connection failiure. ");
+            return null;
+
+        } else {
+            try {
+
+                String query
+                        = "SELECT * "
+                        + "FROM reel "
+                        + "WHERE label_print_count = ? "; //and (issue_note_date between ? and ?)
+
+                PreparedStatement pstmt = star.con.prepareStatement(query);
+                pstmt.setString(1, "0");
+
+                ResultSet r = pstmt.executeQuery();
+
+                while (r.next()) {
+
+                    ArrayList<String> list = new ArrayList<String>();
+
+                    reelCode = r.getString("reel_code");
+                    itemNo = r.getString("item_no");
+                    itemCategory = r.getString("item_category");
+                    lotNo = r.getString("lot_no");
+                    serialNumber = r.getString("serial_number");
+                    itemName = r.getString("item_name");
+                    itemDes = r.getString("item_des");
+                    location = r.getString("location");
+                    gsm = r.getString("gsm");
+                    reelWidth = r.getString("reel_width");
+                    reelDiameter = r.getString("reel_diameter");
+                    reelNumber = r.getString("reel_number");
+                    initialWeight = r.getString("initial_weight");
+                    qty = r.getString("qty");
+                    remainingQty = r.getString("remaining_qty");
+                    size = r.getString("size");
+                    currentWeight = r.getString("current_weight");
+                    reelFb = r.getString("reel_fb");
+
+                    list.add(reelCode);
+                    list.add(itemNo);
+                    list.add(itemCategory);
+                    list.add(lotNo);
+                    list.add(serialNumber);
+                    list.add(itemName);
+                    list.add(itemDes);
+                    list.add(location);
+                    list.add(gsm);
+                    list.add(reelWidth);
+                    list.add(reelDiameter);
+                    list.add(reelNumber);
+                    list.add(initialWeight);
+                    list.add(qty);
+                    list.add(remainingQty);
+                    list.add(size);
+                    list.add(currentWeight);
+                    list.add(reelFb);
+
+                    mainList.add(list);
+
+                }
+
+            } catch (ArrayIndexOutOfBoundsException | SQLException |
+                    NullPointerException e) {
+
+                if (e instanceof ArrayIndexOutOfBoundsException) {
+
+                    log.error(
+                            "Exception tag --> "
+                            + "Invalid entry location for list");
+
+                } else if (e instanceof SQLException) {
+
+                    log.error("Exception tag --> " + "Invalid sql statement");
+                    e.printStackTrace();
+
+                } else if (e instanceof NullPointerException) {
+
+                    log.error("Exception tag --> " + "Empty entry for list");
+
+                }
+                return null;
+            } catch (Exception e) {
+
+                log.error("Exception tag --> " + "Error");
+
+                return null;
+            }
+        }
+        return mainList;
+    }
+    
+    
+        public boolean updatePrintCount(
+            String fromId,
+                String toId,
+            int status
+    ) {
+
+        String encodedFromId = ESAPI.encoder().encodeForSQL(ORACLE_CODEC,
+                fromId);
+        
+         String encodedToId = ESAPI.encoder().encodeForSQL(ORACLE_CODEC,
+                toId);
+
+        if (star.con == null) {
+            log.error("Databse connection failiure.");
+            return false;
+        } else {
+            try {
+                String query = "UPDATE reel set "
+                        + "label_print_count=?"
+                        + " WHERE (reel_code between ? and ?)  ";
+                PreparedStatement ps = star.con.prepareStatement(query);
+
+                ps.setInt(1, status);
+                ps.setString(2, encodedFromId);
+                ps.setString(3, encodedToId);
+
+                int val = ps.executeUpdate();
+                if (val == 1) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            } catch (NullPointerException | SQLException e) {
+                if (e instanceof NullPointerException) {
+                    log.error("Exception tag --> " + "Empty entry passed");
+                } else if (e instanceof SQLException) {
+                    log.error("Exception tag --> " + "Invalid sql statement "
+                            + e.getMessage());
+                }
+                return false;
+            } catch (Exception e) {
+                log.error("Exception tag --> " + "Error");
+                return false;
+            }
+        }
+    }
+
 
 }

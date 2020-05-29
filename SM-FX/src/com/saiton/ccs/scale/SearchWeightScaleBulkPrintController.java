@@ -159,7 +159,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     private void txtToItemCodeOnKeyReleased(KeyEvent event) {
           if (event.getCode().equals(KeyCode.ENTER)) {
               clearInput();
-        loadReelInfo();
+        loadReelInfo(txtFromItemCode.getText(),txtToItemCode.getText());
                 }
         
     }
@@ -169,11 +169,17 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     @FXML
     private void btnRefreshItemCodeOnAction(ActionEvent event) {
         clearInput();
+        loadReelInfo("", "");
     }
 
     @FXML
     private void chbPendingPrintsOnAction(ActionEvent event) {
         chbWorkInProgress.setSelected(false);
+        clearInput();
+        loadPendingPrints();
+        if (!chbPendingPrints.isSelected()) {
+            clearInput();
+        }
     }
 
     @FXML
@@ -191,6 +197,8 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
             ReportGenerator r = new ReportGenerator(img, param);
 
             r.setVisible(true);
+            
+            reelDAO.updatePrintCount(txtFromItemCode.getText(), txtToItemCode.getText(), 1);
 
         }
     }
@@ -201,6 +209,9 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
         if (chbWorkInProgress.isSelected()) {
             clearInput();
               loadWorkInProgress();
+        }else if (!chbWorkInProgress.isSelected()) {
+            clearInput();
+             loadReelInfo(txtFromItemCode.getText(),txtToItemCode.getText());
         }
     }
 
@@ -690,7 +701,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 //                        ErrorMessages.EmptyListView));
     }
 
-    private boolean loadReelInfo() {
+    private boolean loadReelInfo(String fromId,String toId) {
 
         boolean isDataAvailable = false;
 
@@ -701,8 +712,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
                     = new ArrayList<ArrayList<String>>();
 
             ArrayList<ArrayList<String>> list = reelDAO.
-                    reelLogDetailsBulk(txtFromItemCode.getText(), txtToItemCode.
-                            getText());
+                    reelLogDetailsBulk(fromId, toId);
 
             isDataAvailable = true;
 
@@ -718,24 +728,43 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 
                         item = new Item();
 
-                        item.coltcCoreWeight.setValue(reelLogInfo.get(i).get(0));
-                        item.coltcWeightScaleID.setValue(reelLogInfo.get(i).get(1));
-                        item.coltcGrossWeight.setValue(reelLogInfo.get(i).get(2));
+//                        item.coltcCoreWeight.setValue(reelLogInfo.get(i).get(0));
+//                        item.coltcWeightScaleID.setValue(reelLogInfo.get(i).get(1));
+//                        item.coltcGrossWeight.setValue(reelLogInfo.get(i).get(2));
+//                        item.coltcBatchNo.setValue(reelLogInfo.get(i).get(3));
+//                        item.coltcJobNo.setValue(reelLogInfo.get(i).get(4));
+//                        item.coltcNetWeight.setValue(reelLogInfo.get(i).get(5));
+//                        item.coltcLenght.setValue(reelLogInfo.get(i).get(6));
+//                        item.coltcWidth.setValue(reelLogInfo.get(i).get(7));
+//                        item.coltcGauge.setValue(reelLogInfo.get(i).get(8));
+//                        item.coltcCustomer.setValue(reelLogInfo.get(i).get(9));
+//                        item.coltcReelNo.setValue(reelLogInfo.get(i).get(10));
+//                        item.coltcQty.setValue(reelLogInfo.get(i).get(11));
+//                        item.coltcMachine.setValue(reelLogInfo.get(i).get(12));
+//                        item.coltcDate.setValue(reelLogInfo.get(i).get(13));
+//                        item.coltcScale.setValue(reelLogInfo.get(i).get(14));
+//                        item.coltcEPFNo.setValue(reelLogInfo.get(i).get(15));
+//                        item.coltcDescription.setValue(reelLogInfo.get(i).get(16));
+//                        item.coltcSize.setValue(reelLogInfo.get(i).get(17));
+                        
+                             item.coltcWeightScaleID.setValue(reelLogInfo.get(i).get(0));
+                        item.coltcScale.setValue(reelLogInfo.get(i).get(1));
+                        item.coltcCustomer.setValue(reelLogInfo.get(i).get(2));
                         item.coltcBatchNo.setValue(reelLogInfo.get(i).get(3));
-                        item.coltcJobNo.setValue(reelLogInfo.get(i).get(4));
-                        item.coltcNetWeight.setValue(reelLogInfo.get(i).get(5));
-                        item.coltcLenght.setValue(reelLogInfo.get(i).get(6));
-                        item.coltcWidth.setValue(reelLogInfo.get(i).get(7));
-                        item.coltcGauge.setValue(reelLogInfo.get(i).get(8));
-                        item.coltcCustomer.setValue(reelLogInfo.get(i).get(9));
-                        item.coltcReelNo.setValue(reelLogInfo.get(i).get(10));
-                        item.coltcQty.setValue(reelLogInfo.get(i).get(11));
-                        item.coltcMachine.setValue(reelLogInfo.get(i).get(12));
-                        item.coltcDate.setValue(reelLogInfo.get(i).get(13));
-                        item.coltcScale.setValue(reelLogInfo.get(i).get(14));
-                        item.coltcEPFNo.setValue(reelLogInfo.get(i).get(15));
-                        item.coltcDescription.setValue(reelLogInfo.get(i).get(16));
-                        item.coltcSize.setValue(reelLogInfo.get(i).get(17));
+                        item.coltcDescription.setValue(reelLogInfo.get(i).get(4));
+                        item.coltcMachine.setValue(reelLogInfo.get(i).get(5));
+                        item.coltcJobNo.setValue(reelLogInfo.get(i).get(6));
+                        item.coltcGauge.setValue(reelLogInfo.get(i).get(7));
+                        item.coltcReelNo.setValue(reelLogInfo.get(i).get(8));
+                        item.coltcQty.setValue(reelLogInfo.get(i).get(9));
+                        item.coltcSize.setValue(reelLogInfo.get(i).get(10));
+                        item.coltcGrossWeight.setValue(reelLogInfo.get(i).get(11));
+                        item.coltcNetWeight.setValue(reelLogInfo.get(i).get(12));
+                        item.coltcCoreWeight.setValue(reelLogInfo.get(i).get(13));
+                        item.coltcLenght.setValue(reelLogInfo.get(i).get(14));
+                        item.coltcWidth.setValue(reelLogInfo.get(i).get(15));
+                        item.coltcEPFNo.setValue(reelLogInfo.get(i).get(16));
+                        item.coltcDate.setValue(reelLogInfo.get(i).get(17));
 
                         tableData.add(item);
                     }
@@ -783,25 +812,131 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
                     for (int i = 0; i < reelLogInfo.size(); i++) {
 
                         item = new Item();
-
-                        item.coltcCoreWeight.setValue(reelLogInfo.get(i).get(0));
-                        item.coltcWeightScaleID.setValue(reelLogInfo.get(i).get(1));
-                        item.coltcGrossWeight.setValue(reelLogInfo.get(i).get(2));
+                        
+                        
+                        item.coltcWeightScaleID.setValue(reelLogInfo.get(i).get(0));
+                        item.coltcScale.setValue(reelLogInfo.get(i).get(1));
+                        item.coltcCustomer.setValue(reelLogInfo.get(i).get(2));
                         item.coltcBatchNo.setValue(reelLogInfo.get(i).get(3));
-                        item.coltcJobNo.setValue(reelLogInfo.get(i).get(4));
-                        item.coltcNetWeight.setValue(reelLogInfo.get(i).get(5));
-                        item.coltcLenght.setValue(reelLogInfo.get(i).get(6));
-                        item.coltcWidth.setValue(reelLogInfo.get(i).get(7));
-                        item.coltcGauge.setValue(reelLogInfo.get(i).get(8));
-                        item.coltcCustomer.setValue(reelLogInfo.get(i).get(9));
-                        item.coltcReelNo.setValue(reelLogInfo.get(i).get(10));
-                        item.coltcQty.setValue(reelLogInfo.get(i).get(11));
-                        item.coltcMachine.setValue(reelLogInfo.get(i).get(12));
-                        item.coltcDate.setValue(reelLogInfo.get(i).get(13));
-                        item.coltcScale.setValue(reelLogInfo.get(i).get(14));
-                        item.coltcEPFNo.setValue(reelLogInfo.get(i).get(15));
-                        item.coltcDescription.setValue(reelLogInfo.get(i).get(16));
-                        item.coltcSize.setValue(reelLogInfo.get(i).get(17));
+                        item.coltcDescription.setValue(reelLogInfo.get(i).get(4));
+                        item.coltcMachine.setValue(reelLogInfo.get(i).get(5));
+                        item.coltcJobNo.setValue(reelLogInfo.get(i).get(6));
+                        item.coltcGauge.setValue(reelLogInfo.get(i).get(7));
+                        item.coltcReelNo.setValue(reelLogInfo.get(i).get(8));
+                        item.coltcQty.setValue(reelLogInfo.get(i).get(9));
+                        item.coltcSize.setValue(reelLogInfo.get(i).get(10));
+                        item.coltcGrossWeight.setValue(reelLogInfo.get(i).get(11));
+                        item.coltcNetWeight.setValue(reelLogInfo.get(i).get(12));
+                        item.coltcCoreWeight.setValue(reelLogInfo.get(i).get(13));
+                        item.coltcLenght.setValue(reelLogInfo.get(i).get(14));
+                        item.coltcWidth.setValue(reelLogInfo.get(i).get(15));
+                        item.coltcEPFNo.setValue(reelLogInfo.get(i).get(16));
+                        item.coltcDate.setValue(reelLogInfo.get(i).get(17));
+
+//                        item.coltcCoreWeight.setValue(reelLogInfo.get(i).get(0));
+//                        item.coltcWeightScaleID.setValue(reelLogInfo.get(i).get(1));
+//                        item.coltcGrossWeight.setValue(reelLogInfo.get(i).get(2));
+//                        item.coltcBatchNo.setValue(reelLogInfo.get(i).get(3));
+//                        item.coltcJobNo.setValue(reelLogInfo.get(i).get(4));
+//                        item.coltcNetWeight.setValue(reelLogInfo.get(i).get(5));
+//                        item.coltcLenght.setValue(reelLogInfo.get(i).get(6));
+//                        item.coltcWidth.setValue(reelLogInfo.get(i).get(7));
+//                        item.coltcGauge.setValue(reelLogInfo.get(i).get(8));
+//                        item.coltcCustomer.setValue(reelLogInfo.get(i).get(9));
+//                        item.coltcReelNo.setValue(reelLogInfo.get(i).get(10));
+//                        item.coltcQty.setValue(reelLogInfo.get(i).get(11));
+//                        item.coltcMachine.setValue(reelLogInfo.get(i).get(12));
+//                        item.coltcDate.setValue(reelLogInfo.get(i).get(13));
+//                        item.coltcScale.setValue(reelLogInfo.get(i).get(14));
+//                        item.coltcEPFNo.setValue(reelLogInfo.get(i).get(15));
+//                        item.coltcDescription.setValue(reelLogInfo.get(i).get(16));
+//                        item.coltcSize.setValue(reelLogInfo.get(i).get(17));
+
+                        tableData.add(item);
+                    }
+                }
+            } else {
+                mb.ShowMessage(stage, ErrorMessages.InvalidEvent,
+                        MessageBoxTitle.ERROR.toString(),
+                        MessageBox.MessageIcon.MSG_ICON_FAIL,
+                        MessageBox.MessageType.MSG_OK);
+                clearInput();
+
+            }
+
+        } catch (Exception e) {
+            clearInput();
+            return false;
+        }
+
+        return isDataAvailable;
+    }
+    
+     private boolean loadPendingPrints() {
+
+        boolean isDataAvailable = false;
+
+        try {
+
+            //reelData.clear();
+            ArrayList<ArrayList<String>> reelLogInfo
+                    = new ArrayList<ArrayList<String>>();
+
+            ArrayList<ArrayList<String>> list = reelDAO.
+                    loadPendingPrints();
+
+            isDataAvailable = true;
+
+            if (list != null) {
+
+                for (int i = 0; i < list.size(); i++) {
+
+                    reelLogInfo.add(list.get(i));
+                }
+
+                if (reelLogInfo != null && reelLogInfo.size() > 0) {
+                    for (int i = 0; i < reelLogInfo.size(); i++) {
+
+                        item = new Item();
+                        
+                        
+                        item.coltcWeightScaleID.setValue(reelLogInfo.get(i).get(0));
+                        item.coltcScale.setValue(reelLogInfo.get(i).get(1));
+                        item.coltcCustomer.setValue(reelLogInfo.get(i).get(2));
+                        item.coltcBatchNo.setValue(reelLogInfo.get(i).get(3));
+                        item.coltcDescription.setValue(reelLogInfo.get(i).get(4));
+                        item.coltcMachine.setValue(reelLogInfo.get(i).get(5));
+                        item.coltcJobNo.setValue(reelLogInfo.get(i).get(6));
+                        item.coltcGauge.setValue(reelLogInfo.get(i).get(7));
+                        item.coltcReelNo.setValue(reelLogInfo.get(i).get(8));
+                        item.coltcQty.setValue(reelLogInfo.get(i).get(9));
+                        item.coltcSize.setValue(reelLogInfo.get(i).get(10));
+                        item.coltcGrossWeight.setValue(reelLogInfo.get(i).get(11));
+                        item.coltcNetWeight.setValue(reelLogInfo.get(i).get(12));
+                        item.coltcCoreWeight.setValue(reelLogInfo.get(i).get(13));
+                        item.coltcLenght.setValue(reelLogInfo.get(i).get(14));
+                        item.coltcWidth.setValue(reelLogInfo.get(i).get(15));
+                        item.coltcEPFNo.setValue(reelLogInfo.get(i).get(16));
+                        item.coltcDate.setValue(reelLogInfo.get(i).get(17));
+
+//                        item.coltcCoreWeight.setValue(reelLogInfo.get(i).get(0));
+//                        item.coltcWeightScaleID.setValue(reelLogInfo.get(i).get(1));
+//                        item.coltcGrossWeight.setValue(reelLogInfo.get(i).get(2));
+//                        item.coltcBatchNo.setValue(reelLogInfo.get(i).get(3));
+//                        item.coltcJobNo.setValue(reelLogInfo.get(i).get(4));
+//                        item.coltcNetWeight.setValue(reelLogInfo.get(i).get(5));
+//                        item.coltcLenght.setValue(reelLogInfo.get(i).get(6));
+//                        item.coltcWidth.setValue(reelLogInfo.get(i).get(7));
+//                        item.coltcGauge.setValue(reelLogInfo.get(i).get(8));
+//                        item.coltcCustomer.setValue(reelLogInfo.get(i).get(9));
+//                        item.coltcReelNo.setValue(reelLogInfo.get(i).get(10));
+//                        item.coltcQty.setValue(reelLogInfo.get(i).get(11));
+//                        item.coltcMachine.setValue(reelLogInfo.get(i).get(12));
+//                        item.coltcDate.setValue(reelLogInfo.get(i).get(13));
+//                        item.coltcScale.setValue(reelLogInfo.get(i).get(14));
+//                        item.coltcEPFNo.setValue(reelLogInfo.get(i).get(15));
+//                        item.coltcDescription.setValue(reelLogInfo.get(i).get(16));
+//                        item.coltcSize.setValue(reelLogInfo.get(i).get(17));
 
                         tableData.add(item);
                     }
