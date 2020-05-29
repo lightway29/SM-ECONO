@@ -463,25 +463,61 @@ public class ReelRequisitionDAO {
                             + "`vendor` "
                             + ")  VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
                     while (rowIterator.hasNext()) {
-                        System.out.println("Next Row");
+                        
+                        int counter = 0;
                         boolean isRowEmpty = true;
+                        
+                        boolean isValidCell = false;
                         Row nextRow = rowIterator.next();
                         
                         DataFormatter formatter = new DataFormatter();
                         Iterator<Cell> cellIterator = nextRow.cellIterator();
 
                         while (cellIterator.hasNext()) {
-                            Cell nextCell = cellIterator.next();
-//                             Cell nextCell = null ;
-
-                            String nextCellData = formatter.formatCellValue(
+                            System.out.println("---------------------------------------------- Column -- " +counter );
+                            counter++;
+                            
+                            Cell nextCell ;
+                            String nextCellData= "";
+                            int columnIndex =0;
+                            
+                            try {
+                                
+                               nextCell = cellIterator.next();
+                               nextCellData = formatter.formatCellValue(
                                     nextCell);
-                            int columnIndex = nextCell.getColumnIndex();
+                               columnIndex = nextCell.getColumnIndex();
+                               
+                            } catch (Exception e) {
+                                System.out.println("NO CELL DATA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                            }
 
-                            System.out.println("Next Cell");
+     
+                            if (columnIndex == 0 && nextCellData.isEmpty() ) {
 
-                            if (!nextCellData.isEmpty()) {
-                                isRowEmpty = false;
+                                isRowEmpty = true;
+                                isValidCell = false;
+                                System.out.println("------- BreakCriteria 1 -------- " +columnIndex +" "+nextCellData );
+                                break;
+
+                            }else if(columnIndex >= 0 && !nextCellData.isEmpty()) {
+                                
+                                isValidCell = true;
+                                System.out.println("Criteria 2 -- " +columnIndex );
+                                if (columnIndex == 0) {
+                                    isRowEmpty = false;
+                                }
+                                                            
+                            }else if (columnIndex > 0 && nextCellData.isEmpty()) {
+
+                                isValidCell = true;
+                                nextCellData ="Empty";
+                                System.out.println("Criteria 3 --- " +columnIndex );
+                                
+                            }
+
+                            if (isValidCell == true ) {
+                                //isRowEmpty = false;
 
                                 switch (columnIndex) {
                                     case 0:
@@ -651,8 +687,9 @@ public class ReelRequisitionDAO {
                         }
                         if (isRowEmpty == false) {
                             
-                        
+                        isRowEmpty = true;
                         ps.addBatch();
+                        
                         }
 
                         if (count % batchSize == 0) {

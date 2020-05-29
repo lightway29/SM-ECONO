@@ -214,4 +214,6 @@ public class ErrorMessages {
     //----Invoice Settings----------
     public static final String InvalidInvoiceNo = "Invalid Invoice No";
     public static String selectSuplier = "Please select a Supplier before selecting an Item";
+    public static String InvalidIssue = "Cannot issue reel with zero weight";
+    
 }

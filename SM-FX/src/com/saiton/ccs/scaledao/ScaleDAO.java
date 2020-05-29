@@ -354,7 +354,7 @@ public class ScaleDAO {
 
         if (star.con == null) {
 
-            log.info(" Exception tag --> " + "Databse connection failiure. ");
+            log.info(" Exception tag --> " + "Database connection failiure. ");
             return null;
 
         } else {

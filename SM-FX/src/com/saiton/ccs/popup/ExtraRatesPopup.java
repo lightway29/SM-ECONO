@@ -16,11 +16,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-/**
- *
- * @author Polypackaging-A1
- */
-public class ExtraRatePopup {
+
+public class ExtraRatesPopup {
 
  
     public SimpleStringProperty colExtraRateCode = new SimpleStringProperty("tcExtraRateCode");
