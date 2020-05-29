@@ -8,6 +8,7 @@
 	<queryString>
 		<![CDATA[SELECT
 	r.reel_code,
+	r.reel_number,
 	r.lot_no,
 	r.remaining_qty,
 	r.gsm,
@@ -22,19 +23,22 @@ where reel_code between $P{from_reel_code} and $P{to_reel_code}]]>
 	<field name="reel_code" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="reel_number" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="lot_no" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="remaining_qty" class="java.lang.Integer">
+	<field name="remaining_qty" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="gsm" class="java.lang.Double">
+	<field name="gsm" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="item_category" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="current_weight" class="java.lang.Double">
+	<field name="current_weight" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="item_no" class="java.lang.String">
@@ -51,7 +55,7 @@ where reel_code between $P{from_reel_code} and $P{to_reel_code}]]>
 			<textField>
 				<reportElement x="36" y="82" width="94" height="13" uuid="5a652a60-391d-46a0-a83f-a632cb5858f4"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{lot_no}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{reel_number}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="1" y="82" width="38" height="13" uuid="69260693-6e91-4ae6-817c-bc8bed95c4c5"/>
