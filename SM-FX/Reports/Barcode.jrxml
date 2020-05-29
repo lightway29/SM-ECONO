@@ -60,7 +60,7 @@ where reel_code between $P{from_reel_code} and $P{to_reel_code}]]>
 				</textElement>
 				<text><![CDATA[Lot No ]]></text>
 			</staticText>
-			<textField pattern="yyyy-mm-dd">
+			<textField pattern="yyyy-MM-dd">
 				<reportElement x="168" y="105" width="89" height="13" uuid="7df9a3b3-b595-40d9-bcb3-191d98649f29"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
