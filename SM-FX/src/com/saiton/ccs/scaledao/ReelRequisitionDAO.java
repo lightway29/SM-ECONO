@@ -792,12 +792,19 @@ public class ReelRequisitionDAO {
             String issue_timestamp,
             String issue_weight
     ) {
+        
+        issue_weight = issue_weight.replace(",", "");
+        System.out.println("Issued weight"+issue_weight);
         String encodedReelCode = ESAPI.encoder().encodeForSQL(ORACLE_CODEC,
                 reelCode);
         String encodedIssueTimestamp = ESAPI.encoder().
                 encodeForSQL(ORACLE_CODEC, issue_timestamp);
         String encodedIssueWeight = ESAPI.encoder().
                 encodeForSQL(ORACLE_CODEC, issue_weight);
+        
+        
+        
+        
 
         if (star.con == null) {
             log.error("Databse connection failiure.");
