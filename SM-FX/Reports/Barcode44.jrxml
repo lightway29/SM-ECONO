@@ -4,10 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="to_reel_code" class="java.lang.String"/>
-	<parameter name="from_reel_code" class="java.lang.String">
-		<parameterDescription><![CDATA[]]></parameterDescription>
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
+	<parameter name="from_reel_code" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
 	r.reel_code,
@@ -21,7 +18,7 @@
 	r.serial_number
 
 FROM reel r
-WHERE (reel_code between $P{from_reel_code} and $P{to_reel_code}) OR reel_number Like $P{from_reel_code}]]>
+where reel_code between $P{from_reel_code} and $P{to_reel_code}]]>
 	</queryString>
 	<field name="reel_code" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -50,9 +47,6 @@ WHERE (reel_code between $P{from_reel_code} and $P{to_reel_code}) OR reel_number
 	<field name="serial_number" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<variable name="variable1" class="java.lang.String">
-		<initialValueExpression><![CDATA['%']]></initialValueExpression>
-	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -158,13 +152,6 @@ WHERE (reel_code between $P{from_reel_code} and $P{to_reel_code}) OR reel_number
 				<reportElement x="168" y="69" width="102" height="13" uuid="5d06dd16-1572-4e2e-9370-cc9ddc76048b"/>
 				<textFieldExpression><![CDATA[$F{serial_number}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="0" y="47" width="79" height="35" uuid="9a34cb8a-bb31-4b4f-85a9-e67ca54cd11b"/>
-				<textElement verticalAlignment="Middle" rotation="None">
-					<font fontName="Times New Roman" size="14" isBold="false"/>
-				</textElement>
-				<text><![CDATA[TESTING]]></text>
-			</staticText>
 		</band>
 	</detail>
 </jasperReport>

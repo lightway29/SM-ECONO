@@ -190,7 +190,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     private void btnPrintOnAction(ActionEvent event) {
         if (!txtFromItemCode.getText().isEmpty()) {
             HashMap param = new HashMap();
-            param.put("from_reel_code", txtFromItemCode.getText());
+            param.put("from_reel_code", txtFromItemCode.getText()+'%');
             param.put("to_reel_code", txtToItemCode.getText());
 
             File fileOne
