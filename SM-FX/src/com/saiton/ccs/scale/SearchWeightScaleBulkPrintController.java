@@ -157,7 +157,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     //<editor-fold defaultstate="collapsed" desc="Key Events">
     @FXML
     private void txtToItemCodeOnKeyReleased(KeyEvent event) {
-          if (event.getCode().equals(KeyCode.ENTER)) {
+          if (txtFromItemCode.getText().length() >= 3) {
               clearInput();
         loadReelInfo(txtFromItemCode.getText(),txtToItemCode.getText());
                 }
@@ -170,6 +170,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     private void btnRefreshItemCodeOnAction(ActionEvent event) {
         clearInput();
         loadReelInfo("", "");
+        
     }
 
     @FXML
@@ -359,6 +360,8 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     public void clearInput() {
         
         tableData.clear();
+        txtFromItemCode.clear();
+        txtToItemCode.clear();
 //            txtDescription.clear();
 //            txtPrice.clear();
 //            txtService.clear();
@@ -797,7 +800,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
                     = new ArrayList<ArrayList<String>>();
 
             ArrayList<ArrayList<String>> list = reelDAO.
-                    reelLogDetailsBulkIssued();
+                    reelLogDetailsBulkIssued(txtFromItemCode.getText());
 
             isDataAvailable = true;
 

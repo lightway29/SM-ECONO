@@ -1026,11 +1026,12 @@ public class ReelRequisitionDAO {
                 String query
                         = "SELECT * "
                         + "FROM reel "
-                        + "WHERE (reel_code between ? and ?) "; //and (issue_note_date between ? and ?)
+                        + "WHERE (reel_code between ? and ?) OR reel_number Like ? "; //and (issue_note_date between ? and ?)
 
                 PreparedStatement pstmt = star.con.prepareStatement(query);
-                pstmt.setString(1, encodedreelCodeFrom + "%");
-                pstmt.setString(2, encodedreelCodeTo + "%");
+                pstmt.setString(1, reelCodeFrom + "%");
+                pstmt.setString(2, reelCodeTo + "%");
+                pstmt.setString(3, reelCodeFrom + "%");
 
                 ResultSet r = pstmt.executeQuery();
 
@@ -1110,7 +1111,7 @@ public class ReelRequisitionDAO {
         return mainList;
     }
 
-    public ArrayList<ArrayList<String>> reelLogDetailsBulkIssued() {
+    public ArrayList<ArrayList<String>> reelLogDetailsBulkIssued(String searchReelNumber) {
 
         String reelCode = null;
         String itemNo = null;
@@ -1145,10 +1146,11 @@ public class ReelRequisitionDAO {
                 String query
                         = "SELECT * "
                         + "FROM reel "
-                        + "WHERE flag = ? "; //and (issue_note_date between ? and ?)
+                        + "WHERE flag = ?  AND reel_number LIKE ? "; //and (issue_note_date between ? and ?)
 
                 PreparedStatement pstmt = star.con.prepareStatement(query);
                 pstmt.setString(1, "1");
+                pstmt.setString(2, searchReelNumber + "%");
 
                 ResultSet r = pstmt.executeQuery();
 
