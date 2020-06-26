@@ -171,6 +171,9 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
         clearInput();
         loadReelInfo("", "");
         
+                txtFromItemCode.clear();
+        txtToItemCode.clear();
+        
     }
 
     @FXML
@@ -360,8 +363,8 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     public void clearInput() {
         
         tableData.clear();
-        txtFromItemCode.clear();
-        txtToItemCode.clear();
+//        txtFromItemCode.clear();
+//        txtToItemCode.clear();
 //            txtDescription.clear();
 //            txtPrice.clear();
 //            txtService.clear();
