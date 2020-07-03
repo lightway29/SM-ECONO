@@ -133,6 +133,18 @@ where DATE(l.time_stamp) = $P{from_time_stamp}]]>
 				</textElement>
 				<text><![CDATA[Paper Consumption Report]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="683" y="34" width="46" height="22" uuid="eb69680e-c22e-4109-b220-543dee4fbb96"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="734" y="35" width="72" height="20" uuid="9b5b2aaa-b5a1-4afb-8916-1f87c32b2c95"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{from_time_stamp}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<columnHeader>
