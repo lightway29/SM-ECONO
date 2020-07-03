@@ -17,7 +17,7 @@
       <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
           <children>
-            <GridPane prefHeight="300.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <GridPane layoutX="-7.0" prefHeight="300.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="0.0">
               <children>
                 <HBox id="HBox" alignment="CENTER_RIGHT" spacing="5.0" GridPane.columnIndex="6" GridPane.columnSpan="4" GridPane.rowIndex="10" GridPane.rowSpan="2">
                   <children>
@@ -43,21 +43,22 @@
                                  </font></Label>
                            </children>
                         </AnchorPane>
-                        <HBox id="HBox" alignment="CENTER_LEFT" layoutX="570.0" layoutY="168.0" spacing="5.0" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="1">
+                        <HBox id="HBox" alignment="CENTER_LEFT" layoutX="570.0" layoutY="50.0" spacing="5.0" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="1">
                            <children>
-                              <Label prefWidth="150.0" text="From Date" visible="false">
+                              <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0">
+                                 <opaqueInsets>
+                                    <Insets bottom="10.0" />
+                                 </opaqueInsets>
+                              </HBox>
+                              <Label minWidth="195.0" prefWidth="200.0" text="Work In Progress">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
                               </Label>
-                              <DatePicker fx:id="dtpFromDate" onAction="#dtpFromDateOnAction" prefHeight="50.0" prefWidth="200.0" visible="false" />
-                           </children>
-                           <GridPane.margin>
-                              <Insets right="35.0" />
-                           </GridPane.margin>
-                        </HBox>
-                        <HBox id="HBox" alignment="CENTER_LEFT" layoutX="570.0" layoutY="50.0" spacing="5.0" GridPane.columnIndex="7" GridPane.columnSpan="3" GridPane.rowIndex="1">
-                           <children>
+                              <CheckBox fx:id="chbWorkInProgress" alignment="CENTER" mnemonicParsing="false" onAction="#chbWorkInProgressOnAction" />
                               <Label prefWidth="150.0" text="To Date" visible="false">
                                  <font>
                                     <Font size="22.0" />
@@ -170,7 +171,7 @@
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="170.0" GridPane.columnSpan="8" GridPane.rowIndex="10" GridPane.rowSpan="2">
                            <children>
-                              <Button fx:id="btnPrint" mnemonicParsing="false" onAction="#btnPrintOnAction" prefHeight="50.0" prefWidth="200.0" text="Print Label">
+                              <Button fx:id="btnPrint" mnemonicParsing="false" onAction="#btnPrintOnAction" prefHeight="50.0" prefWidth="180.0" text="Print Label">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -197,12 +198,7 @@
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <DatePicker fx:id="dtDate" prefHeight="50.0" prefWidth="298.0">
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </DatePicker>
-                              <Button fx:id="btnConsumption" mnemonicParsing="false" onAction="#btnConsumptionOnAction" prefHeight="50.0" prefWidth="200.0" text="Consumption">
+                              <Button fx:id="btnConsumption" mnemonicParsing="false" onAction="#btnConsumptionOnAction" prefHeight="50.0" prefWidth="180.0" text="Consumption">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -225,17 +221,35 @@
                               <Insets left="30.0" />
                            </padding>
                         </HBox>
-                        <HBox id="HBox" alignment="CENTER_LEFT" layoutX="570.0" layoutY="114.0" spacing="5.0" GridPane.columnIndex="7" GridPane.columnSpan="3" GridPane.rowIndex="2">
+                        <HBox id="HBox" alignment="CENTER_LEFT" layoutX="570.0" layoutY="114.0" GridPane.columnIndex="7" GridPane.columnSpan="3" GridPane.rowIndex="2">
+                           <opaqueInsets>
+                              <Insets bottom="10.0" />
+                           </opaqueInsets>
                            <children>
-                              <Label prefWidth="200.0" text="Work In Progress">
+                              <Label prefWidth="120.0" text="To Date">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
+                              </Label>
+                              <DatePicker fx:id="dtToDate" prefHeight="50.0" prefWidth="180.0">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
+                              </DatePicker>
+                           </children>
+                        </HBox>
+                        <HBox id="HBox" alignment="CENTER_LEFT" GridPane.columnIndex="7" GridPane.columnSpan="3" GridPane.rowIndex="1">
+                           <children>
+                              <Label prefWidth="120.0" text="From Date">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
                               </Label>
-                              <CheckBox fx:id="chbWorkInProgress" alignment="CENTER" mnemonicParsing="false" onAction="#chbWorkInProgressOnAction" />
+                              <DatePicker fx:id="dtFromDate" prefHeight="50.0" prefWidth="180.0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </DatePicker>
                            </children>
                            <opaqueInsets>
                               <Insets bottom="10.0" />

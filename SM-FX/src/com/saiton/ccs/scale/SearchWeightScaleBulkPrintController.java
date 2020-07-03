@@ -154,7 +154,9 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     @FXML
     private CheckBox chbWorkInProgress;
     @FXML
-    private DatePicker dtDate;
+    private DatePicker dtFromDate;
+    @FXML
+    private DatePicker dtToDate;
     @FXML
     private Button btnConsumption;
 
@@ -222,7 +224,8 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     @FXML
     void btnConsumptionOnAction(ActionEvent event) {
             HashMap param = new HashMap();
-            param.put("from_time_stamp", dtDate.getValue().toString());
+            param.put("from_time_stamp", dtFromDate.getValue().toString());
+            param.put("to_time_stamp", dtToDate.getValue().toString());
 
             File fileOne
                     = new File(
@@ -379,14 +382,43 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 
         loadWorkInProgress();
 
+        dateFormatterFromDate("yyyy-MM-dd");
+        dtFromDate.setValue(LocalDate.now());
         dateFormatterToDate("yyyy-MM-dd");
-        dtDate.setValue(LocalDate.now());
+        dtToDate.setValue(LocalDate.now());
 
     }
 
     private void dateFormatterToDate(String pattern) {
 
-        dtDate.setConverter(new StringConverter<LocalDate>() {
+        dtToDate.setConverter(new StringConverter<LocalDate>() {
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(
+                    pattern);
+
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        });
+
+    }
+    
+    private void dateFormatterFromDate(String pattern) {
+
+        dtFromDate.setConverter(new StringConverter<LocalDate>() {
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(
                     pattern);
 
