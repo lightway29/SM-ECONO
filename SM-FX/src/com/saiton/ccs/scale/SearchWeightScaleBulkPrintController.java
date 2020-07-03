@@ -2,6 +2,7 @@ package com.saiton.ccs.scale;
 
 import com.saiton.ccs.base.UserPermission;
 import com.saiton.ccs.base.UserSession;
+import com.saiton.ccs.common.TimeConvert;
 import com.saiton.ccs.msgbox.MessageBox;
 import com.saiton.ccs.msgbox.SimpleMessageBoxFactory;
 import com.saiton.ccs.popup.ItemInfoPopup;
@@ -24,7 +25,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -51,6 +58,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.controlsfx.control.PopOver;
@@ -145,6 +153,10 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     private Button btnPrint;
     @FXML
     private CheckBox chbWorkInProgress;
+    @FXML
+    private DatePicker dtDate;
+    @FXML
+    private Button btnConsumption;
 
     ReelRequisitionDAO reelDAO = new ReelRequisitionDAO();
 
@@ -157,11 +169,11 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     //<editor-fold defaultstate="collapsed" desc="Key Events">
     @FXML
     private void txtToItemCodeOnKeyReleased(KeyEvent event) {
-          if (txtFromItemCode.getText().length() >= 3) {
-              clearInput();
-        loadReelInfo(txtFromItemCode.getText(),txtToItemCode.getText());
-                }
-        
+        if (txtFromItemCode.getText().length() >= 3) {
+            clearInput();
+            loadReelInfo(txtFromItemCode.getText(), txtToItemCode.getText());
+        }
+
     }
 
 //</editor-fold>
@@ -170,10 +182,10 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     private void btnRefreshItemCodeOnAction(ActionEvent event) {
         clearInput();
         loadReelInfo("", "");
-        
-                txtFromItemCode.clear();
+
+        txtFromItemCode.clear();
         txtToItemCode.clear();
-        
+
     }
 
     @FXML
@@ -190,21 +202,36 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     private void btnPrintOnAction(ActionEvent event) {
         if (!txtFromItemCode.getText().isEmpty()) {
             HashMap param = new HashMap();
-            param.put("from_reel_code", txtFromItemCode.getText()+'%');
+            param.put("from_reel_code", txtFromItemCode.getText() + '%');
             param.put("to_reel_code", txtToItemCode.getText());
 
             File fileOne
                     = new File(
                             ReportPath.PATH_BARCODE_REPORT.
-                            toString());
+                                    toString());
             String img = fileOne.getAbsolutePath();
             ReportGenerator r = new ReportGenerator(img, param);
 
             r.setVisible(true);
-            
+
             reelDAO.updatePrintCount(txtFromItemCode.getText(), txtToItemCode.getText(), 1);
 
         }
+    }
+
+    @FXML
+    void btnConsumptionOnAction(ActionEvent event) {
+            HashMap param = new HashMap();
+            param.put("from_time_stamp", dtDate.getValue().toString());
+
+            File fileOne
+                    = new File(
+                            ReportPath.PATH_PAPER_CONSUMPTION_REPORT.
+                                    toString());
+            String img = fileOne.getAbsolutePath();
+            ReportGenerator r = new ReportGenerator(img, param);
+
+            r.setVisible(true);
     }
 
     @FXML
@@ -212,10 +239,10 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
         chbPendingPrints.setSelected(false);
         if (chbWorkInProgress.isSelected()) {
             clearInput();
-              loadWorkInProgress();
-        }else if (!chbWorkInProgress.isSelected()) {
+            loadWorkInProgress();
+        } else if (!chbWorkInProgress.isSelected()) {
             clearInput();
-             loadReelInfo(txtFromItemCode.getText(),txtToItemCode.getText());
+            loadReelInfo(txtFromItemCode.getText(), txtToItemCode.getText());
         }
     }
 
@@ -261,6 +288,11 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     //<editor-fold defaultstate="collapsed" desc="Click Events">
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
+    TimeConvert timeConvert = new TimeConvert();
+    Date currentDate = new Date();
+    DateFormat time = new SimpleDateFormat("HH:mm");
+    Calendar cal = Calendar.getInstance();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -342,13 +374,40 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
         mb = SimpleMessageBoxFactory.createMessageBox();
 //        txtServiceId.setText(serviceDAO.generateID());
 //        btnDelete.setVisible(false);
-        
-        
+
         chbWorkInProgress.setSelected(true);
-        
+
         loadWorkInProgress();
-        
-        
+
+        dateFormatterToDate("yyyy-MM-dd");
+        dtDate.setValue(LocalDate.now());
+
+    }
+
+    private void dateFormatterToDate(String pattern) {
+
+        dtDate.setConverter(new StringConverter<LocalDate>() {
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(
+                    pattern);
+
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        });
 
     }
 
@@ -361,7 +420,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 
     @Override
     public void clearInput() {
-        
+
         tableData.clear();
 //        txtFromItemCode.clear();
 //        txtToItemCode.clear();
@@ -707,7 +766,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 //                        ErrorMessages.EmptyListView));
     }
 
-    private boolean loadReelInfo(String fromId,String toId) {
+    private boolean loadReelInfo(String fromId, String toId) {
 
         boolean isDataAvailable = false;
 
@@ -752,8 +811,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 //                        item.coltcEPFNo.setValue(reelLogInfo.get(i).get(15));
 //                        item.coltcDescription.setValue(reelLogInfo.get(i).get(16));
 //                        item.coltcSize.setValue(reelLogInfo.get(i).get(17));
-                        
-                             item.coltcWeightScaleID.setValue(reelLogInfo.get(i).get(0));
+                        item.coltcWeightScaleID.setValue(reelLogInfo.get(i).get(0));
                         item.coltcScale.setValue(reelLogInfo.get(i).get(1));
                         item.coltcCustomer.setValue(reelLogInfo.get(i).get(2));
                         item.coltcBatchNo.setValue(reelLogInfo.get(i).get(3));
@@ -791,7 +849,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 
         return isDataAvailable;
     }
-    
+
     private boolean loadWorkInProgress() {
 
         boolean isDataAvailable = false;
@@ -818,8 +876,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
                     for (int i = 0; i < reelLogInfo.size(); i++) {
 
                         item = new Item();
-                        
-                        
+
                         item.coltcWeightScaleID.setValue(reelLogInfo.get(i).get(0));
                         item.coltcScale.setValue(reelLogInfo.get(i).get(1));
                         item.coltcCustomer.setValue(reelLogInfo.get(i).get(2));
@@ -857,7 +914,6 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 //                        item.coltcEPFNo.setValue(reelLogInfo.get(i).get(15));
 //                        item.coltcDescription.setValue(reelLogInfo.get(i).get(16));
 //                        item.coltcSize.setValue(reelLogInfo.get(i).get(17));
-
                         tableData.add(item);
                     }
                 }
@@ -877,8 +933,8 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 
         return isDataAvailable;
     }
-    
-     private boolean loadPendingPrints() {
+
+    private boolean loadPendingPrints() {
 
         boolean isDataAvailable = false;
 
@@ -904,8 +960,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
                     for (int i = 0; i < reelLogInfo.size(); i++) {
 
                         item = new Item();
-                        
-                        
+
                         item.coltcWeightScaleID.setValue(reelLogInfo.get(i).get(0));
                         item.coltcScale.setValue(reelLogInfo.get(i).get(1));
                         item.coltcCustomer.setValue(reelLogInfo.get(i).get(2));
@@ -943,7 +998,6 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 //                        item.coltcEPFNo.setValue(reelLogInfo.get(i).get(15));
 //                        item.coltcDescription.setValue(reelLogInfo.get(i).get(16));
 //                        item.coltcSize.setValue(reelLogInfo.get(i).get(17));
-
                         tableData.add(item);
                     }
                 }
@@ -963,17 +1017,15 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 
         return isDataAvailable;
     }
-    
+
     private void modeSelection() {
-        
+
         if (chbPendingPrints.isSelected() && !chbWorkInProgress.isSelected()) {
-            
-            
-     
+
         } else if (chbWorkInProgress.isSelected() && !chbPendingPrints.isSelected()) {
-       
+
         }
-        
+
     }
 
     public class Item {

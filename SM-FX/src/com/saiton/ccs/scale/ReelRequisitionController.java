@@ -62,7 +62,7 @@ import org.apache.poi.xssf.usermodel.*;
 
 import java.io.*;
 import java.sql.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -297,7 +297,7 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
                 boolean isUpdated = reelDAO.updateReturnLog(txtItemCode.
                         getText(),
-                        LocalDate.now().toString(),
+                        LocalDateTime.now().toString(),
                         txtReturnedWeight.getText());
 
                 boolean isDataUpdated = reelDAO.updateFlagAndWeight(txtItemCode.
@@ -444,7 +444,7 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
             boolean isDateSaved = reelDAO.insertIssueLog(
                     txtItemCode.getText(),
-                    LocalDate.now().toString(),
+                    LocalDateTime.now().toString(),
                     txtIssuedWeight.getText());
 
             boolean isDataUpdated = reelDAO.updateFlag(txtItemCode.getText(), 1);

@@ -168,7 +168,7 @@
                               <Insets right="35.0" />
                            </GridPane.margin>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="170.0" GridPane.columnSpan="4" GridPane.rowIndex="10" GridPane.rowSpan="2">
+                        <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="170.0" GridPane.columnSpan="8" GridPane.rowIndex="10" GridPane.rowSpan="2">
                            <children>
                               <Button fx:id="btnPrint" mnemonicParsing="false" onAction="#btnPrintOnAction" prefHeight="50.0" prefWidth="200.0" text="Print Label">
                                  <font>
@@ -190,6 +190,26 @@
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../res/img-report-registration.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <DatePicker fx:id="dtDate" prefHeight="50.0" prefWidth="298.0">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </DatePicker>
+                              <Button fx:id="btnConsumption" mnemonicParsing="false" onAction="#btnConsumptionOnAction" prefHeight="50.0" prefWidth="200.0" text="Consumption">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../res/img-print.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
