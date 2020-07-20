@@ -159,6 +159,10 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     private DatePicker dtToDate;
     @FXML
     private Button btnConsumption;
+    @FXML
+    private Button btnStockKg;
+    @FXML
+    private Button btnStockMT;
 
     ReelRequisitionDAO reelDAO = new ReelRequisitionDAO();
 
@@ -223,18 +227,18 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 
     @FXML
     void btnConsumptionOnAction(ActionEvent event) {
-            HashMap param = new HashMap();
-            param.put("from_time_stamp", dtFromDate.getValue().toString());
-            param.put("to_time_stamp", dtToDate.getValue().toString());
+        HashMap param = new HashMap();
+        param.put("from_time_stamp", dtFromDate.getValue().toString());
+        param.put("to_time_stamp", dtToDate.getValue().toString());
 
-            File fileOne
-                    = new File(
-                            ReportPath.PATH_PAPER_CONSUMPTION_REPORT.
-                                    toString());
-            String img = fileOne.getAbsolutePath();
-            ReportGenerator r = new ReportGenerator(img, param);
+        File fileOne
+                = new File(
+                        ReportPath.PATH_PAPER_CONSUMPTION_REPORT.
+                                toString());
+        String img = fileOne.getAbsolutePath();
+        ReportGenerator r = new ReportGenerator(img, param);
 
-            r.setVisible(true);
+        r.setVisible(true);
     }
 
     @FXML
@@ -269,6 +273,34 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
                     MessageBox.MessageType.MSG_OK);
         }
 
+    }
+
+    @FXML
+    void btnStockKgOnAction(ActionEvent event) {
+        HashMap param = new HashMap();
+
+        File fileOne
+                = new File(
+                        ReportPath.PATH_STOCK_SUMMARY_IN_KG_REPORT.
+                                toString());
+        String img = fileOne.getAbsolutePath();
+        ReportGenerator r = new ReportGenerator(img, param);
+
+        r.setVisible(true);
+    }
+
+    @FXML
+    void btnStockMTOnAction(ActionEvent event) {
+        HashMap param = new HashMap();
+
+        File fileOne
+                = new File(
+                        ReportPath.PATH_STOCK_SUMMARY_IN_MT_REPORT.
+                                toString());
+        String img = fileOne.getAbsolutePath();
+        ReportGenerator r = new ReportGenerator(img, param);
+
+        r.setVisible(true);
     }
 
     @FXML
@@ -415,7 +447,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
         });
 
     }
-    
+
     private void dateFormatterFromDate(String pattern) {
 
         dtFromDate.setConverter(new StringConverter<LocalDate>() {
