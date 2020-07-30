@@ -163,6 +163,8 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     private Button btnStockKg;
     @FXML
     private Button btnStockMT;
+    @FXML
+    private Button btnStockDetails;
 
     ReelRequisitionDAO reelDAO = new ReelRequisitionDAO();
 
@@ -234,6 +236,20 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
         File fileOne
                 = new File(
                         ReportPath.PATH_PAPER_CONSUMPTION_REPORT.
+                                toString());
+        String img = fileOne.getAbsolutePath();
+        ReportGenerator r = new ReportGenerator(img, param);
+
+        r.setVisible(true);
+    }
+    
+    @FXML
+    void btnStockDetailsOnAction(ActionEvent event) {
+        HashMap param = new HashMap();
+
+        File fileOne
+                = new File(
+                        ReportPath.PATH_STOCK_DETAILS_REPORT.
                                 toString());
         String img = fileOne.getAbsolutePath();
         ReportGenerator r = new ReportGenerator(img, param);

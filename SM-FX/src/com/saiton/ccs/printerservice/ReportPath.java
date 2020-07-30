@@ -93,6 +93,7 @@ public enum ReportPath {
     PATH_PAPER_CONSUMPTION_REPORT(".//Reports//PaperConsumptionReport.jasper"),
     PATH_STOCK_SUMMARY_IN_KG_REPORT(".//Reports//StockReportSummaryInKg.jasper"),
     PATH_STOCK_SUMMARY_IN_MT_REPORT(".//Reports//StockReportSummaryInMT.jasper"),
+    PATH_STOCK_DETAILS_REPORT(".//Reports//StockDetailsReport.jasper"),
     PATH_WEIGHT_TWO_REPORT(".//Reports//WeightScale2.jasper");
 
     private final String val;
