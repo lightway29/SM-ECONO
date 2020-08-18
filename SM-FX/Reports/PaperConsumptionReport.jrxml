@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PaperConsumptionReport" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fe0bc1c5-5b6c-409c-864f-4a234c398114">
 	<property name="ireport.zoom" value="1.9487171000000025"/>
-	<property name="ireport.x" value="545"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="from_time_stamp" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -283,11 +283,6 @@ Date & Time]]></text>
 				<textFieldExpression><![CDATA[$F{gsm}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="88" y="1" width="90" height="20" uuid="4aa99d34-5359-46b9-8e19-375963d765aa"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{reel_number}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="175" y="1" width="59" height="20" uuid="9e39ec00-c90b-47ff-951c-e46135c76125"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{size}]]></textFieldExpression>
@@ -339,6 +334,11 @@ Date & Time]]></text>
 				<reportElement x="699" y="1" width="103" height="20" uuid="0ba675a2-9777-475c-8667-be46fe83f67d"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{return_time_stamp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="87" y="1" width="100" height="20" uuid="6084efac-e2a7-48ad-9355-d8c4c6a33eca"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{reel_code}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
