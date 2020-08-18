@@ -15,7 +15,8 @@ l.issue_weight, l.return_weight, l.return_time_stamp
 FROM reel_log l
 inner join reel r
 on l.reel_code = r.reel_code
-where DATE(l.time_stamp) BETWEEN  $P{from_time_stamp} AND $P{to_time_stamp}]]>
+where DATE(l.time_stamp) BETWEEN  $P{from_time_stamp} AND $P{to_time_stamp}
+order by issue_time_stamp asc]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -47,7 +48,7 @@ where DATE(l.time_stamp) BETWEEN  $P{from_time_stamp} AND $P{to_time_stamp}]]>
 	<field name="gsm" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="reel_width" class="java.lang.String">
+	<field name="reel_width" class="java.lang.Float">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="reel_diameter" class="java.lang.String">
@@ -65,7 +66,7 @@ where DATE(l.time_stamp) BETWEEN  $P{from_time_stamp} AND $P{to_time_stamp}]]>
 	<field name="remaining_qty" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="size" class="java.lang.String">
+	<field name="size" class="java.lang.Float">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="current_weight" class="java.lang.String">
@@ -160,7 +161,7 @@ where DATE(l.time_stamp) BETWEEN  $P{from_time_stamp} AND $P{to_time_stamp}]]>
 				<text><![CDATA[Issued Weight]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="613" y="1" width="92" height="32" uuid="7febb0eb-bf5c-4048-9bfa-2cdb87093931"/>
+				<reportElement x="603" y="1" width="92" height="32" uuid="7febb0eb-bf5c-4048-9bfa-2cdb87093931"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
@@ -181,11 +182,12 @@ where DATE(l.time_stamp) BETWEEN  $P{from_time_stamp} AND $P{to_time_stamp}]]>
 				<text><![CDATA[Returned Weight]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="705" y="0" width="97" height="33" uuid="4d639946-d9a9-4956-bfc0-e94917b09404"/>
+				<reportElement x="695" y="0" width="107" height="33" uuid="4d639946-d9a9-4956-bfc0-e94917b09404"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Returned Date & Time]]></text>
+				<text><![CDATA[Returned
+Date & Time]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="532" y="0" width="81" height="33" uuid="ebab5561-bb49-4154-8381-42c1482fe703"/>
@@ -244,13 +246,13 @@ where DATE(l.time_stamp) BETWEEN  $P{from_time_stamp} AND $P{to_time_stamp}]]>
 				<reportElement mode="Transparent" x="462" y="0" width="70" height="32" uuid="6c102f4e-2372-499b-86c2-a22f6fe41a48"/>
 			</rectangle>
 			<rectangle>
-				<reportElement mode="Transparent" x="532" y="0" width="81" height="32" uuid="c24c37a5-3f09-41eb-83b4-f44990654755"/>
+				<reportElement mode="Transparent" x="532" y="0" width="71" height="32" uuid="c24c37a5-3f09-41eb-83b4-f44990654755"/>
 			</rectangle>
 			<rectangle>
-				<reportElement mode="Transparent" x="613" y="0" width="93" height="32" uuid="0b167225-4e61-429a-93de-39defcf2cc22"/>
+				<reportElement mode="Transparent" x="603" y="0" width="93" height="32" uuid="0b167225-4e61-429a-93de-39defcf2cc22"/>
 			</rectangle>
 			<rectangle>
-				<reportElement mode="Transparent" x="706" y="0" width="96" height="32" uuid="723a6bb5-e8e1-4a78-b447-a16e21362be0"/>
+				<reportElement mode="Transparent" x="696" y="0" width="106" height="32" uuid="723a6bb5-e8e1-4a78-b447-a16e21362be0"/>
 			</rectangle>
 		</band>
 	</columnHeader>
@@ -315,27 +317,27 @@ where DATE(l.time_stamp) BETWEEN  $P{from_time_stamp} AND $P{to_time_stamp}]]>
 				<textFieldExpression><![CDATA[$F{return_weight}]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement mode="Transparent" x="532" y="0" width="81" height="20" uuid="bd1ae293-5835-4cd2-bc71-8a3b9cb18318"/>
+				<reportElement mode="Transparent" x="532" y="0" width="71" height="20" uuid="bd1ae293-5835-4cd2-bc71-8a3b9cb18318"/>
 			</rectangle>
 			<textField>
-				<reportElement x="532" y="1" width="81" height="20" uuid="f5411d7c-a55c-476f-8684-4894e4ac9d08"/>
+				<reportElement x="532" y="1" width="70" height="20" uuid="f5411d7c-a55c-476f-8684-4894e4ac9d08"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{consumed_weight}]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement mode="Transparent" x="613" y="0" width="93" height="20" uuid="61233a91-a570-4ffe-a145-f2be854c23b5"/>
+				<reportElement mode="Transparent" x="603" y="0" width="93" height="20" uuid="61233a91-a570-4ffe-a145-f2be854c23b5"/>
 			</rectangle>
-			<textField>
-				<reportElement x="613" y="1" width="92" height="20" uuid="47f1e691-4c0c-4236-9187-3e2654bca8fb"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+			<textField pattern="dd/MM/yyyy hh.mm a">
+				<reportElement x="606" y="1" width="89" height="20" uuid="47f1e691-4c0c-4236-9187-3e2654bca8fb"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{issue_time_stamp}]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement mode="Transparent" x="706" y="0" width="96" height="20" uuid="452f9322-b4c8-4efe-a33c-71026f0c268b"/>
+				<reportElement mode="Transparent" x="696" y="0" width="106" height="20" uuid="452f9322-b4c8-4efe-a33c-71026f0c268b"/>
 			</rectangle>
-			<textField>
-				<reportElement x="706" y="1" width="97" height="20" uuid="0ba675a2-9777-475c-8667-be46fe83f67d"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+			<textField pattern="dd/MM/yyyy hh.mm a">
+				<reportElement x="699" y="1" width="103" height="20" uuid="0ba675a2-9777-475c-8667-be46fe83f67d"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{return_time_stamp}]]></textFieldExpression>
 			</textField>
 		</band>
