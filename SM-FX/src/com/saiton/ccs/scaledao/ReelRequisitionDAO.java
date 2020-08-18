@@ -272,7 +272,7 @@ public class ReelRequisitionDAO {
         String returnWeight = null;
         String returnTimeStamp = null;
 
-//        String itemName = null;
+//        String reelNumber = null;
 //        String itemCode = null;
         ArrayList<ArrayList<String>> mainList
                 = new ArrayList<ArrayList<String>>();
@@ -304,7 +304,7 @@ public class ReelRequisitionDAO {
                     issueWeight = r.getString("issue_weight");
                     returnTimeStamp = r.getString("return_time_stamp");
                     returnWeight = r.getString("return_weight");
-//                    itemName = r.getString("item_name");
+//                    reelNumber = r.getString("item_name");
 //                    itemCode = r.getString("reel_code");
 
                     list.add(timeStamp);
@@ -312,7 +312,7 @@ public class ReelRequisitionDAO {
                     list.add(issueWeight);
                     list.add(returnTimeStamp);
                     list.add(returnWeight);
-//                    list.add(itemName);
+//                    list.add(reelNumber);
 //                    list.add(itemCode);
 
                     mainList.add(list);

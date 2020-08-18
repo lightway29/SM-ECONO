@@ -681,7 +681,8 @@ public class ReelRequisitionController implements Initializable, Validatable,
                         reelLog.coltcReturnWeight.setValue(reelLogInfo.get(i).
                                 get(3));
 
-                        reelLog.colItemName.setValue(txtItemName.getText());
+                        reelLog.colItemName.setValue(txtReelNo.getText());
+//                        reelLog.colItemName.setValue(txtItemName.getText());
                         reelLog.colItemCode.setValue(txtItemCode.getText());
 
                         tableReelLogData.add(reelLog);

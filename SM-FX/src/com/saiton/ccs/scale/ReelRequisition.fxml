@@ -62,7 +62,7 @@
               <TableView id="tbl" fx:id="tblItemList" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#tblRequestNoteListOnMouseClicked" prefHeight="213.0" prefWidth="1315.0" GridPane.rowIndex="9">
                 <columns>
                               <TableColumn fx:id="tcItemCode" maxWidth="5000.0" minWidth="250.0" prefWidth="150.0" text="Item Code" />
-                              <TableColumn fx:id="tcItemName" maxWidth="5000.0" minWidth="330.0" prefWidth="160.0" text="Item Name" />
+                              <TableColumn fx:id="tcItemName" maxWidth="5000.0" minWidth="330.0" prefWidth="160.0" text="Reel No" />
                   <TableColumn fx:id="tcTimeStamp" maxWidth="5000.0" minWidth="100.0" prefWidth="170.0" text="Issue Date" />
                               <TableColumn fx:id="tcWeight" maxWidth="5000.0" minWidth="0.0" prefWidth="170.0" text="Issue Weight" />
                               <TableColumn fx:id="tcReturnTimeStamp" maxWidth="5000.0" minWidth="200.0" prefWidth="200.0" text="Return Date" />
