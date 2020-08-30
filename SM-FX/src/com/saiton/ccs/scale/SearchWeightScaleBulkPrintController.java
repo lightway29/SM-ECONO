@@ -10,6 +10,7 @@ import com.saiton.ccs.popup.ServiceInfoPopup;
 import com.saiton.ccs.printerservice.ReportPath;
 import com.saiton.ccs.salesdao.ServiceDAO;
 import com.saiton.ccs.scaledao.ReelRequisitionDAO;
+import com.saiton.ccs.stockdao.ExportStockDataDAO;
 import com.saiton.ccs.uihandle.ReportGenerator;
 import com.saiton.ccs.uihandle.StagePassable;
 import com.saiton.ccs.uihandle.UiMode;
@@ -167,6 +168,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
     private Button btnStockDetails;
 
     ReelRequisitionDAO reelDAO = new ReelRequisitionDAO();
+    ExportStockDataDAO exportStockDataDAO = new ExportStockDataDAO();
 
     private MessageBox mb;
     @FXML
@@ -187,12 +189,13 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Action Events">
     @FXML
-    private void btnRefreshItemCodeOnAction(ActionEvent event) {
+    private void btnRefreshItemCodeOnAction(ActionEvent event) {     
         clearInput();
         loadReelInfo("", "");
 
         txtFromItemCode.clear();
         txtToItemCode.clear();
+                
 
     }
 
@@ -321,7 +324,12 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 
     @FXML
     void btnCloseOnAction(ActionEvent event) {
-        stage.close();
+        
+        System.out.println("Close button called.");
+        
+//        exportStockDataDAO.exportStockDataCSV(dtpFromDate.getValue().toString(),dtpToDate.getValue().toString());
+        
+//        stage.close();
 
     }
 
