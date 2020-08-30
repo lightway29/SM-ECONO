@@ -329,7 +329,16 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
         System.out.println("From Date - "+dtFromDate.getValue().toString());
         System.out.println("To Date - "+dtToDate.getValue().toString());
         
-        exportStockDataDAO.exportStockDataCSV(dtFromDate.getValue().toString(),dtToDate.getValue().toString());
+        String result = exportStockDataDAO.exportStockDataCSV(dtFromDate.getValue().toString(),dtToDate.getValue().toString());
+        
+        if (result != null) {
+            
+             mb.ShowMessage(stage, ErrorMessages.SuccesfullyCreated,
+                    MessageBoxTitle.INFORMATION.toString(),
+                    MessageBox.MessageIcon.MSG_ICON_SUCCESS,
+                    MessageBox.MessageType.MSG_OK);
+            
+        }
         
 //        stage.close();
 
