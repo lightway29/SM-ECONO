@@ -327,7 +327,7 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
         
         System.out.println("Close button called.");
         System.out.println("From Date - "+dtFromDate.getValue().toString());
-        System.out.println("To Date - "+dtFromDate.getValue().toString());
+        System.out.println("To Date - "+dtToDate.getValue().toString());
         
         exportStockDataDAO.exportStockDataCSV(dtFromDate.getValue().toString(),dtToDate.getValue().toString());
         

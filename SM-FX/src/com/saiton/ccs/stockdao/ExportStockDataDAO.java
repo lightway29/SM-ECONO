@@ -26,14 +26,18 @@ public class ExportStockDataDAO {
     public static Starter star;//db connection
     Codec ORACLE_CODEC = new OracleCodec();
     private Logger log = Logger.getLogger(this.getClass());
-    String csvFilePath=".//stockdata.csv";
+//    String csvFilePath="D://stockdata.csv";
+    
+    
 
     public String exportStockDataCSV(String fromDate,String toDate) {
+        
+//      String csvFilePath = System.getProperty("user.home") + "//Desktop//stockdata-"+fromDate+"-"+toDate+".csv";
+        String csvFilePath = System.getProperty("user.home") + "//Desktop//stockdata"+fromDate+"-"+toDate+".csv";
         fromDate = fromDate+" 00:00:00";
         toDate = toDate+" 00:00:00";
         
-        System.out.println("From Date - "+fromDate);
-        System.out.println("To Date - "+toDate);
+        System.out.println("csvFilePath "+csvFilePath);
 
         String itemNo = null;
 
