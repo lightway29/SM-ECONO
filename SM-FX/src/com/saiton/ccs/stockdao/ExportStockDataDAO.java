@@ -50,7 +50,7 @@ public class ExportStockDataDAO {
           
                    String query = "SELECT rl.id,rl.return_time_stamp,"
                            + "r.item_no,r.reel_number,r.item_name,"
-                           + "r.gsm,r.reel_width,rl.issue_weight "
+                           + "r.gsm,r.reel_width,rl.return_weight "
                            + "FROM reel AS r "
                            + "JOIN reel_log AS rl "
                            + "ON r.reel_code = rl.reel_code "
