@@ -100,7 +100,7 @@ public class ErrorMessages {
     public static final String DateLessThanToday
             = "Date can not be less than todays date";
     public static final String DateGraterThanToday
-            = "Date can not be grater than todays date";
+            = "Date can not be greater than todays date";
     public static final String ConnectErrorYahoo
             = "Unable to connect to Yahoo Finance!";
     public static final String InvalidPrice = "Invalid Price";

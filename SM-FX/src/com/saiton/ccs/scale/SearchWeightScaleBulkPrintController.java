@@ -331,6 +331,8 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
         
         String result = exportStockDataDAO.exportStockDataCSV(dtFromDate.getValue().toString(),dtToDate.getValue().toString());
         
+   
+        
         if (result != null) {
             
              mb.ShowMessage(stage, ErrorMessages.SuccesfullyCreated,

@@ -72,13 +72,15 @@ public class ExportStockDataDAO {
             CSVPrinter printer = new CSVPrinter(writer, CSVFormat.EXCEL.withHeader(r));
             printer.printRecords(r); 
             printer.close(true);
+            
+            return "Okay";
 
-                while (r.next()) {
-
-                    itemNo = r.getString("r.item_no");
-                    System.out.println("Item No - "+itemNo);
-
-                }
+//                while (r.next()) {
+//
+//                    itemNo = r.getString("r.item_no");
+//                    System.out.println("Item No - "+itemNo);
+//
+//                }
             } catch (NullPointerException | SQLException e) {
 
                 if (e instanceof NullPointerException) {
