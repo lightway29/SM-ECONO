@@ -21,11 +21,11 @@
               <children>
                 <HBox id="HBox" alignment="CENTER_RIGHT" spacing="5.0" GridPane.columnIndex="6" GridPane.columnSpan="4" GridPane.rowIndex="10" GridPane.rowSpan="2">
                   <children>
-                    <Button fx:id="btnClose" mnemonicParsing="false" onAction="#btnCloseOnAction" prefHeight="50.0" prefWidth="120.0" text="Close">
+                    <Button fx:id="btnClose" mnemonicParsing="false" onAction="#btnCloseOnAction" prefHeight="50.0" prefWidth="120.0" text="CSV">
                       <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                           <image>
-                            <Image url="@../res/img-close.png" />
+                            <Image url="@../res/img-registration.png" />
                           </image>
                         </ImageView>
                       </graphic>
