@@ -50,7 +50,7 @@ public class ExportStockDataDAO {
                 
                 
           
-                   String query = "SELECT rl.id,DATE_FORMAT(FROM_UNIXTIME(`rl.return_time_stamp`), '%e %b %Y') AS 'date_formatted',"
+                   String query = "SELECT rl.id,DATE_FORMAT(FROM_UNIXTIME(rl.return_time_stamp), '%e %b %Y') AS date_formatted,"
                            + "r.item_no,r.reel_number,r.item_name,"
                            + "r.gsm,r.reel_width,rl.return_weight "
                            + "FROM reel AS r "
