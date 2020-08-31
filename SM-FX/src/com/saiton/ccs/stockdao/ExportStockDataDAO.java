@@ -47,8 +47,10 @@ public class ExportStockDataDAO {
         } else {
 
             try {
+                
+                
           
-                   String query = "SELECT rl.id,rl.return_time_stamp,"
+                   String query = "SELECT rl.id,DATE_FORMAT(FROM_UNIXTIME(`rl.return_time_stamp`), '%e %b %Y') AS 'date_formatted',"
                            + "r.item_no,r.reel_number,r.item_name,"
                            + "r.gsm,r.reel_width,rl.return_weight "
                            + "FROM reel AS r "
@@ -69,7 +71,8 @@ public class ExportStockDataDAO {
             writer = new BufferedWriter(new FileWriter(csvFilePath));
             
             //Write to the file
-            CSVPrinter printer = new CSVPrinter(writer, CSVFormat.EXCEL.withHeader(r));
+            CSVPrinter printer = new CSVPrinter(writer, CSVFormat.EXCEL);
+//            CSVPrinter printer = new CSVPrinter(writer, CSVFormat.EXCEL.withHeader(r));
             printer.printRecords(r); 
             printer.close(true);
             
