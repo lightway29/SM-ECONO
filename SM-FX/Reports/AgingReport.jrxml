@@ -42,31 +42,31 @@ where r.reel_code=$P{reel_code}]]>
 	<field name="location" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="gsm" class="java.lang.Double">
+	<field name="gsm" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="reel_width" class="java.lang.Double">
+	<field name="reel_width" class="java.lang.Float">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="reel_diameter" class="java.lang.Double">
+	<field name="reel_diameter" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="reel_number" class="java.lang.Double">
+	<field name="reel_number" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="initial_weight" class="java.lang.Double">
+	<field name="initial_weight" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="qty" class="java.lang.Integer">
+	<field name="qty" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="remaining_qty" class="java.lang.Integer">
+	<field name="remaining_qty" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="size" class="java.lang.Double">
+	<field name="size" class="java.lang.Float">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="current_weight" class="java.lang.Double">
+	<field name="current_weight" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="flag" class="java.lang.Integer">
@@ -81,19 +81,25 @@ where r.reel_code=$P{reel_code}]]>
 	<field name="reel_liner" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="unit_cost" class="java.lang.Double">
+	<field name="unit_cost" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="st_value" class="java.lang.Double">
+	<field name="st_value" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="total_cost" class="java.lang.Double">
+	<field name="total_cost" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="posting_date" class="java.sql.Timestamp">
+	<field name="posting_date" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="added_date" class="java.sql.Timestamp">
+	<field name="added_date" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="erp_doc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vendor" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="log_time_stamp" class="java.sql.Timestamp"/>

@@ -321,7 +321,7 @@ CREATE TABLE `report` (
 
 LOCK TABLES `report` WRITE;
 /*!40000 ALTER TABLE `report` DISABLE KEYS */;
-INSERT INTO `report` VALUES (1,'RPT0001','Profit And Loss Report','Finance','.//Reports//Profit&Loss.jasper',0,1,1),(32,'RPT0002','Stock Report','Stock','.//Reports//Stock.jasper',0,1,1);
+INSERT INTO `report` VALUES (1,'RPT0001','Stock Report Summary In MT','Stock','.//Reports//StockReportSummaryInMT.jasper',0,1,1),(32,'RPT0002','Stock Report Summary In Kg','Stock','.//Reports//StockReportSummaryInKg.jasper',0,1,1);
 /*!40000 ALTER TABLE `report` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -575,7 +575,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (8,'EM0004','Mr.','Saiton','saiton','3CRO+GzZlkI=',NULL,'Manager','Administrator',0),(9,'EM0005','Mr.','admin','admin','3CRO+GzZlkI=',NULL,'Ultra User','Administrator',0);
+INSERT INTO `user` VALUES (8,'EM0004','Mr.','Saiton','saiton','3CRO+GzZlkI=',NULL,'Manager','Administrator',0),(9,'EM0005','Mr.','admin','admin','mmNGgv5TRhU=',NULL,'Ultra User','Administrator',0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -685,7 +685,7 @@ CREATE TABLE `user_permissions` (
 
 LOCK TABLES `user_permissions` WRITE;
 /*!40000 ALTER TABLE `user_permissions` DISABLE KEYS */;
-INSERT INTO `user_permissions` VALUES ('EM0004','Customer Registration',1,1,1,1,0),('EM0004','Printer Registration',1,1,1,1,0),('EM0004','Report Generator',1,1,1,1,0),('EM0004','Report Registration',1,1,1,1,0),('EM0004','Report Settings',1,1,1,1,0),('EM0004','Scale Registration',1,1,1,1,0),('EM0004','Search Weight Scale',1,1,1,1,0),('EM0004','User Registration',1,1,1,1,0),('EM0004','Weight Scale',1,1,1,1,0),('EM0005','Customer Registration',0,0,0,0,0),('EM0005','Printer Registration',0,0,0,0,0),('EM0005','Reel Requisition',1,1,1,1,0),('EM0005','Report Generator',0,0,0,0,0),('EM0005','Report Registration',0,0,0,0,0),('EM0005','Report Settings',0,0,0,0,0),('EM0005','Scale Registration',1,1,1,1,0),('EM0005','Search Weight Scale',0,0,0,0,0),('EM0005','User Registration',1,1,1,1,0),('EM0005','Weight Scale',0,0,0,0,0),('EM0005','Work In-progress',1,1,1,1,1);
+INSERT INTO `user_permissions` VALUES ('EM0004','Customer Registration',1,1,1,1,0),('EM0004','Printer Registration',1,1,1,1,0),('EM0004','Report Generator',1,1,1,1,0),('EM0004','Report Registration',1,1,1,1,0),('EM0004','Report Settings',1,1,1,1,0),('EM0004','Scale Registration',1,1,1,1,0),('EM0004','Search Weight Scale',1,1,1,1,0),('EM0004','User Registration',1,1,1,1,0),('EM0004','Weight Scale',1,1,1,1,0),('EM0005','Customer Registration',0,0,0,0,0),('EM0005','Printer Registration',0,0,0,0,0),('EM0005','Reel Requisition',1,1,1,1,0),('EM0005','Report Generator',1,1,1,1,0),('EM0005','Report Registration',0,0,0,0,0),('EM0005','Report Settings',0,0,0,0,0),('EM0005','Scale Registration',1,1,1,1,0),('EM0005','Search Weight Scale',0,0,0,0,0),('EM0005','User Registration',1,1,1,1,0),('EM0005','Weight Scale',0,0,0,0,0),('EM0005','Work In-progress',1,1,1,1,0);
 /*!40000 ALTER TABLE `user_permissions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -748,4 +748,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-20  7:47:28
+-- Dump completed on 2020-09-20 11:05:14

@@ -121,6 +121,12 @@ public class ReportGeneratorController extends AnchorPane implements
     private Button btnSave;
     @FXML
     private Button btnCancel;
+    @FXML
+    private ComboBox<?> cmbCategory;
+    @FXML
+    private ComboBox<?> cmbGsm;
+    @FXML
+    private ComboBox<?> cmbReport;
 
     /**
      * Initializes the controller class.
@@ -133,6 +139,21 @@ public class ReportGeneratorController extends AnchorPane implements
         dateFormatterFromDate("yyyy-MM-dd");
         dtFromDate.setValue(LocalDate.now());
         dtToDate.setValue(LocalDate.now());
+
+    }
+    
+    @FXML
+    void cmbReportOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void cmbGsmOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void cmbCategoryOnAction(ActionEvent event) {
 
     }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -34,7 +35,7 @@
                         <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <HBox id="HBox" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="420.0" spacing="5.0" GridPane.columnSpan="4" GridPane.rowIndex="2">
+                        <HBox id="HBox" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="420.0" spacing="5.0" GridPane.columnSpan="4" GridPane.rowIndex="3">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -50,7 +51,7 @@
                               <Insets left="15.0" />
                            </GridPane.margin>
                         </HBox>
-                        <HBox id="HBox" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="425.0" spacing="5.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                        <HBox id="HBox" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="425.0" spacing="5.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
                            <children>
                               <Label prefWidth="119.0" text="From Date">
                                  <padding>
@@ -65,7 +66,7 @@
                               <Insets left="15.0" />
                            </GridPane.margin>
                         </HBox>
-                        <HBox id="HBox" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="425.0" spacing="5.0" GridPane.rowIndex="6">
+                        <HBox id="HBox" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="425.0" spacing="5.0" GridPane.rowIndex="4">
                            <children>
                               <Label prefWidth="119.0" text="To Date">
                                  <padding>
@@ -119,6 +120,51 @@
                               <Insets left="10.0" right="10.0" top="10.0" />
                            </GridPane.margin>
                         </Label>
+                        <HBox id="HBox" alignment="CENTER" prefWidth="425.0" spacing="5.0" GridPane.columnSpan="4" GridPane.rowIndex="2">
+                           <children>
+                              <Label prefWidth="119.0" text="Report" />
+                              <ComboBox fx:id="cmbReport" onAction="#cmbReportOnAction" prefWidth="298.0" promptText="Report" styleClass="combo-box-popup">
+                                 <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                       <String fx:value="Item 1" />
+                                       <String fx:value="Item 2" />
+                                       <String fx:value="Item 3" />
+                                    </FXCollections>
+                                 </items>
+                              </ComboBox>
+                           </children>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </HBox>
+                        <HBox id="HBox" alignment="CENTER" prefWidth="425.0" spacing="5.0" GridPane.columnSpan="4" GridPane.rowIndex="5">
+                           <children>
+                              <Label prefWidth="119.0" text="GSM" />
+                              <ComboBox fx:id="cmbGsm" onAction="#cmbGsmOnAction" prefWidth="298.0" promptText="GSM" styleClass="combo-box-popup">
+                                 <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                       <String fx:value="Item 1" />
+                                       <String fx:value="Item 2" />
+                                       <String fx:value="Item 3" />
+                                    </FXCollections>
+                                 </items>
+                              </ComboBox>
+                           </children>
+                        </HBox>
+                        <HBox id="HBox" alignment="CENTER" prefWidth="425.0" spacing="5.0" GridPane.columnSpan="4" GridPane.rowIndex="6">
+                           <children>
+                              <Label prefWidth="119.0" text="Category" />
+                              <ComboBox fx:id="cmbCategory" onAction="#cmbCategoryOnAction" prefWidth="298.0" promptText="Category" styleClass="combo-box-popup">
+                                 <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                       <String fx:value="Item 1" />
+                                       <String fx:value="Item 2" />
+                                       <String fx:value="Item 3" />
+                                    </FXCollections>
+                                 </items>
+                              </ComboBox>
+                           </children>
+                        </HBox>
                      </children>
                   </GridPane>
                </children>
