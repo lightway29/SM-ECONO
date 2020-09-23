@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ConsumptionAgeingInNoOfReels" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fe0bc1c5-5b6c-409c-864f-4a234c398114">
+	<property name="ireport.zoom" value="2.1435888100000016"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="to_time_stamp" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT m1.item_no,IFNULL(m1.1month,0) as 1month
+,IFNULL(m2.2month,0) as 2month
+,IFNULL(m3.3month,0) as 3month
+,IFNULL(m4.4month,0) as 4month
+,IFNULL(m5.5month,0) as 5month
+,IFNULL(m6.6month,0) as 6month
+,IFNULL(m7.7month,0) as 7month
+,(1month+2month+3month+4month+5month+6month+7month) as total
+FROM (SELECT item_no, count(issue_weight-return_weight) as 1month
+FROM sm_db.reel_log rl
+right join sm_db.reel r
+on r.reel_code=rl.reel_code && rl.return_time_stamp between DATE_SUB($P{to_time_stamp}, INTERVAL 1 MONTH) and $P{to_time_stamp}
+group by r.item_no
+order by item_no) as m1,
+(SELECT item_no, count(issue_weight-return_weight) as 2month
+FROM sm_db.reel_log rl
+right join sm_db.reel r
+on r.reel_code=rl.reel_code && rl.return_time_stamp between DATE_SUB($P{to_time_stamp}, INTERVAL 3 MONTH) and DATE_SUB(DATE_SUB($P{to_time_stamp}, INTERVAL 1 MONTH), INTERVAL 1 DAY)
+group by item_no
+order by item_no) as m2,
+(SELECT item_no, count(issue_weight-return_weight) as 3month
+FROM sm_db.reel_log rl
+right join sm_db.reel r
+on r.reel_code=rl.reel_code && rl.return_time_stamp between DATE_SUB($P{to_time_stamp}, INTERVAL 6 MONTH) and DATE_SUB(DATE_SUB($P{to_time_stamp}, INTERVAL 3 MONTH), INTERVAL 1 DAY)
+group by r.item_no
+order by item_no) as m3,
+(SELECT item_no, count(issue_weight-return_weight) as 4month
+FROM sm_db.reel_log rl
+right join sm_db.reel r
+on r.reel_code=rl.reel_code && rl.return_time_stamp between DATE_SUB($P{to_time_stamp}, INTERVAL 9 MONTH) and DATE_SUB(DATE_SUB($P{to_time_stamp}, INTERVAL 6 MONTH), INTERVAL 1 DAY)
+group by r.item_no
+order by item_no) as m4,
+(SELECT item_no, count(issue_weight-return_weight) as 5month
+FROM sm_db.reel_log rl
+right join sm_db.reel r
+on r.reel_code=rl.reel_code && rl.return_time_stamp between DATE_SUB($P{to_time_stamp}, INTERVAL 12 MONTH) and DATE_SUB(DATE_SUB($P{to_time_stamp}, INTERVAL 9 MONTH), INTERVAL 1 DAY)
+group by r.item_no
+order by item_no) as m5,
+(SELECT item_no, count(issue_weight-return_weight) as 6month
+FROM sm_db.reel_log rl
+right join sm_db.reel r
+on r.reel_code=rl.reel_code && rl.return_time_stamp between DATE_SUB($P{to_time_stamp}, INTERVAL 24 MONTH) and DATE_SUB(DATE_SUB($P{to_time_stamp}, INTERVAL 12 MONTH), INTERVAL 1 DAY)
+group by r.item_no
+order by item_no) as m6,
+(SELECT item_no, count(issue_weight-return_weight) as 7month
+FROM sm_db.reel_log rl
+right join sm_db.reel r
+on r.reel_code=rl.reel_code && rl.return_time_stamp < DATE_SUB($P{to_time_stamp}, INTERVAL 24 MONTH)
+group by r.item_no
+order by item_no) as m7
+where  m1.item_no=m2.item_no && m2.item_no=m3.item_no && m3.item_no=m4.item_no && m4.item_no=m5.item_no && m5.item_no=m6.item_no && m6.item_no=m7.item_no]]>
+	</queryString>
+	<field name="item_no" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="1month" class="java.lang.Long"/>
+	<field name="2month" class="java.lang.Long"/>
+	<field name="3month" class="java.lang.Long"/>
+	<field name="4month" class="java.lang.Long"/>
+	<field name="5month" class="java.lang.Long"/>
+	<field name="6month" class="java.lang.Long"/>
+	<field name="7month" class="java.lang.Long"/>
+	<field name="total" class="java.lang.Long"/>
+	<variable name="consumed_weight" class="java.lang.Double" incrementType="Page">
+		<variableExpression><![CDATA[$F{1month}+$F{2month}+
+$F{3month}+$F{4month}+
+$F{5month}+$F{6month}+
+$F{7month}]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{1month}+$F{2month}+
+$F{3month}+$F{4month}+
+$F{5month}+$F{6month}+
+$F{7month}]]></initialValueExpression>
+	</variable>
+	<variable name="1month_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{1month}]]></variableExpression>
+	</variable>
+	<variable name="2month_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{2month}]]></variableExpression>
+	</variable>
+	<variable name="3month_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{3month}]]></variableExpression>
+	</variable>
+	<variable name="4month_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{4month}]]></variableExpression>
+	</variable>
+	<variable name="5month_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{5month}]]></variableExpression>
+	</variable>
+	<variable name="6month_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{6month}]]></variableExpression>
+	</variable>
+	<variable name="7month_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{7month}]]></variableExpression>
+	</variable>
+	<variable name="consumed_weight_1" class="java.lang.Double" resetType="Column" incrementType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$V{1month_1}+$V{2month_1}+$V{3month_1}+$V{4month_1}+$V{5month_1}+
+$V{6month_1}+$V{7month_1}]]></variableExpression>
+		<initialValueExpression><![CDATA[$V{consumed_weight}]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="56" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="427" height="38" uuid="06ce9476-ced7-46eb-bb7e-75cd09096f0b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Consumption Ageing In No Of Reels]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="387" y="0" width="235" height="38" uuid="edf92196-ef4e-4424-aedb-ab488e20fe03"/>
+				<textElement verticalAlignment="Middle">
+					<font size="24"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{to_time_stamp}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="448" y="-1" width="84" height="33" uuid="9d5c18f8-1e56-49dd-8644-49bbee6c7f8c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[09-12 M]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="713" y="-1" width="89" height="32" uuid="7febb0eb-bf5c-4048-9bfa-2cdb87093931"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="-1" width="116" height="33" uuid="93813fe2-117d-4fbd-bced-8b191311eb36"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Item Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="532" y="0" width="90" height="32" uuid="bb2b87ff-cad8-40cb-acbf-5390b48a6d7d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[01-02 Y]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="622" y="-2" width="91" height="33" uuid="ebab5561-bb49-4154-8381-42c1482fe703"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Above 2Y]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="117" y="0" width="62" height="32" uuid="0318aa93-869d-4ec5-94e7-81bf205719ff"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Below 30 D]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="179" y="-1" width="93" height="33" uuid="546a5e80-8c2d-45f4-9fe0-74d207cb38ce"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[01-03 M]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="349" y="0" width="97" height="32" uuid="2c49327d-1cb9-4f92-bc6b-d2ed35a29591"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[06-09 M]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="272" y="0" width="79" height="32" uuid="3f609d47-b1f0-40ba-ac28-19d29fa875ec"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[03-06 M]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Transparent" x="1" y="-1" width="116" height="32" uuid="49ca3306-f593-492a-af27-8006f651a509"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="117" y="-1" width="62" height="32" uuid="d19b4fc3-9c52-4f02-b3d8-a0dbea1f28a4"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="179" y="-1" width="93" height="32" uuid="e560a41e-a747-4dc8-b542-d1e6244f40a7"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="272" y="-1" width="77" height="32" uuid="15b13d4a-9095-40d5-8682-71a332e022e6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="349" y="-1" width="97" height="32" uuid="d3d29449-0aac-4642-bd75-c065fbb51bc2"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="446" y="-1" width="86" height="32" uuid="3f5ad4c7-3e33-40cf-82eb-984b559ce1bf"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="532" y="-1" width="90" height="32" uuid="6c102f4e-2372-499b-86c2-a22f6fe41a48"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="622" y="-1" width="91" height="32" uuid="c24c37a5-3f09-41eb-83b4-f44990654755"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="713" y="-1" width="89" height="32" uuid="0b167225-4e61-429a-93de-39defcf2cc22"/>
+			</rectangle>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Transparent" x="1" y="-1" width="116" height="20" uuid="b9e498c8-3311-400d-9002-04e50116fcfb"/>
+			</rectangle>
+			<textField>
+				<reportElement x="5" y="-1" width="112" height="20" uuid="6ebe032f-403e-4a48-ab43-d9affdaf520b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{item_no}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="117" y="-1" width="62" height="20" uuid="6c7b08bf-d15c-45d5-9464-746569d5fbec"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="179" y="-1" width="93" height="20" uuid="6b35c464-5ff1-46c6-8f78-dfc5958aff4f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="272" y="-1" width="77" height="20" uuid="600c2446-cd86-4a85-a97b-29d925538104"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="117" y="-1" width="58" height="20" uuid="300634a6-a779-4105-b551-96a6ee39560b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{1month}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="272" y="-1" width="72" height="20" uuid="9e39ec00-c90b-47ff-951c-e46135c76125"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{3month}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="349" y="-1" width="97" height="20" uuid="a57d9804-7083-4675-bec3-6ed0da13df73"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="349" y="-1" width="93" height="20" uuid="39a34560-5283-4171-a8c2-3e05399495b7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{4month}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="446" y="-1" width="86" height="20" uuid="1338d1c8-3dec-4f9d-9399-bcf0467ff2b2"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="448" y="-1" width="79" height="20" uuid="92315d16-6477-480f-bfaf-337e7b4f611d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{5month}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="532" y="-1" width="90" height="20" uuid="f15bc0b8-d827-4640-a8ea-32155abad7da"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="532" y="-1" width="86" height="20" uuid="9a83d35b-dc73-4bd8-877b-8e39f65584ee"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{6month}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="622" y="-1" width="91" height="20" uuid="bd1ae293-5835-4cd2-bc71-8a3b9cb18318"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="622" y="-1" width="87" height="20" uuid="f5411d7c-a55c-476f-8684-4894e4ac9d08"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{7month}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="713" y="-1" width="89" height="20" uuid="61233a91-a570-4ffe-a145-f2be854c23b5"/>
+			</rectangle>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="713" y="-1" width="85" height="20" uuid="47f1e691-4c0c-4236-9187-3e2654bca8fb"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{consumed_weight}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="179" y="-1" width="89" height="20" uuid="6084efac-e2a7-48ad-9355-d8c4c6a33eca"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{2month}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="29">
+			<rectangle>
+				<reportElement mode="Transparent" x="622" y="0" width="91" height="20" uuid="e5a8dde2-62ea-4bed-a40e-7d955bfc2a6c"/>
+			</rectangle>
+			<textField pattern="">
+				<reportElement x="713" y="0" width="85" height="20" uuid="57f8342d-54b9-4d81-afcd-2c69cb287d35"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{consumed_weight_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="448" y="0" width="79" height="20" uuid="066ca271-c20f-4fa2-910e-2c221c4e7d3e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{5month_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="272" y="0" width="72" height="20" uuid="afaa01cd-80e1-4802-a9b9-8348779a4463"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{3month_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="532" y="0" width="86" height="20" uuid="2dcb1935-1e14-4e19-ab92-46898e45c201"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{6month_1}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="272" y="0" width="77" height="20" uuid="0c2759c8-895f-435b-a5df-38f471288dd0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="1" y="0" width="116" height="20" uuid="0a033389-34f7-409e-bccf-602667841f2d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="179" y="0" width="93" height="20" uuid="8eb66e8b-8b31-4fa4-a2ec-c9735602809b"/>
+			</rectangle>
+			<textField>
+				<reportElement x="349" y="0" width="93" height="20" uuid="3d9c8908-8345-439f-9d65-2f0ba44eff2f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{4month_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="622" y="0" width="87" height="20" uuid="64bc563e-68b0-4f9d-9c47-55b5b791b9a6"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{7month_1}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="349" y="0" width="97" height="20" uuid="4ff688b1-ed50-42c2-b3d1-5df7caeaa1fb"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="532" y="0" width="90" height="20" uuid="83dcebb9-7736-497b-b076-57b3d7a1b9a2"/>
+			</rectangle>
+			<textField>
+				<reportElement x="179" y="0" width="89" height="20" uuid="9de5278d-b6bf-4ff0-b03a-610bdfdd50b9"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{2month_1}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="713" y="0" width="89" height="20" uuid="91f27755-3715-4b72-9933-dc8838190507"/>
+			</rectangle>
+			<textField>
+				<reportElement x="117" y="0" width="58" height="20" uuid="59cfe7d1-fa00-4598-b70a-e87e1b9fb9b8"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{1month_1}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="446" y="0" width="86" height="20" uuid="21467848-3f68-4781-8aed-00125e61455c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="117" y="0" width="62" height="20" uuid="a7a377f6-eb4a-4b94-9650-b3c3d7c14d28"/>
+			</rectangle>
+		</band>
+	</summary>
+</jasperReport>
