@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="StockAgeingInCount" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fe0bc1c5-5b6c-409c-864f-4a234c398114">
 	<property name="ireport.zoom" value="2.1435888100000016"/>
-	<property name="ireport.x" value="713"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="to_time_stamp" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -128,10 +128,10 @@ $V{6month_1}+$V{7month_1}]]></variableExpression>
 				<textElement verticalAlignment="Middle">
 					<font size="24"/>
 				</textElement>
-				<text><![CDATA[Stock Ageing In Mt]]></text>
+				<text><![CDATA[Stock Ageing In Count]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="205" y="0" width="327" height="38" uuid="edf92196-ef4e-4424-aedb-ab488e20fe03"/>
+				<reportElement x="245" y="0" width="327" height="38" uuid="edf92196-ef4e-4424-aedb-ab488e20fe03"/>
 				<textElement verticalAlignment="Middle">
 					<font size="24"/>
 				</textElement>
