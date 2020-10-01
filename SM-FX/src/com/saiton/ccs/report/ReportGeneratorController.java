@@ -172,13 +172,18 @@ public class ReportGeneratorController implements Initializable, Validatable,
 
     @FXML
     private void btnSaveOnAction(ActionEvent event) {
+        
+        System.out.println("GSM - "+cmbGsm.getSelectionModel().getSelectedItem());
 
         //=====================Print out===============================
         HashMap param = new HashMap();
         param.put("fromDate", dtFromDate.getValue().toString());
         param.put("toDate", dtToDate.getValue().toString());
-
-        File fil = new File(".//Reports//Profit&Loss.jasper");
+        param.put("gsm",cmbGsm.getSelectionModel().getSelectedItem());
+        param.put("category",cmbCategory.getSelectionModel().getSelectedItem());
+        
+        String filePath = reportDAO.getReportURL(reportId);
+        File fil = new File(filePath);
         String img = fil.getAbsolutePath();
         com.saiton.ccs.uihandle.ReportGenerator r
                 = new com.saiton.ccs.uihandle.ReportGenerator(img, param);
@@ -234,6 +239,7 @@ public class ReportGeneratorController implements Initializable, Validatable,
 
                     if (p.getColReportID()!= null) {
                         txtReportId.setText(p.getColReportName());
+                        reportId = p.getColReportID();
                     }
 
                 } catch (NullPointerException n) {
