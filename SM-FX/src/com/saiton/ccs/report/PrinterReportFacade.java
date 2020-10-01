@@ -4,10 +4,7 @@ import com.saiton.ccs.reportdao.PrinterReportDAO;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Saitonya
- */
+
 public class PrinterReportFacade {
 
     private static final PrinterReportDAO prdao = new PrinterReportDAO();

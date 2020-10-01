@@ -16,15 +16,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-/**
- *
- * @author Polypackaging-A1
- */
+
 public class ReportPopup {
 
     public SimpleStringProperty colReportID = new SimpleStringProperty("tcReportID");
     public SimpleStringProperty colReportName = new SimpleStringProperty("tcReportName");
-    public SimpleStringProperty colReportURL = new SimpleStringProperty("tcReportURL");
+    
 
     public String getColReportID() {
         return colReportID.get();
@@ -35,10 +32,7 @@ public class ReportPopup {
     }
     
     
-    public String getColReportURL() {
-        return colReportURL.get();
-    }
-
+  
 
     public TableView tableViewLoader(ObservableList observableList) {
         TableView tableView = new TableView();

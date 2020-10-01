@@ -11,17 +11,12 @@ import com.saiton.ccs.common.TimeConvert;
 import com.saiton.ccs.msgbox.MessageBox;
 import com.saiton.ccs.msgbox.SimpleMessageBoxFactory;
 import com.saiton.ccs.popup.ReportPopup;
-//import com.saiton.ccs.printerservice.PrinterRegistry;
 import com.saiton.ccs.reportdao.ReportDAO;
-import com.saiton.ccs.ui.ReportGenerator;
 import com.saiton.ccs.ui.StagePassable;
 import com.saiton.ccs.ui.UiMode;
 import com.saiton.ccs.validations.CustomDatePickerValidationImpl;
-import com.saiton.ccs.validations.CustomTextFieldValidationImpl;
-
 import com.saiton.ccs.validations.ErrorMessages;
 import com.saiton.ccs.validations.FormatAndValidate;
-import com.saiton.ccs.validations.MessageBoxTitle;
 import com.saiton.ccs.validations.Validatable;
 import java.io.File;
 import java.net.URL;
@@ -41,10 +36,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -53,35 +46,25 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import org.controlsfx.control.PopOver;
-import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
 
-/**
- * FXML Controller class
- *
- * @author lakshan
- */
-public class ReportGeneratorController extends AnchorPane implements
-        Initializable, Validatable, StagePassable {
+
+
+public class ReportGeneratorController implements Initializable, Validatable,
+        StagePassable  {
 
     //<editor-fold defaultstate="collapsed" desc="initcomponents">
     ReportDAO reportDAO = new ReportDAO();
     private final ValidationSupport validationSupport = new ValidationSupport();
     private final FormatAndValidate fav = new FormatAndValidate();
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//    private PrinterRegistry printerRegistry = new PrinterRegistry();
 
-    //report popup
-    private TableView reportTable = new TableView();
-    private PopOver reportPop;
-    private ObservableList<ReportPopup> reportData = FXCollections.
-            observableArrayList();
-    private ReportPopup reportPopup = new ReportPopup();
 
     private Stage stage;
     private MessageBox mb;
     boolean isReportSelected = false;
     String url;
+    private PrinterReportFacade prdao ;
 
     private String userId;
     private String userName;
@@ -90,6 +73,7 @@ public class ReportGeneratorController extends AnchorPane implements
     private boolean update = false;
     private boolean delete = false;
     private boolean view = false;
+    String reportId = null;
 
     ObservableList<String> HoursList = FXCollections.observableArrayList(
             "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11",
@@ -122,27 +106,42 @@ public class ReportGeneratorController extends AnchorPane implements
     @FXML
     private Button btnCancel;
     @FXML
-    private ComboBox<?> cmbCategory;
+    private ComboBox<String> cmbCategory;
     @FXML
-    private ComboBox<?> cmbGsm;
+    private ComboBox<String> cmbGsm;
     @FXML
-    private ComboBox<?> cmbReport;
+    private TextField txtReportId;
+    @FXML
+    private Button btnReportIdSearch;
+    
+    //Report Id popup---------------------------------------
+    private TableView reportTableView = new TableView();
+    private PopOver reportPop;
+    private ObservableList<ReportPopup> reportData = FXCollections.
+            observableArrayList();
+    private ReportPopup reportPopup = new ReportPopup();
+ 
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mb = SimpleMessageBoxFactory.createMessageBox();
 
-        dateFormatterToDate("yyyy-MM-dd");
+        loadGSM();
+        loadCategory();
+        cmbCategory.getItems().add(0, "None");
+        cmbGsm.getItems().add(0, "None");
+
         dateFormatterFromDate("yyyy-MM-dd");
         dtFromDate.setValue(LocalDate.now());
         dtToDate.setValue(LocalDate.now());
 
     }
-    
-    @FXML
+
     void cmbReportOnAction(ActionEvent event) {
 
     }
@@ -154,82 +153,6 @@ public class ReportGeneratorController extends AnchorPane implements
 
     @FXML
     void cmbCategoryOnAction(ActionEvent event) {
-
-    }
-
-    private void txtReportNameOnKeyReleased(KeyEvent event) {
-
-    }
-
-    private void btnSearchReportOnAction(ActionEvent event) {
-
-    }
-
-    private void loadReports(String keyword) {
-        reportData.clear();
-        ArrayList<ArrayList<String>> reportInfo
-                = new ArrayList<ArrayList<String>>();
-
-        ArrayList<ArrayList<String>> list;
-
-        if (delete == true) {
-            list = reportDAO.loadeReports(keyword, "");
-
-            if (list != null) {
-
-                for (int i = 0; i < list.size(); i++) {
-
-                    reportInfo.add(list.get(i));
-                }
-
-                if (reportInfo != null && reportInfo.size() > 0) {
-                    for (int i = 0; i < reportInfo.size(); i++) {
-
-                        reportPopup = new ReportPopup();
-
-                        reportPopup.colReportID.setValue(reportInfo.get(i).
-                                get(0));
-                        reportPopup.colReportName.setValue(reportInfo.get(i).
-                                get(1));
-
-                        reportData.add(reportPopup);
-                    }
-                }
-
-            }
-        } else {
-
-            list = reportDAO.loadeReports(keyword,
-                    " AND is_delete_privilege = '0' ");
-
-            if (list != null) {
-
-                for (int i = 0; i < list.size(); i++) {
-
-                    reportInfo.add(list.get(i));
-                }
-
-                if (reportInfo != null && reportInfo.size() > 0) {
-                    for (int i = 0; i < reportInfo.size(); i++) {
-
-                        reportPopup = new ReportPopup();
-
-                        reportPopup.colReportID.setValue(reportInfo.get(i).
-                                get(0));
-                        reportPopup.colReportName.setValue(reportInfo.get(i).
-                                get(1));
-
-                        reportData.add(reportPopup);
-                    }
-                }
-
-            }
-
-        }
-
-    }
-
-    private void gerReportURL() {
 
     }
 
@@ -268,6 +191,8 @@ public class ReportGeneratorController extends AnchorPane implements
     private void btnCancelOnAction(ActionEvent event) {
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
+        
+ 
     }
 
     @Override
@@ -295,50 +220,54 @@ public class ReportGeneratorController extends AnchorPane implements
     @Override
     public void setStage(Stage stage, Object[] obj) {
 
-        this.stage = stage;
-        setUserAccessLevel();
-
-        reportTable = reportPopup.tableViewLoader(reportData);
-
-        reportTable.setOnMouseClicked(e -> {
+        this.stage = stage;   
+        
+        reportTableView = reportPopup.tableViewLoader(reportData);
+        
+         reportTableView.setOnMouseClicked(e -> {
             if (e.getClickCount() == 2) {
                 try {
-                    ReportPopup p = (ReportPopup) reportTable.
-                            getSelectionModel().getSelectedItem();
+                    ReportPopup p = null;
+                    p = (ReportPopup) reportTableView.getSelectionModel().
+                            getSelectedItem();
+                    clearInput();
+
+                    if (p.getColReportID()!= null) {
+                        txtReportId.setText(p.getColReportName());
+                    }
 
                 } catch (NullPointerException n) {
 
                 }
+
                 reportPop.hide();
                 validatorInitialization();
+
             }
 
         });
-
-        reportTable.setOnMousePressed(e -> {
+         
+          reportTableView.setOnMousePressed(e -> {
 
             if (e.getButton() == MouseButton.SECONDARY) {
 
                 reportPop.hide();
-                validatorInitialization();
+                //validatorInitialization();
 
             }
 
         });
-
-        reportPop = new PopOver(reportTable);
-
-        stage.setOnCloseRequest(e -> {
+         
+         reportPop = new PopOver(reportTableView);
+           
+           stage.setOnCloseRequest(e -> {
 
             if (reportPop.isShowing()) {
-
                 e.consume();
                 reportPop.hide();
 
             }
         });
-
-        validatorInitialization();
 
     }
 
@@ -594,7 +523,7 @@ public class ReportGeneratorController extends AnchorPane implements
 
     }
 
-//    private String getAbbriviation(String time) {
+/*    private String getAbbriviation(String time) {
 //        String abriviation;
 //        String Hours24 = time.split(":")[0];
 //
@@ -625,4 +554,95 @@ public class ReportGeneratorController extends AnchorPane implements
 //        String Minits = Hours1.split(" ")[0];
 //        txtTime.setText(timeIn12 + abriviation);
 //    }
+    */
+
+    
+
+    private void loadGSM() {
+
+        cmbGsm.getItems().clear();
+        ArrayList<String> list = null;
+        list = reportDAO.loadGsm();
+        if (list != null) {
+            try {
+                ObservableList<String> List = FXCollections.observableArrayList(
+                        list);
+                cmbGsm.setItems(List);
+                cmbGsm.setValue(List.get(0));
+            } catch (Exception e) {
+
+            }
+
+        }
+    }
+
+    private void loadCategory() {
+
+        cmbCategory.getItems().clear();
+        ArrayList<String> list = null;
+        list = reportDAO.loadCategory();
+        if (list != null) {
+            try {
+                ObservableList<String> List = FXCollections.observableArrayList(
+                        list);
+                cmbCategory.setItems(List);
+                cmbCategory.setValue(List.get(0));
+            } catch (Exception e) {
+
+            }
+
+        }
+    }
+
+    private void gerReportURL() {
+
+    }
+    
+    private void ReportTableDataLoader(String keyword) {
+
+        reportData.clear();
+        ArrayList<ArrayList<String>> itemInfo
+                = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> list = reportDAO.
+                loadeReports(keyword, "");
+                        
+        if (list != null) {
+
+            for (int i = 0; i < list.size(); i++) {
+
+                itemInfo.add(list.get(i));
+            }
+
+            if (itemInfo != null && itemInfo.size() > 0) {
+                for (int i = 0; i < itemInfo.size(); i++) {
+
+                    reportPopup = new ReportPopup();
+                    reportPopup.colReportID.setValue(itemInfo.get(i).get(0));
+                     reportPopup.colReportName.setValue(itemInfo.get(i).get(1));
+
+                    reportData.add(reportPopup);
+                }
+            }
+
+        }
+
+    }
+
+    @FXML
+    private void txtReportIdOnKeyReleased(KeyEvent event) {
+       
+    }
+
+    @FXML
+    private void btnReportIdSearchOnAction(ActionEvent event) {
+         
+         
+          ReportTableDataLoader(txtReportId.getText());
+        reportTableView.setItems(reportData);
+        if (!reportData.isEmpty()) {
+            reportPop.show(btnReportIdSearch);
+        }
+        validatorInitialization();
+    }
+
 }

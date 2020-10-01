@@ -19,7 +19,9 @@ import javafx.stage.Stage;
 import com.saiton.ccs.msgbox.MessageBox;
 import com.saiton.ccs.msgbox.SimpleMessageBoxFactory;
 import com.saiton.ccs.popup.ReelPopup;
+import com.saiton.ccs.popup.ReportPopup;
 import com.saiton.ccs.printerservice.ReportPath;
+import com.saiton.ccs.reportdao.ReportDAO;
 import com.saiton.ccs.scaledao.ReelRequisitionDAO;
 import com.saiton.ccs.scaledao.ScaleDAO;
 import com.saiton.ccs.scaledao.ScaleRegisterationDAO;
@@ -137,6 +139,14 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
     ReelRequisitionDAO reelDAO = new ReelRequisitionDAO();
 
+       //Report Id popup---------------------------------------
+    private TableView reportTableView = new TableView();
+    private PopOver reportPop;
+    private ObservableList<ReportPopup> reportData = FXCollections.
+            observableArrayList();
+    private ReportPopup reportPopup = new ReportPopup();
+    ReportDAO reportDAO = new ReportDAO();
+    
     //Reel Popup
     private TableView reelIdTable = new TableView();
     private ReelPopup reelpopup = new ReelPopup();
@@ -342,11 +352,45 @@ public class ReelRequisitionController implements Initializable, Validatable,
          */
 //        }
     }
+       private void ReportTableDataLoader(String keyword) {
+
+        reportData.clear();
+        ArrayList<ArrayList<String>> itemInfo
+                = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> list = reportDAO.
+                loadeReports(keyword, "");
+                        
+        if (list != null) {
+
+            for (int i = 0; i < list.size(); i++) {
+
+                itemInfo.add(list.get(i));
+            }
+
+            if (itemInfo != null && itemInfo.size() > 0) {
+                for (int i = 0; i < itemInfo.size(); i++) {
+
+                    reportPopup = new ReportPopup();
+                    reportPopup.colReportID.setValue(itemInfo.get(i).get(0));
+                     reportPopup.colReportName.setValue(itemInfo.get(i).get(1));
+
+                    reportData.add(reportPopup);
+                }
+            }
+
+        }
+
+    }
 
     @FXML
     private void btnCloseOnAction(ActionEvent event) {
-        stage.close();
-
+//        stage.close();
+   ReportTableDataLoader(txtDescription.getText());
+        reportTableView.setItems(reportData);
+        if (!reportData.isEmpty()) {
+            reportPop.show(btnClose);
+        }
+       
     }
 
     @FXML
@@ -549,14 +593,42 @@ public class ReelRequisitionController implements Initializable, Validatable,
             }
 
         });
+        
+        reportTableView = reportPopup.tableViewLoader(reportData);
+        
+         reportTableView.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2) {
+                try {
+                    ReportPopup p = null;
+                    p = (ReportPopup) reportTableView.getSelectionModel().
+                            getSelectedItem();
+                    clearInput();
+
+                    if (p.getColReportID()!= null) {
+                        txtDescription.setText(p.getColReportName());
+                    }
+
+                } catch (NullPointerException n) {
+
+                }
+
+                reportPop.hide();
+               
+
+            }
+
+        });
+         
+         reportPop = new PopOver(reportTableView);
 
         reelPop = new PopOver(reelIdTable);
 
         stage.setOnCloseRequest(e -> {
 
-            if (reelPop.isShowing()) {
+            if (reelPop.isShowing()||reportPop.isShowing()) {
                 e.consume();
                 reelPop.hide();
+                reportPop.hide();
 
             }
         });

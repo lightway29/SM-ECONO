@@ -122,16 +122,17 @@
                         </Label>
                         <HBox id="HBox" alignment="CENTER" prefWidth="425.0" spacing="5.0" GridPane.columnSpan="4" GridPane.rowIndex="2">
                            <children>
-                              <Label prefWidth="119.0" text="Report" />
-                              <ComboBox fx:id="cmbReport" onAction="#cmbReportOnAction" prefWidth="298.0" promptText="Report" styleClass="combo-box-popup">
-                                 <items>
-                                    <FXCollections fx:factory="observableArrayList">
-                                       <String fx:value="Item 1" />
-                                       <String fx:value="Item 2" />
-                                       <String fx:value="Item 3" />
-                                    </FXCollections>
-                                 </items>
-                              </ComboBox>
+                              <Label prefWidth="119.0" text="Report ID" />
+                              <TextField fx:id="txtReportId" onKeyReleased="#txtReportIdOnKeyReleased" prefWidth="270.0" promptText="Report ID" />
+                              <Button fx:id="btnReportIdSearch" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" minHeight="24.0" minWidth="24.0" mnemonicParsing="false" onAction="#btnReportIdSearchOnAction" prefHeight="24.0" prefWidth="24.0" text="">
+                                 <graphic>
+                                    <ImageView fitHeight="10.000000178813929" fitWidth="13.333333969116211" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../res/img-search.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                            </children>
                            <GridPane.margin>
                               <Insets />

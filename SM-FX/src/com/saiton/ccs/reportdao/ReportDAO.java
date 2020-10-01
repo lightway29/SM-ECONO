@@ -17,10 +17,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import org.owasp.esapi.ESAPI;
 
-/**
- *
- * @author lakshan
- */
 public class ReportDAO {
 
     public static Starter star;//db connection
@@ -43,16 +39,12 @@ public class ReportDAO {
             return null;
         } else {
             try {
-                
-                
-              
-                
-                
+                                    
                 String query
                         = String.format("select * "
                         + "from "
                         + "report "
-                        + "where name LIKE ? AND status = 1 %s ",privilegeQuery);
+                        + "where name LIKE ? ");
 
                 PreparedStatement pstmt = star.con.prepareStatement(query);
                 pstmt.setString(1, encodedReportName + "%");
@@ -61,15 +53,17 @@ public class ReportDAO {
 
                 while (r.next()) {
 
+                    
                     ArrayList<String> list = new ArrayList<String>();
 
                     reportId = r.getString("rid");
                     reportNames = r.getString("name");
-                    reportURL = r.getString("url");
+//                    reportURL = r.getString("url");
 
                     list.add(reportId);
                     list.add(reportNames);
-                    list.add(reportURL);
+//                    list.add(reportURL);
+                    
 
                     Mainlist.add(list);
 
@@ -96,6 +90,134 @@ public class ReportDAO {
         return Mainlist;
     }
 
+     public ArrayList<String> loadReports() {
+
+        String reportName = null;
+        ArrayList list = new ArrayList();
+
+        if (star.con == null) {
+            log.error(" Exception tag --> " + "Databse connection failiure. ");
+            return null;
+
+        } else {
+            try {
+
+                String query = "SELECT * FROM report ";
+                PreparedStatement pstmt = star.con.prepareStatement(query);
+                ResultSet r = pstmt.executeQuery();
+
+                while (r.next()) {
+                    reportName = r.getString("name");
+                    list.add(reportName);
+
+                }
+
+            } catch (ArrayIndexOutOfBoundsException | SQLException |
+                    NullPointerException e) {
+
+                if (e instanceof ArrayIndexOutOfBoundsException) {
+                    log.error("Exception tag --> "
+                            + "Invalid entry location for list");
+                } else if (e instanceof SQLException) {
+                    log.error("Exception tag --> " + "Invalid sql statement");
+                } else if (e instanceof NullPointerException) {
+                    log.error("Exception tag --> " + "Empty entry for list");
+                }
+                return null;
+            } catch (Exception e) {
+                log.error("Exception tag --> " + "Error");
+                return null;
+            }
+        }
+        return list;
+    }
+     
+     
+          public ArrayList<String> loadGsm() {
+
+        String gsm = null;
+        ArrayList list = new ArrayList();
+
+        if (star.con == null) {
+            log.error(" Exception tag --> " + "Databse connection failiure. ");
+            return null;
+
+        } else {
+            try {
+
+                String query = "SELECT DISTINCT gsm FROM reel ";
+                PreparedStatement pstmt = star.con.prepareStatement(query);
+                ResultSet r = pstmt.executeQuery();
+
+                while (r.next()) {
+                    gsm = r.getString("gsm");
+                    list.add(gsm);
+
+                }
+
+            } catch (ArrayIndexOutOfBoundsException | SQLException |
+                    NullPointerException e) {
+
+                if (e instanceof ArrayIndexOutOfBoundsException) {
+                    log.error("Exception tag --> "
+                            + "Invalid entry location for list");
+                } else if (e instanceof SQLException) {
+                    log.error("Exception tag --> " + "Invalid sql statement");
+                } else if (e instanceof NullPointerException) {
+                    log.error("Exception tag --> " + "Empty entry for list");
+                }
+                return null;
+            } catch (Exception e) {
+                log.error("Exception tag --> " + "Error");
+                return null;
+            }
+        }
+        return list;
+    }
+          
+               
+          public ArrayList<String> loadCategory() {
+
+        String category = null;
+        ArrayList list = new ArrayList();
+
+        if (star.con == null) {
+            log.error(" Exception tag --> " + "Databse connection failiure. ");
+            return null;
+
+        } else {
+            try {
+
+                String query = "SELECT DISTINCT item_category FROM reel ";
+                PreparedStatement pstmt = star.con.prepareStatement(query);
+                ResultSet r = pstmt.executeQuery();
+
+                while (r.next()) {
+                    category = r.getString("item_category");
+                    list.add(category);
+
+                }
+
+            } catch (ArrayIndexOutOfBoundsException | SQLException |
+                    NullPointerException e) {
+
+                if (e instanceof ArrayIndexOutOfBoundsException) {
+                    log.error("Exception tag --> "
+                            + "Invalid entry location for list");
+                } else if (e instanceof SQLException) {
+                    log.error("Exception tag --> " + "Invalid sql statement");
+                } else if (e instanceof NullPointerException) {
+                    log.error("Exception tag --> " + "Empty entry for list");
+                }
+                return null;
+            } catch (Exception e) {
+                log.error("Exception tag --> " + "Error");
+                return null;
+            }
+        }
+        return list;
+    }
+     
     public ArrayList<ArrayList<String>> searchItemDetails(String search) {
 
         String encodedSearch = ESAPI.encoder().

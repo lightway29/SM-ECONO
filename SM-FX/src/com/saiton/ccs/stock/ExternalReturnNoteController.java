@@ -324,6 +324,7 @@ public class ExternalReturnNoteController extends AnchorPane implements
         //RequestId popup------------------------
         returnNoteTable = returnNotePopup.tableViewLoader(returnNoteData);
 
+        
         returnNoteTable.setOnMouseClicked(e -> {
             if (e.getClickCount() == 2) {
                 try {

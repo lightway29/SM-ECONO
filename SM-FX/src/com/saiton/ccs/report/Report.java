@@ -2,10 +2,6 @@ package com.saiton.ccs.report;
 
 import javafx.beans.property.SimpleStringProperty;
 
-/**
- *
- * @author Saitonya
- */
 public class Report {
     private final SimpleStringProperty rid;
     private final SimpleStringProperty name;
