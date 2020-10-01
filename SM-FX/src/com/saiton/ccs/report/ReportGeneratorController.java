@@ -177,8 +177,10 @@ public class ReportGeneratorController implements Initializable, Validatable,
 
         //=====================Print out===============================
         HashMap param = new HashMap();
-        param.put("fromDate", dtFromDate.getValue().toString());
-        param.put("toDate", dtToDate.getValue().toString());
+        param.put("from_date", dtFromDate.getValue().toString());
+        param.put("to_date", dtToDate.getValue().toString());
+        param.put("to_time_stamp", dtToDate.getValue().toString());
+        param.put("from_time_stamp", dtFromDate.getValue().toString());
         param.put("gsm",cmbGsm.getSelectionModel().getSelectedItem());
         param.put("category",cmbCategory.getSelectionModel().getSelectedItem());
         

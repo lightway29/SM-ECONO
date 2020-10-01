@@ -10,7 +10,7 @@
 	<queryString>
 		<![CDATA[SELECT GSM, item_category,reel_width*10 as Width,sum(current_weight)/1000 as MT
 FROM sm_db.reel
-where posting_date <= $P{to_date}
+where STR_TO_DATE(posting_date, '%m/%d/%Y') <= $P{to_date}
 group by item_no
 order by gsm,reel_width asc;]]>
 	</queryString>

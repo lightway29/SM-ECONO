@@ -279,7 +279,7 @@ CREATE TABLE `reel_log` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `reel_log_fk1_idx` (`reel_code`),
   CONSTRAINT `reel_log_fk1` FOREIGN KEY (`reel_code`) REFERENCES `reel` (`reel_code`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -288,7 +288,7 @@ CREATE TABLE `reel_log` (
 
 LOCK TABLES `reel_log` WRITE;
 /*!40000 ALTER TABLE `reel_log` DISABLE KEYS */;
-INSERT INTO `reel_log` VALUES (1,'REL0002','2020-07-04 04:27:08',89655,0,50055,'2020-07-02 18:30:00'),(2,'REL0003','2020-07-03 04:00:31',925,0,200,'2020-07-02 18:30:00'),(3,'REL0010','2020-07-03 04:00:31',1511,0,600,'2020-07-02 18:30:00'),(4,'REL0006','2020-07-03 05:03:28',736,0,0,'2020-07-03 05:03:29'),(5,'REL0004','2020-07-03 05:34:04',724,0,NULL,NULL);
+INSERT INTO `reel_log` VALUES (1,'REL0002','2020-05-04 04:27:08',89655,0,50055,'2020-05-02 18:30:00'),(2,'REL0003','2020-07-03 04:00:31',925,0,200,'2020-07-02 18:30:00'),(3,'REL0010','2020-07-03 04:00:31',1511,0,600,'2020-07-02 18:30:00'),(4,'REL0006','2020-07-03 05:03:28',736,0,0,'2020-07-03 05:03:29'),(5,'REL0004','2020-07-03 05:34:04',724,0,NULL,NULL),(6,'REL0002','2020-07-05 07:51:47',50055,0,40000,'2020-07-08 18:30:00');
 /*!40000 ALTER TABLE `reel_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,7 +312,7 @@ CREATE TABLE `report` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_repot_report_type_idx` (`type`),
   CONSTRAINT `fk_repot_report_type_idx` FOREIGN KEY (`type`) REFERENCES `report_type` (`type`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -321,7 +321,7 @@ CREATE TABLE `report` (
 
 LOCK TABLES `report` WRITE;
 /*!40000 ALTER TABLE `report` DISABLE KEYS */;
-INSERT INTO `report` VALUES (1,'RPT0001','Stock Report Summary In MT','Stock','.//Reports//StockReportSummaryInMT.jasper',0,1,1),(32,'RPT0002','Stock Report Summary In Kg','Stock','.//Reports//StockReportSummaryInKg.jasper',0,1,1);
+INSERT INTO `report` VALUES (1,'RPT0001','Stock Report Summary In MT','Stock','.//Reports//StockReportSummaryInMT.jasper',0,1,1),(32,'RPT0002','Stock Report Summary In Kg','Stock','.//Reports//StockReportSummaryInKg.jasper',0,1,1),(35,'RPT0004','Consumption Ageing MT','Stock','.//Reports//ConsumptionAgeingInMt.jasper',1,1,1),(36,'RPT0005','Consumption Ageing In No Of Reels','Stock','.//Reports//ConsumptionAgeingInNoOfReels.jasper',1,1,1),(37,'RPT0006','Consumption Report Summary','Stock','.//Reports//ConsumptionReportSummary.jasper',1,1,1),(38,'RPT0007','Paper Consumption Report','Stock','.//Reports//PaperConsumptionReport.jasper',1,1,1),(40,'RPT0008','Stock Ageing In Count','Stock','.//Reports//StockAgeingInCount.jasper',1,1,1),(41,'RPT0009','Stock Ageing In Mt','Stock','.//Reports//StockAgeingInMt.jasper',1,1,1),(42,'RPT0010','Stock Details Report','Stock','.//Reports//StockDetailsReport.jasper',1,1,1),(43,'RPT0011','Stock Report Count','Stock','.//Reports//StockReportCount.jasper',1,1,1),(44,'RPT0012','Stock Report MT','Stock','.//Reports//StockReportMT.jasper',1,1,1);
 /*!40000 ALTER TABLE `report` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -748,4 +748,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-20 11:05:14
+-- Dump completed on 2020-10-01 18:38:11
