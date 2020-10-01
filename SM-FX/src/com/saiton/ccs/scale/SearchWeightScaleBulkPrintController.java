@@ -367,6 +367,10 @@ public class SearchWeightScaleBulkPrintController implements Initializable,
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        btnConsumption.setVisible(false);
+        btnStockKg.setVisible(false);
+        btnStockMT.setVisible(false);
+        btnStockDetails.setVisible(false);
 
         tcCoreWeight.setCellValueFactory(
                 new PropertyValueFactory<Item, String>(
