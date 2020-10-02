@@ -196,6 +196,7 @@ public class ReelRequisitionController implements Initializable, Validatable,
     @FXML
     private ComboBox<String> cmbLocation;
     boolean disableLocationEvent = false;
+    final int WEIGHT_TOLERENCE = 10;
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Action Events">
@@ -292,13 +293,36 @@ public class ReelRequisitionController implements Initializable, Validatable,
         //txtReturnedWeight.setText("200.00");
 
         System.out.println("Flag - " + reelDAO.getDbFlag(txtItemCode.getText()));
+        
+        
 
         if (reelDAO.getDbFlag(txtItemCode.getText()).equals("1")) {
+            
+            double weightDiff = Double.parseDouble(txtIssuedWeight.getText()) - Double.parseDouble(txtReturnedWeight.getText());
+            System.out.println("Weight Diff - "+weightDiff);
+            boolean isOverWeight = (weightDiff<-10) ;
+            boolean isNegative = weightDiff < 0;
+            
+            System.out.println("isOverWeight - "+isOverWeight);
+            System.out.println("isDiffPositive - "+isNegative);
+    
+            boolean isWithinTolerence = (Double.parseDouble(txtIssuedWeight.getText()) > Double.parseDouble(txtReturnedWeight.getText())) &&
+                    (Double.parseDouble(txtIssuedWeight.getText()) - Double.parseDouble(txtReturnedWeight.getText()))<=WEIGHT_TOLERENCE;
+            //TODO: Implement isWithinTolerence check if baseded on progress of the flow
             if (txtReturnedWeight.getText().isEmpty()) {
                 System.out.println(
                         "State is issued.Cannot log without returned weight");
 
-            } else {
+            }else {
+                
+                if (isNegative && isOverWeight) {
+                    
+                    mb.ShowMessage(stage, ErrorMessages.InvalidWeight,
+                    MessageBoxTitle.ERROR.toString(),
+                    MessageBox.MessageIcon.MSG_ICON_FAIL,
+                    MessageBox.MessageType.MSG_OK);
+                    
+                }else {
 
                 boolean isUpdated = reelDAO.updateReturnLog(txtItemCode.
                         getText(),
@@ -314,7 +338,7 @@ public class ReelRequisitionController implements Initializable, Validatable,
                     tableReelLogData.clear();
                     loadReelInfo();
                 }
-
+            }
             }
 
         } else {
