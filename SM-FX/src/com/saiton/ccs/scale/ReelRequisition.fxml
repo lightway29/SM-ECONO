@@ -148,14 +148,14 @@
                                  </font></Label>
                            </children>
                         </AnchorPane>
-                        <HBox id="HBox" alignment="CENTER_LEFT" layoutX="40.0" layoutY="228.0" spacing="5.0" GridPane.columnIndex="4" GridPane.columnSpan="5" GridPane.rowIndex="1">
+                        <HBox id="HBox" alignment="CENTER_LEFT" layoutX="40.0" layoutY="228.0" spacing="5.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1">
                            <children>
                               <Label prefWidth="115.0" text="Description">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtDescription" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtDescriptionOnKeyReleased" prefWidth="540.0" promptText="Description">
+                              <TextField fx:id="txtDescription" editable="false" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#txtDescriptionOnKeyReleased" prefWidth="200.0" promptText="Description">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -164,6 +164,9 @@
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
                         </HBox>
                         <HBox id="HBox" alignment="CENTER_LEFT" layoutX="40.0" layoutY="284.0" spacing="5.0" GridPane.columnSpan="4" GridPane.rowIndex="3">
                            <children>
@@ -389,11 +392,31 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="cmbScale" onAction="#cmbScaleOnAction" prefHeight="50.0" prefWidth="445.0" promptText="Scale" />
+                              <ComboBox fx:id="cmbScale" onAction="#cmbScaleOnAction" prefHeight="44.0" prefWidth="445.0" promptText="Scale" />
                            </children>
                            <GridPane.margin>
                               <Insets left="20.0" />
                            </GridPane.margin>
+                        </HBox>
+                        <HBox id="HBox" alignment="CENTER_LEFT" layoutX="510.0" prefHeight="60.0" prefWidth="471.0" spacing="5.0" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                           <children>
+                              <Label prefWidth="115.0" text="Location">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="cmbLocation" onAction="#cmbLocationOnAction" prefHeight="44.0" prefWidth="200.0" promptText="Location">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </ComboBox>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" top="10.0" />
+                           </padding>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                         </HBox>
               </children>
               <columnConstraints>
