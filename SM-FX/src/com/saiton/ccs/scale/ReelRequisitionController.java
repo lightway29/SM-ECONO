@@ -299,12 +299,12 @@ public class ReelRequisitionController implements Initializable, Validatable,
         if (reelDAO.getDbFlag(txtItemCode.getText()).equals("1")) {
             
             double weightDiff = Double.parseDouble(txtIssuedWeight.getText()) - Double.parseDouble(txtReturnedWeight.getText());
-            System.out.println("Weight Diff - "+weightDiff);
+//            System.out.println("Weight Diff - "+weightDiff);
             boolean isOverWeight = (weightDiff<-10) ;
             boolean isNegative = weightDiff < 0;
             
-            System.out.println("isOverWeight - "+isOverWeight);
-            System.out.println("isDiffPositive - "+isNegative);
+//            System.out.println("isOverWeight - "+isOverWeight);
+//            System.out.println("isNegative - "+isNegative);
     
             boolean isWithinTolerence = (Double.parseDouble(txtIssuedWeight.getText()) > Double.parseDouble(txtReturnedWeight.getText())) &&
                     (Double.parseDouble(txtIssuedWeight.getText()) - Double.parseDouble(txtReturnedWeight.getText()))<=WEIGHT_TOLERENCE;
