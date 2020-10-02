@@ -139,8 +139,6 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
     ReelRequisitionDAO reelDAO = new ReelRequisitionDAO();
 
-  
-    
     //Reel Popup
     private TableView reelIdTable = new TableView();
     private ReelPopup reelpopup = new ReelPopup();
@@ -193,8 +191,11 @@ public class ReelRequisitionController implements Initializable, Validatable,
     private TableColumn<ReelLog, String> tcItemName;
     @FXML
     private Button btnZeroReturnedWeight;
-    
-    private String idCache  = null;
+
+    private String idCache = null;
+    @FXML
+    private ComboBox<String> cmbLocation;
+    boolean disableLocationEvent = false;
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Action Events">
@@ -350,7 +351,7 @@ public class ReelRequisitionController implements Initializable, Validatable,
     @FXML
     private void btnCloseOnAction(ActionEvent event) {
         stage.close();
-       
+
     }
 
     @FXML
@@ -440,10 +441,28 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Methods">
+    private void loadLocations() {
+
+        cmbLocation.getItems().clear();
+        ArrayList<String> list = null;
+        list = reelDAO.loadLocations();
+        if (list != null) {
+            try {
+                ObservableList<String> List = FXCollections.observableArrayList(
+                        list);
+                cmbLocation.setItems(List);
+                cmbLocation.setValue(List.get(0));
+            } catch (Exception e) {
+
+            }
+
+        }
+    }
+
     private void autoDataLogger() {
 
-        if (rdbLog.isSelected() && 
-                (reelDAO.getDbFlag(txtItemCode.getText()).equals("0") && !txtIssuedWeight.getText().equals("0"))) {
+        if (rdbLog.isSelected() && (reelDAO.getDbFlag(txtItemCode.getText()).
+                equals("0") && !txtIssuedWeight.getText().equals("0"))) {
             System.out.println("State is Returned. Only to issue");
 
             boolean isDateSaved = reelDAO.insertIssueLog(
@@ -462,11 +481,11 @@ public class ReelRequisitionController implements Initializable, Validatable,
 
             }
 
-        }else if(rdbLog.isSelected() && txtIssuedWeight.getText().equals("0")){
+        } else if (rdbLog.isSelected() && txtIssuedWeight.getText().equals("0")) {
             mb.ShowMessage(stage, ErrorMessages.InvalidIssue,
-                        MessageBoxTitle.ERROR.toString(),
-                        MessageBox.MessageIcon.MSG_ICON_FAIL,
-                        MessageBox.MessageType.MSG_OK);
+                    MessageBoxTitle.ERROR.toString(),
+                    MessageBox.MessageIcon.MSG_ICON_FAIL,
+                    MessageBox.MessageType.MSG_OK);
         }
     }
 
@@ -505,6 +524,10 @@ public class ReelRequisitionController implements Initializable, Validatable,
         rdbLog.setSelected(false);
         modeSelection();
         loadScaleNames();
+
+        disableLocationEvent = true;
+        cmbLocation.getItems().addAll("REELSTORE1", "REELSTORE2");
+        disableLocationEvent = false;
 
     }
 
@@ -553,8 +576,6 @@ public class ReelRequisitionController implements Initializable, Validatable,
             }
 
         });
-        
-
 
         reelPop = new PopOver(reelIdTable);
 
@@ -563,7 +584,6 @@ public class ReelRequisitionController implements Initializable, Validatable,
             if (reelPop.isShowing()) {
                 e.consume();
                 reelPop.hide();
-             
 
             }
         });
@@ -591,7 +611,9 @@ public class ReelRequisitionController implements Initializable, Validatable,
         isReelLoaded = false;
         txtItemCode.requestFocus();
         reelData.clear();
-
+        disableLocationEvent = true;
+        cmbLocation.getSelectionModel().clearSelection();
+        disableLocationEvent = false;
     }
 
     @Override
@@ -663,7 +685,9 @@ public class ReelRequisitionController implements Initializable, Validatable,
             txtSize.setText(dataList.get(5));
             txtReelFb.setText(dataList.get(6));
             txtReelNo.setText(dataList.get(7));
-
+            disableLocationEvent = true;
+            cmbLocation.getSelectionModel().select(dataList.get(8));
+            disableLocationEvent = false;
             txtLogDate.setText(dateFormat.format(date));
 
             isDataAvailable = true;
@@ -815,6 +839,19 @@ public class ReelRequisitionController implements Initializable, Validatable,
     @FXML
     private void btnZeroReturnedWeightOnAction(ActionEvent event) {
         txtReturnedWeight.setText("0");
+    }
+
+    @FXML
+    private void cmbLocationOnAction(ActionEvent event) {
+
+        if (disableLocationEvent == false) {
+
+            System.out.println("Location Updated - " + reelDAO.updateLocation(
+                    txtItemCode.getText(), cmbLocation.getSelectionModel().
+                    getSelectedItem()));
+
+        }
+
     }
 
 //</editor-fold>

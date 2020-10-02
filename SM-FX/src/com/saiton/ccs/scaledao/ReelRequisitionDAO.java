@@ -202,6 +202,7 @@ public class ReelRequisitionDAO {
         String size = null;
         String reelFb = null;
         String reelNo = null;
+        String reelLocation = null;
 
         ArrayList<String> list = new ArrayList<>();
 
@@ -230,6 +231,7 @@ public class ReelRequisitionDAO {
                     size = r.getString("size");
                     reelFb = r.getString("reel_fb");
                     reelNo = r.getString("reel_number");
+                    reelLocation = r.getString("location");
 
                     list.add(itemName);
                     list.add(issuedWeight);
@@ -239,6 +241,7 @@ public class ReelRequisitionDAO {
                     list.add(size);
                     list.add(reelFb);
                     list.add(reelNo);
+                    list.add(reelLocation);
 
                 }
             } catch (NullPointerException | SQLException e) {
@@ -275,6 +278,7 @@ public class ReelRequisitionDAO {
         String flag = null;
         String returnWeight = null;
         String returnTimeStamp = null;
+        
 
 //        String reelNumber = null;
 //        String itemCode = null;
@@ -352,6 +356,51 @@ public class ReelRequisitionDAO {
         }
         return mainList;
     }
+    
+     
+          public ArrayList<String> loadLocations() {
+
+        String gsm = null;
+        ArrayList list = new ArrayList();
+
+        if (star.con == null) {
+            log.error(" Exception tag --> " + "Databse connection failiure. ");
+            return null;
+
+        } else {
+            try {
+
+                String query = "SELECT DISTINCT location FROM reel ";
+                PreparedStatement pstmt = star.con.prepareStatement(query);
+                ResultSet r = pstmt.executeQuery();
+
+                while (r.next()) {
+                    gsm = r.getString("location");
+                    list.add(gsm);
+
+                }
+
+            } catch (ArrayIndexOutOfBoundsException | SQLException |
+                    NullPointerException e) {
+
+                if (e instanceof ArrayIndexOutOfBoundsException) {
+                    log.error("Exception tag --> "
+                            + "Invalid entry location for list");
+                } else if (e instanceof SQLException) {
+                    log.error("Exception tag --> " + "Invalid sql statement");
+                } else if (e instanceof NullPointerException) {
+                    log.error("Exception tag --> " + "Empty entry for list");
+                }
+                return null;
+            } catch (Exception e) {
+                log.error("Exception tag --> " + "Error");
+                return null;
+            }
+        }
+        return list;
+    }
+          
+               
 
     public String getDbFlag(String reelCode) {
         String encodedReelCode = ESAPI.encoder().encodeForSQL(ORACLE_CODEC,
@@ -851,6 +900,50 @@ public class ReelRequisitionDAO {
         }
     }
 
+        public boolean updateLocation(
+            String reelCode,
+            String location
+    ) {
+
+        String encodedIssueNoteId = ESAPI.encoder().encodeForSQL(ORACLE_CODEC,
+                reelCode);
+
+        if (star.con == null) {
+            log.error("Databse connection failiure.");
+            return false;
+        } else {
+            try {
+                String query = "UPDATE reel set "
+                        + "location=?"
+                        + " WHERE reel_code =?  ";
+                PreparedStatement ps = star.con.prepareStatement(query);
+
+                ps.setString(1, location);
+                ps.setString(2, reelCode);
+
+                int val = ps.executeUpdate();
+                if (val == 1) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            } catch (NullPointerException | SQLException e) {
+                if (e instanceof NullPointerException) {
+                    log.error("Exception tag --> " + "Empty entry passed");
+                } else if (e instanceof SQLException) {
+                    log.error("Exception tag --> " + "Invalid sql statement "
+                            + e.getMessage());
+                }
+                return false;
+            } catch (Exception e) {
+                log.error("Exception tag --> " + "Error");
+                return false;
+            }
+        }
+    }
+
+    
     public boolean updateReturnLog(
             String reelCode,
             String date,
