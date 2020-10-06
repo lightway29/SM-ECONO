@@ -158,13 +158,6 @@ WHERE (reel_code between $P{from_reel_code} and $P{to_reel_code}) OR reel_number
 				<reportElement x="168" y="69" width="102" height="13" uuid="5d06dd16-1572-4e2e-9370-cc9ddc76048b"/>
 				<textFieldExpression><![CDATA[$F{serial_number}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="0" y="47" width="79" height="35" uuid="9a34cb8a-bb31-4b4f-85a9-e67ca54cd11b"/>
-				<textElement verticalAlignment="Middle" rotation="None">
-					<font fontName="Times New Roman" size="14" isBold="false"/>
-				</textElement>
-				<text><![CDATA[TESTING]]></text>
-			</staticText>
 		</band>
 	</detail>
 </jasperReport>
