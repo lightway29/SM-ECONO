@@ -82,6 +82,8 @@ public class ReelRequisitionDAO {
                         final_id = "REL0" + i;
                     } else if (i >= 1000 && i < 10000) {
                         final_id = "REL" + i;
+                    } else if (i > 9999) {
+                        final_id = "REL" + i;
                     }
                     return final_id;
 
