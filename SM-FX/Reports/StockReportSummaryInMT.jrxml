@@ -19,7 +19,7 @@ order by gsm,reel_width asc;]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="Kg" class="java.lang.Integer"/>
-	<field name="MT" class="java.lang.Double"/>
+	<field name="MT" class="java.lang.Float"/>
 	<title>
 		<band height="40" splitType="Stretch">
 			<staticText>
@@ -32,9 +32,9 @@ order by gsm,reel_width asc;]]>
 		</band>
 	</title>
 	<summary>
-		<band height="44" splitType="Stretch">
+		<band height="69" splitType="Stretch">
 			<crosstab>
-				<reportElement x="0" y="0" width="2000" height="40" uuid="7cd2ef67-e1d6-40cd-b6f5-61205e1faf3b"/>
+				<reportElement x="0" y="0" width="1960" height="65" uuid="a79d8134-7e80-433d-95ca-3e1f72b1bafc"/>
 				<rowGroup name="GSM" width="70" totalPosition="End">
 					<bucket class="java.lang.String">
 						<bucketExpression><![CDATA[$F{GSM}+" "+$F{item_category}]]></bucketExpression>
@@ -45,8 +45,8 @@ order by gsm,reel_width asc;]]>
 								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<textField>
-								<reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="25" uuid="546bc4fd-6e75-4e48-950d-7251fd9473e7"/>
-								<textElement verticalAlignment="Middle"/>
+								<reportElement style="Crosstab Data Text" x="3" y="0" width="67" height="25" uuid="01c46d43-e8d4-402c-b8c5-16ad354194c7"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$V{GSM}]]></textFieldExpression>
 							</textField>
 						</cellContents>
@@ -57,15 +57,15 @@ order by gsm,reel_width asc;]]>
 								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<staticText>
-								<reportElement x="0" y="0" width="70" height="25" uuid="3c0f753b-d234-4967-8764-b6a63e0cfed3"/>
+								<reportElement x="0" y="0" width="70" height="25" uuid="3fa156bc-d7fe-4951-a577-1a2bc05457dd"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<text><![CDATA[Total GSM]]></text>
 							</staticText>
 						</cellContents>
 					</crosstabTotalRowHeader>
 				</rowGroup>
-				<columnGroup name="Real Width" height="30" totalPosition="End">
-					<bucket class="java.lang.Integer">
+				<columnGroup name="Width" height="30" totalPosition="End">
+					<bucket class="java.lang.Double">
 						<bucketExpression><![CDATA[$F{Width}]]></bucketExpression>
 					</bucket>
 					<crosstabColumnHeader>
@@ -74,9 +74,9 @@ order by gsm,reel_width asc;]]>
 								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<textField>
-								<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="30" uuid="50bcc518-7565-45c1-8281-1b250ff817cf"/>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="30" uuid="6a44fdf6-d515-427a-9dac-df14e0c3e7a8"/>
 								<textElement verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$V{Real Width}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$V{Width}]]></textFieldExpression>
 							</textField>
 						</cellContents>
 					</crosstabColumnHeader>
@@ -86,14 +86,14 @@ order by gsm,reel_width asc;]]>
 								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<staticText>
-								<reportElement x="0" y="0" width="50" height="30" uuid="8ff88949-f5f9-4c63-8584-ad9bcde25aa7"/>
+								<reportElement x="0" y="0" width="50" height="30" uuid="164d9ae9-eaef-4688-b5df-5d77bd4f6ffe"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<text><![CDATA[Total Real Width]]></text>
+								<text><![CDATA[Total Reel Width]]></text>
 							</staticText>
 						</cellContents>
 					</crosstabTotalColumnHeader>
 				</columnGroup>
-				<measure name="MTMeasure" class="java.lang.Integer" calculation="Sum">
+				<measure name="MTMeasure" class="java.lang.Float" calculation="Sum">
 					<measureExpression><![CDATA[$F{MT}]]></measureExpression>
 				</measure>
 				<crosstabCell width="50" height="25">
@@ -101,9 +101,9 @@ order by gsm,reel_width asc;]]>
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textField>
-							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="33ae883a-641a-492a-bd12-5acb60728c21"/>
-							<textElement verticalAlignment="Middle"/>
+						<textField pattern="###0.0">
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="46" height="25" uuid="180d93ab-be95-4b35-9b72-13877c77e4d8"/>
+							<textElement textAlignment="Right" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{MTMeasure}]]></textFieldExpression>
 						</textField>
 					</cellContents>
@@ -113,33 +113,33 @@ order by gsm,reel_width asc;]]>
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textField>
-							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="c14f6f9f-5a26-4f93-a84a-4163205d8ddf"/>
-							<textElement verticalAlignment="Middle"/>
+						<textField pattern="###0.0">
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="46" height="25" uuid="013c9eb6-072a-4b47-b71a-1353a72e748f"/>
+							<textElement textAlignment="Right" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{MTMeasure}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="50" columnTotalGroup="Real Width">
+				<crosstabCell width="50" columnTotalGroup="Width">
 					<cellContents backcolor="#BFE1FF" mode="Opaque">
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textField>
-							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="d6d80835-0727-40c8-b645-3cb38e0db180"/>
-							<textElement verticalAlignment="Middle"/>
+						<textField pattern="###0.0">
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="44" height="25" uuid="0f2fc63d-73aa-47fb-a451-18699c302a68"/>
+							<textElement textAlignment="Right" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{MTMeasure}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell rowTotalGroup="GSM" columnTotalGroup="Real Width">
+				<crosstabCell rowTotalGroup="GSM" columnTotalGroup="Width">
 					<cellContents backcolor="#BFE1FF" mode="Opaque">
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textField>
-							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="77d89b53-1cfc-4b2c-bf83-693bacec6c69"/>
-							<textElement verticalAlignment="Middle"/>
+						<textField pattern="###0.0">
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="44" height="25" uuid="8d3de609-b23b-4b6a-b3a1-0bd61e23f530"/>
+							<textElement textAlignment="Right" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{MTMeasure}]]></textFieldExpression>
 						</textField>
 					</cellContents>
