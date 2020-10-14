@@ -35,7 +35,7 @@ public class ExportStockDataDAO {
 //      String csvFilePath = System.getProperty("user.home") + "//Desktop//stockdata-"+fromDate+"-"+toDate+".csv";
         String csvFilePath = System.getProperty("user.home") + "//Desktop//stockdata"+fromDate+"-"+toDate+".csv";
         fromDate = fromDate+" 00:00:00";
-        toDate = toDate+" 00:00:00";
+        toDate = toDate+" 23:59:59";
         
         System.out.println("csvFilePath "+csvFilePath);
 
