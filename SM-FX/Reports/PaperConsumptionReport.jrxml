@@ -338,7 +338,7 @@ Date & Time]]></text>
 			<textField>
 				<reportElement x="87" y="1" width="100" height="20" uuid="6084efac-e2a7-48ad-9355-d8c4c6a33eca"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{reel_code}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{reel_number}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

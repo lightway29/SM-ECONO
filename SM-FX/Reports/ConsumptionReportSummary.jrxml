@@ -21,8 +21,8 @@
 FROM reel as r
 LEFT JOIN  reel_log as rl
 on r.reel_code=rl.reel_code
-where r.gsm=$P{gsm} and r.item_category=$P{category} and r.posting_date between $P{from_date} and $P{to_date}
-group by r.item_no
+where r.gsm=$P{gsm} and r.item_category=$P{category} and STR_TO_DATE(r.posting_date, '%m/%d/%Y') between $P{from_date} and $P{to_date}
+group by r.reel_code
 order by r.gsm,r.reel_width asc;]]>
 	</queryString>
 	<field name="GSM" class="java.lang.String">
@@ -182,7 +182,7 @@ order by r.gsm,r.reel_width asc;]]>
 							<box>
 								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 							</box>
-							<textField pattern="MMM-yy" isBlankWhenNull="true">
+							<textField pattern="dd-MMM-yyyy" isBlankWhenNull="true">
 								<reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="25" uuid="a6369cd5-9d21-4e9e-81e2-63fe9aace7ed"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$V{return_time_stamp}]]></textFieldExpression>
@@ -243,7 +243,7 @@ order by r.gsm,r.reel_width asc;]]>
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textField pattern="###0;(-###0)" isBlankWhenNull="true">
+						<textField pattern="###0" isBlankWhenNull="true">
 							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="e9ef3c84-b6aa-4847-a62b-1ed4ec4abc72"/>
 							<textElement verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{mtMeasure}]]></textFieldExpression>
@@ -268,8 +268,8 @@ order by r.gsm,r.reel_width asc;]]>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textField pattern="###0;(###0)" isBlankWhenNull="true">
-							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="ddb15a6b-cb6c-409c-bed0-8415ae1cd6e0"/>
-							<textElement verticalAlignment="Middle"/>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="47" height="25" uuid="ddb15a6b-cb6c-409c-bed0-8415ae1cd6e0"/>
+							<textElement textAlignment="Right" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{mtMeasure}]]></textFieldExpression>
 						</textField>
 					</cellContents>
@@ -280,8 +280,8 @@ order by r.gsm,r.reel_width asc;]]>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textField pattern="###0;(###0)" isBlankWhenNull="true">
-							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="48a843f6-70e1-451f-85e8-b19be8bcea04"/>
-							<textElement verticalAlignment="Middle"/>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="46" height="25" uuid="48a843f6-70e1-451f-85e8-b19be8bcea04"/>
+							<textElement textAlignment="Right" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{mtMeasure}]]></textFieldExpression>
 						</textField>
 					</cellContents>
