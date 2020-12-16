@@ -1132,7 +1132,7 @@ public class ReelRequisitionDAO {
                 String query
                         = "SELECT * "
                         + "FROM reel "
-                        + "WHERE (reel_code between ? and ?) OR reel_number Like ? "; //and (issue_note_date between ? and ?)
+                        + "WHERE (reel_code between ? and ?) OR reel_code Like ? "; //and (issue_note_date between ? and ?)
 
                 PreparedStatement pstmt = star.con.prepareStatement(query);
                 pstmt.setString(1, reelCodeFrom + "%");
